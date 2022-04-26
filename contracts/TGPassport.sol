@@ -8,17 +8,17 @@ contract TGPassport is Ownable {
    
    uint passportFee;
 
-   struct passport {
+   struct Passport {
       address userAddress;
       string tgId;
       bool valid;
       address validatorAddress;
    }
 
-passport Passport;
+   //passport Passport;
 
    mapping(string => address) public tgIdToAddress;
-   mapping(address => passport) public passports;
+   mapping(address => Passport) public passports;
  
 
 
@@ -31,13 +31,13 @@ passport Passport;
       address passportCouncil = owner();
       require (tgIdToAddress[applyerTg] == msg.sender, "Address and Telegram ID do not match");
       require (msg.value == passportFee, "Passport fee is not paid");
-      passports[msg.sender] = passport(applyerAddress, applyerTg, false, 0x0000000000000000000000000000000000000000);
+      passports[msg.sender] = Passport(applyerAddress, applyerTg, false, 0x0000000000000000000000000000000000000000);
       passportCouncil.call{value: passportFee}('');
    }
 
    function approvePassport (address passportToApprove) public onlyOwner {
         string memory _tgId = passports[passportToApprove].tgId;
-        passports[passportToApprove] = passport(passportToApprove, _tgId, true, msg.sender);  
+        passports[passportToApprove] = Passport(passportToApprove, _tgId, true, msg.sender);  
    }
    
 
