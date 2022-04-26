@@ -1,4 +1,4 @@
-//SPDX-License-Identifier: Unlicense
+//SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import "hardhat/console.sol";
@@ -6,7 +6,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract TGPassport is Ownable {
    
-   uint passportFee;
+   uint _passportFee;
+   address _owner = owner();
 
    struct Passport {
       address userAddress;
@@ -28,14 +29,12 @@ contract TGPassport is Ownable {
    }
 
    function applyForPassport (string memory applyerTg) public payable {
-    //  address passportCouncil = owner();
       address applyerAddress = msg.sender;      // ЛИЧНАЯ ПОДАЧА ПАСПОРТА В ТРЕТЬЕ ОКОШКО МФЦ
       updateAddress(applyerTg,applyerAddress);  
-    //  require (tgIdToAddress[applyerTg] == msg.sender, "Address and Telegram ID do not match");
-      require (msg.value == passportFee, "Passport fee is not paid");
+      require (msg.value == _passportFee, "Passport fee is not paid");
       passports[msg.sender] = Passport(applyerAddress, applyerTg, false, address(0x0));
-      address _owner = owner();
-      _owner.call{value: passportFee}('');
+      (bool feePaid, bytes memory returnData) = _owner.call{value: _passportFee}('');
+      require(feePaid, "Unable to transfer fee");
    }
 
    function approvePassport (address passportToApprove) public onlyOwner {
@@ -44,11 +43,11 @@ contract TGPassport is Ownable {
    }
    
 
-    function setPassportFee(uint _passportFee) public onlyOwner {
-        passportFee = _passportFee;
+    function setPassportFee(uint passportFee_) public onlyOwner {
+        _passportFee = passportFee_;
     }
 
     function getPassportFee() public view returns (uint) {
-        return passportFee;
+        return _passportFee;
     }
 }
