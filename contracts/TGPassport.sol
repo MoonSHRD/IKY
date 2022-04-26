@@ -22,17 +22,20 @@ contract TGPassport is Ownable {
  
 
 
-   function updateAddress(string memory tgId, address userAddress) public {
-      require(tgIdToAddress[tgId] == 0x0000000000000000000000000000000000000000, "There's address connected to that TG ID already.");
+   function updateAddress(string memory tgId, address userAddress) internal {
+      require(tgIdToAddress[tgId] == address(0x0), "There's address connected to that TG ID already.");  // if cell is not empty revert
       tgIdToAddress[tgId] = userAddress;
    }
 
-   function applyForPassport (address applyerAddress, string memory applyerTg) public payable {
-      address passportCouncil = owner();
-      require (tgIdToAddress[applyerTg] == msg.sender, "Address and Telegram ID do not match");
+   function applyForPassport (string memory applyerTg) public payable {
+    //  address passportCouncil = owner();
+      address applyerAddress = msg.sender;      // ЛИЧНАЯ ПОДАЧА ПАСПОРТА В ТРЕТЬЕ ОКОШКО МФЦ
+      updateAddress(applyerTg,applyerAddress);  
+    //  require (tgIdToAddress[applyerTg] == msg.sender, "Address and Telegram ID do not match");
       require (msg.value == passportFee, "Passport fee is not paid");
-      passports[msg.sender] = Passport(applyerAddress, applyerTg, false, 0x0000000000000000000000000000000000000000);
-      passportCouncil.call{value: passportFee}('');
+      passports[msg.sender] = Passport(applyerAddress, applyerTg, false, address(0x0));
+      address _owner = owner();
+      _owner.call{value: passportFee}('');
    }
 
    function approvePassport (address passportToApprove) public onlyOwner {
