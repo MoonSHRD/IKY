@@ -23,7 +23,7 @@ contract TGPassport is Ownable {
    mapping(address => Passport) public passports;
  
 
-
+   // TODO: add functionality to change address
    function _updateAddress(string memory tgId, address userAddress) internal {
       require(tgIdToAddress[tgId] == address(0x0), "There's address connected to that TG ID already.");  // if cell is not empty revert
       tgIdToAddress[tgId] = userAddress;
@@ -38,6 +38,7 @@ contract TGPassport is Ownable {
       require(feePaid, "Unable to transfer fee");
    }
 
+   
    function approvePassport (address passportToApprove) public onlyOwner {
         string memory _tgId = passports[passportToApprove].tgId;
         passports[passportToApprove] = Passport(passportToApprove, _tgId, true, msg.sender);  
@@ -51,4 +52,10 @@ contract TGPassport is Ownable {
     function getPassportFee() public view returns (uint) {
         return _passportFee;
     }
+
+   
+   function getPassportWallet(string memory tgId_) public view returns(address){
+      return tgIdToAddress[tgId_];
+   }
+
 }
