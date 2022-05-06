@@ -40,11 +40,11 @@ contract Soviet is Ownable {
         require(daoOwner == msg.sender,"User did not registred");
       
         // TODO: add requirements if Multisig owner is eqal daoOwner
-        
-      
 
-      daoAddresses[daoTg] = dao_;      // 
-     // _updateAddress(applyerTg,applyerAddress);  
+
+
+      require(daoAddresses[daoTg] == address(0x0), "this chat tgid already taken");
+      daoAddresses[daoTg] = dao_;      //  
       require (msg.value == _passportFee, "Passport fee is not paid");
     //  passports[msg.sender] = Passport(applyerAddress, applyerTg, false, address(0x0));
       (bool feePaid,) = _owner.call{value: _passportFee}("");
