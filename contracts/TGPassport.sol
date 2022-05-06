@@ -6,8 +6,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract TGPassport is Ownable {
    
-   uint _passportFee;
-   address _owner = owner();
+   uint public _passportFee;
+   address public _owner = owner();
 
    struct Passport {
       address userAddress;
@@ -33,7 +33,7 @@ contract TGPassport is Ownable {
       updateAddress(applyerTg,applyerAddress);  
       require (msg.value == _passportFee, "Passport fee is not paid");
       passports[msg.sender] = Passport(applyerAddress, applyerTg, false, address(0x0));
-      (bool feePaid, bytes memory returnData) = _owner.call{value: _passportFee}('');
+      (bool feePaid, bytes memory returnData) = _owner.call{value: _passportFee}("");
       require(feePaid, "Unable to transfer fee");
    }
 
