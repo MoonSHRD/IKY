@@ -11,11 +11,18 @@ import "hardhat/console.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./TGPassport.sol";
 
-contract Soviet is Ownable {
+contract UnionOfDAO is Ownable {
 
 
     uint private _passportFee;
     address private _owner = owner();
+
+    struct DAO {
+      address chatOwnerAddress;
+      string tgId;
+      bool valid;
+      address multisigAddress;
+              }
 
     constructor(address passportContract_){
         _passportContract = passportContract_;
@@ -25,13 +32,15 @@ contract Soviet is Ownable {
     // TODO: import Multisig contract, make sure we map tgid to multisig contract, not address!
     mapping (string => address) public daoAddresses;
 
+    mapping(address => DAO) public daos;
+
     address private _passportContract;
     TGPassport public tgpassport;
 
     
 
 
-    function applyForSoviet (string memory applyerTg, string memory daoTg, address dao_) public payable {
+    function applyForUnion (string memory applyerTg, string memory daoTg, address dao_) public payable {
       // TODO: add require for check if dao is a gnosis safe multisig! (check support interface?)
       // require(...)
       
@@ -46,7 +55,7 @@ contract Soviet is Ownable {
       require(daoAddresses[daoTg] == address(0x0), "this chat tgid already taken");
       daoAddresses[daoTg] = dao_;      //  
       require (msg.value == _passportFee, "Passport fee is not paid");
-    //  passports[msg.sender] = Passport(applyerAddress, applyerTg, false, address(0x0));
+      daos[dao_] = DAO(msg.sender, applyerTg, false, dao_);
       (bool feePaid,) = _owner.call{value: _passportFee}("");
       require(feePaid, "Unable to transfer fee");
    }
