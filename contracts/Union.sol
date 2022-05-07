@@ -17,13 +17,17 @@ contract UnionOfDAO is Ownable {
     uint private _passportFee;
     address private _owner = owner();
 
+    // Meta information about dao
     struct DAO {
       address chatOwnerAddress;
       string tgId;
       bool valid;
       address multisigAddress;
-              }
+               }
 
+
+
+    // set passport contract address
     constructor(address passportContract_){
         _passportContract = passportContract_;
         tgpassport = TGPassport(passportContract_);
@@ -32,6 +36,7 @@ contract UnionOfDAO is Ownable {
     // TODO: import Multisig contract, make sure we map tgid to multisig contract, not address!
     mapping (string => address) public daoAddresses;
 
+    // mapping from multisig address to attached meta-info
     mapping(address => DAO) public daos;
 
     address private _passportContract;
@@ -39,7 +44,14 @@ contract UnionOfDAO is Ownable {
 
     
 
-
+    /**  This function suggest applying for union for any dao
+    *   dao should have it's multisig address, owner of multisig must be registred in Passport contract with it's personal tg_id, this tg_id must be equal 
+    *   to tgid of appling chat admin. Last check can be done only by oracle
+    *   @param applyerTg -- tgid of user who sent apply
+    *   @param daoTg -- tgid of chat
+    *   @param dao_ -- multisig address
+    *
+    */
     function applyForUnion (string memory applyerTg, string memory daoTg, address dao_) public payable {
       // TODO: add require for check if dao is a gnosis safe multisig! (check support interface?)
       // require(...)
@@ -60,6 +72,12 @@ contract UnionOfDAO is Ownable {
       require(feePaid, "Unable to transfer fee");
    }
 
+    function approveJoin(address dao_address) public onlyOwner {
+      DAO memory org = daos[dao_address];
+      org.valid = true;
+      daos[dao_address] = org;
+
+    }
 
 
 }
