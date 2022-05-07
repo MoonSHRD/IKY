@@ -72,6 +72,8 @@ contract UnionOfDAO is Ownable {
       require(feePaid, "Unable to transfer fee");
    }
 
+
+    // This function intended to be used by bot, cause only bot can check if tg id of multisig owner is eqal of tg id of chat admin
     function approveJoin(address dao_address) public onlyOwner {
       DAO memory org = daos[dao_address];
       org.valid = true;
