@@ -10,6 +10,8 @@ pragma solidity ^0.8.0;
 import "hardhat/console.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
 import "./TGPassport.sol";
 
 contract Union is Ownable {
@@ -18,8 +20,12 @@ contract Union is Ownable {
     uint private _passportFee;
     address private _owner = owner();
 
+    bytes4 private constant _INTERFACE_ID_IERC721ENUMERABLE = 0x780e9d63;
+
     //
     enum VotingType {erc20, erc721 }
+
+
     // Meta information about dao
     struct DAO {
       address chatOwnerAddress;
@@ -74,10 +80,15 @@ contract Union is Ownable {
 
       require(daoAddresses[daoTg] == address(0x0), "this chat tgid already taken");
       daoAddresses[daoTg] = dao_;      //  
-      require (msg.value == _passportFee, "Passport fee is not paid");
+      bool checkStandard = _checkStandardVotingToken(votingType_, votingTokenContract_);
+      require(checkStandard == true,"Contract does not match with corresponding type");
+
+
       daos[dao_] = DAO(msg.sender, applyerTg, false, dao_, votingType_, votingTokenContract_);
+
       (bool feePaid,) = _owner.call{value: _passportFee}("");
       require(feePaid, "Unable to transfer fee");
+      require (msg.value == _passportFee, "Passport fee is not paid");
    }
 
 
@@ -87,6 +98,18 @@ contract Union is Ownable {
       org.valid = true;
       daos[daoAddress] = org;
 
+    }
+
+    function  _checkStandardVotingToken(VotingType votingType_, address votingTokenContract_) internal view returns (bool success) {
+      if (votingType_ == VotingType.erc721) {
+      (success) = IERC721Enumerable(votingTokenContract_).
+          supportsInterface(_INTERFACE_ID_IERC721ENUMERABLE);
+          return success;
+      }
+      if (votingType_ == VotingType.erc20) {
+        // TODO: check this. decomals of standard token should be equal 18. Probably remove this check
+        (success) = IERC20Metadata(votingTokenContract_).decimals() == 1e18;
+      }
     }
 
 
