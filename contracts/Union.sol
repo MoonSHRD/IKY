@@ -9,20 +9,25 @@ pragma solidity ^0.8.0;
 
 import "hardhat/console.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./TGPassport.sol";
 
-contract UnionOfDAO is Ownable {
+contract Union is Ownable {
 
 
     uint private _passportFee;
     address private _owner = owner();
 
+    //
+    enum VotingType {erc20, erc721 }
     // Meta information about dao
     struct DAO {
       address chatOwnerAddress;
       string tgId;
       bool valid;
       address multisigAddress;
+      VotingType votingType;
+      address votingToken;
                }
 
 
@@ -55,7 +60,7 @@ contract UnionOfDAO is Ownable {
     *   @param dao_ -- multisig address
     *
     */
-    function applyForUnion (string memory applyerTg, string memory daoTg, address dao_) public payable {
+    function applyForUnion (string memory applyerTg, string memory daoTg, address dao_, VotingType votingType_, address votingTokenContract_) public payable {
       // TODO: add require for check if dao is a gnosis safe multisig! (check support interface?)
       // require(...)
       
@@ -70,17 +75,17 @@ contract UnionOfDAO is Ownable {
       require(daoAddresses[daoTg] == address(0x0), "this chat tgid already taken");
       daoAddresses[daoTg] = dao_;      //  
       require (msg.value == _passportFee, "Passport fee is not paid");
-      daos[dao_] = DAO(msg.sender, applyerTg, false, dao_);
+      daos[dao_] = DAO(msg.sender, applyerTg, false, dao_, votingType_, votingTokenContract_);
       (bool feePaid,) = _owner.call{value: _passportFee}("");
       require(feePaid, "Unable to transfer fee");
    }
 
 
     // This function intended to be used by bot, cause only bot can check if tg id of multisig owner is eqal of tg id of chat admin
-    function approveJoin(address dao_address) public onlyOwner {
-      DAO memory org = daos[dao_address];
+    function approveJoin(address daoAddress) public onlyOwner {
+      DAO memory org = daos[daoAddress];
       org.valid = true;
-      daos[dao_address] = org;
+      daos[daoAddress] = org;
 
     }
 
