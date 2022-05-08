@@ -45,8 +45,11 @@ contract UnionOfDAO is Ownable {
     
 
     /**  This function suggest applying for union for any dao
-    *   dao should have it's multisig address, owner of multisig must be registred in Passport contract with it's personal tg_id, this tg_id must be equal 
-    *   to tgid of appling chat admin. Last check can be done only by oracle
+    *   REQUIREMENTS:
+    *   1.dao should have it's multisig address
+    *   2.owner of multisig must be registred in Passport contract with it's personal tg_id
+    *   3.  this tg_id must be equal to tgid of appling chat admin.
+    *   Last check can be done only by oracle
     *   @param applyerTg -- tgid of user who sent apply
     *   @param daoTg -- tgid of chat
     *   @param dao_ -- multisig address
