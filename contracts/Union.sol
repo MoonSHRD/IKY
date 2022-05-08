@@ -73,10 +73,6 @@ contract Union is Ownable {
       // add passport and owner check
         address daoOwner = tgpassport.getPassportWallet(applyerTg);
         require(daoOwner == msg.sender,"User did not registred");
-      
-        // TODO: add requirements if Multisig owner is eqal daoOwner
-
-
 
       require(daoAddresses[daoTg] == address(0x0), "this chat tgid already taken");
       daoAddresses[daoTg] = dao_;      //  
