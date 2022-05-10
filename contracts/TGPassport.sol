@@ -22,6 +22,12 @@ contract TGPassport is Ownable {
    mapping(string => address) public tgIdToAddress;
    mapping(address => Passport) public passports;
  
+   // EVENTS
+
+   //
+   event passportApplied(string applyerTg, address wallet_address);
+   event passportApproved(string applyerTg, address wallet_address, address issuer);
+
 
    // TODO: add functionality to change address
    function _updateAddress(string memory tgId, address userAddress) internal {
@@ -34,6 +40,7 @@ contract TGPassport is Ownable {
       _updateAddress(applyerTg,applyerAddress);  
       require (msg.value == _passportFee, "Passport fee is not paid");
       passports[msg.sender] = Passport(applyerAddress, applyerTg, false, address(0x0));
+      passportApplied(applyerTg, msg.sender);
       (bool feePaid,) = _owner.call{value: _passportFee}("");
       require(feePaid, "Unable to transfer fee");
    }
@@ -42,6 +49,7 @@ contract TGPassport is Ownable {
    function approvePassport (address passportToApprove) public onlyOwner {
         string memory _tgId = passports[passportToApprove].tgId;
         passports[passportToApprove] = Passport(passportToApprove, _tgId, true, msg.sender);  
+        passportApproved(_tgId,passportToApprove,msg.sender);
    }
    
 
