@@ -22,8 +22,15 @@ contract Union is Ownable {
 
     bytes4 private constant _INTERFACE_ID_IERC721ENUMERABLE = 0x780e9d63;
 
+    // events
+    event ApplicationForJoin(string chat_id, string applier_id,address multy_wallet_address,VotingType vote_type, address voting_token_address);
+    event ApprovedJoin(string chat_id,address multy_wallet_address,VotingType vote_type, address voting_token_address);
+
+
+
+
     //
-    enum VotingType {erc20, erc721 }
+    enum VotingType {erc20, erc20Snapshot, erc721 }
 
 
     // Meta information about dao
@@ -85,6 +92,7 @@ contract Union is Ownable {
       (bool feePaid,) = _owner.call{value: _passportFee}("");
       require(feePaid, "Unable to transfer fee");
       require (msg.value == _passportFee, "Passport fee is not paid");
+      ApplicationForJoin(daoTg,applyerTg,dao_,votingType_,votingTokenContract_);
    }
 
 
@@ -93,7 +101,7 @@ contract Union is Ownable {
       DAO memory org = daos[daoAddress];
       org.valid = true;
       daos[daoAddress] = org;
-
+      ApprovedJoin(org.tgId,org.multisigAddress,org.votingType,org.votingToken);
     }
 
     function  _checkStandardVotingToken(VotingType votingType_, address votingTokenContract_) internal view returns (bool success) {
