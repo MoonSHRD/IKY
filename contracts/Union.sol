@@ -87,7 +87,7 @@ contract Union is Ownable {
       require(checkStandard == true,"Contract does not match with corresponding type");
 
       _passportFee = tgpassport.getPassportFee();
-      daos[dao_] = DAO(msg.sender, applyerTg, false, dao_, votingType_, votingTokenContract_);
+      daos[dao_] = DAO(msg.sender, daoTg, false, dao_, votingType_, votingTokenContract_);
       (bool feePaid,) = _owner.call{value: _passportFee}("");
       require(feePaid, "Unable to transfer fee");
       require (msg.value == _passportFee, "Passport fee is not paid");
@@ -111,7 +111,7 @@ contract Union is Ownable {
       }
       if (votingType_ == VotingType.erc20) {
         // TODO: check this. decomals of standard token should be equal 18. Probably remove this check
-        (success) = IERC20Metadata(votingTokenContract_).decimals() == 1e18;
+        (success) = IERC20Metadata(votingTokenContract_).decimals() == 18;
       }
     }
 

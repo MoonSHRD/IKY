@@ -1,3 +1,9 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable prefer-const */
+/* eslint-disable node/no-extraneous-require */
+/* eslint-disable no-sequences */
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-unused-vars */
 const {
     expect
 } = require("chai");
