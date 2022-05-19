@@ -86,13 +86,12 @@ contract Union is Ownable {
       bool checkStandard = _checkStandardVotingToken(votingType_, votingTokenContract_);
       require(checkStandard == true,"Contract does not match with corresponding type");
 
-
+      _passportFee = tgpassport.getPassportFee();
       daos[dao_] = DAO(msg.sender, applyerTg, false, dao_, votingType_, votingTokenContract_);
-
       (bool feePaid,) = _owner.call{value: _passportFee}("");
       require(feePaid, "Unable to transfer fee");
       require (msg.value == _passportFee, "Passport fee is not paid");
-      ApplicationForJoin(daoTg,applyerTg,dao_,votingType_,votingTokenContract_);
+      emit ApplicationForJoin(daoTg,applyerTg,dao_,votingType_,votingTokenContract_);
    }
 
 
@@ -101,7 +100,7 @@ contract Union is Ownable {
       DAO memory org = daos[daoAddress];
       org.valid = true;
       daos[daoAddress] = org;
-      ApprovedJoin(org.tgId,org.multisigAddress,org.votingType,org.votingToken);
+      emit ApprovedJoin(org.tgId,org.multisigAddress,org.votingType,org.votingToken);
     }
 
     function  _checkStandardVotingToken(VotingType votingType_, address votingTokenContract_) internal view returns (bool success) {
