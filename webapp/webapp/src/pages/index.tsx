@@ -99,7 +99,7 @@ const Home: NextPage = () => {
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
-          <Heading my={4}  fontSize='xl'>Transfer Classtoken</Heading>
+          <Heading my={4}  fontSize='xl'>Attach telegram id to your wallet</Heading>
           <ApplyPassportTG 
             addressContract='0x5FbDB2315678afecb367f032d93F642f64180aa3'
             currentAccount={currentAccount}

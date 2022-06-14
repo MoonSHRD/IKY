@@ -28,7 +28,7 @@ export default function ApplyPassportTG(props:Props){
     const signer = provider.getSigner()
     const TGPassport:Contract = new ethers.Contract(addressContract, abi, signer)
 
-    TGPassport.applyForPassport(user_id)
+    TGPassport.applyForPassport(user_id,{value:ethers.utils.formatUnits(100,"wei")})
      .then((tr: TransactionResponse) => {
         console.log(`TransactionResponse TX hash: ${tr.hash}`)
         tr.wait().then((receipt:TransactionReceipt) => {console.log("transfer receipt", receipt)})
