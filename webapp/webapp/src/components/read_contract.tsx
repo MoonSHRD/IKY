@@ -7,9 +7,6 @@ import {Contract, ethers} from 'ethers'
 
 //import TGPassport from '../../../../artifacts/contracts/TGPassport.sol/TGPassport.json'
 
-
-
-
 interface Props {
     addressContract: string,
     currentAccount: string | undefined
@@ -23,6 +20,7 @@ export default function ReadPassportContract(props:Props){
   const [totalSupply,setTotalSupply]=useState<string>()
   const [symbol,setSymbol]= useState<string>("")
   const [owner, setOwnerValue] = useState<string>()
+  const [pfee, setPassportFee] = useState<string>()
 
 
   // called only once, use it as constructor
@@ -35,6 +33,12 @@ export default function ReadPassportContract(props:Props){
         console.log(result)
         
         setOwnerValue(result)
+    }).catch('error', console.error)
+
+    TGPassport.getPassportFee().then((result:string)=>{
+       // console.log(result);
+      //  console.log(ethers.utils.formatEther(result));
+        setPassportFee(ethers.utils.formatEther(result))
     }).catch('error', console.error);
 
     /*
@@ -57,6 +61,7 @@ export default function ReadPassportContract(props:Props){
     <div>
         <Text><b>Telegram Passport Contract</b>: {addressContract}</Text>
         <Text><b>Owner of contract</b>:{owner}</Text>
+        <Text><b>Fee for appling passport</b>:{pfee}</Text>
     </div>
 
   )
