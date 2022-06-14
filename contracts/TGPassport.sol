@@ -9,10 +9,10 @@ contract TGPassport is Ownable {
    
    
    // TODO set this price in constructor, not in hard-code
-   uint private _passportFee = 100 wei;
-   address private _owner = owner();
+   uint private _passportFee; 
+   address private _owner; 
 
-   address public owner_view = owner();
+   //address public owner_view = owner();
 
    struct Passport {
       address userAddress;
@@ -31,6 +31,13 @@ contract TGPassport is Ownable {
    //
    event passportApplied(string applyerTg, address wallet_address);
    event passportApproved(string applyerTg, address wallet_address, address issuer);
+
+
+   constructor() Ownable() {
+      _passportFee = 100 wei;
+      _owner = owner();
+   }
+
 
 
    // TODO: add functionality to change address
@@ -68,6 +75,10 @@ contract TGPassport is Ownable {
    
    function getPassportWallet(string memory tgId_) public view returns(address){
       return tgIdToAddress[tgId_];
+   }
+
+   function getOwner() public view returns(address) {
+      return _owner;
    }
 
 }

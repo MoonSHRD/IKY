@@ -5,6 +5,8 @@ import { VStack, Heading, Box, LinkOverlay, LinkBox} from "@chakra-ui/layout"
 import { Text, Button } from '@chakra-ui/react'
 import { useState, useEffect} from 'react'
 import {ethers} from "ethers"
+//import ReadERC20 from 'components/read_contract'
+import ReadPassportContract from 'components/read_contract'
 
 declare let window:any
 
@@ -88,6 +90,14 @@ const Home: NextPage = () => {
         </Box>
         :<></>
         }
+          <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
+          <Heading my={4}  fontSize='xl'>Read ClassToken Info</Heading>
+          <ReadPassportContract 
+            addressContract='0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0'
+            currentAccount={currentAccount}
+          />
+        </Box>
+
 ...
       </VStack>
     </>

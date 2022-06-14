@@ -1,7 +1,7 @@
 import React, {useEffect, useState } from 'react';
 import {Text} from '@chakra-ui/react'
 //import {ERC20ABI as abi} from 'abi/ERC20ABI'
-import {abi as abi} from '../../../../artifacts/contracts/TGPassport.sol/TGPassport.json'
+import {abi} from '../../../../artifacts/contracts/TGPassport.sol/TGPassport.json'
 
 import {Contract, ethers} from 'ethers'
 
@@ -17,12 +17,12 @@ interface Props {
 
 declare let window: any;
 
-export default function ReadERC20(props:Props){
+export default function ReadPassportContract(props:Props){
   const addressContract = props.addressContract
   const currentAccount = props.currentAccount
   const [totalSupply,setTotalSupply]=useState<string>()
   const [symbol,setSymbol]= useState<string>("")
-  const [owner, setOwner] = useState<string>()
+  const [owner, setOwnerValue] = useState<string>()
 
 
   // called only once, use it as constructor
@@ -31,8 +31,10 @@ export default function ReadERC20(props:Props){
 
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const TGPassport = new ethers.Contract(addressContract, abi, provider);
-    TGPassport.owner().then((result:string)=>{
-        setOwner(result)
+    TGPassport.getOwner().then((result:string)=>{
+        console.log(result)
+        
+        setOwnerValue(result)
     }).catch('error', console.error);
 
     /*
@@ -55,7 +57,6 @@ export default function ReadERC20(props:Props){
     <div>
         <Text><b>Telegram Passport Contract</b>: {addressContract}</Text>
         <Text><b>Owner of contract</b>:{owner}</Text>
-        <Text my={4}><b>ClassToken in current account</b>:</Text>
     </div>
 
   )
