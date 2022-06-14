@@ -7,8 +7,12 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract TGPassport is Ownable {
    
-   uint private _passportFee;
+   
+   // TODO set this price in constructor, not in hard-code
+   uint private _passportFee = 100 wei;
    address private _owner = owner();
+
+   address public owner_view = owner();
 
    struct Passport {
       address userAddress;
