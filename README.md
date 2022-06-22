@@ -1,3 +1,13 @@
+# Know Your Customer / I Know You 
+This is KYC/IKY solution to tether ethereum wallet of user to it's accounts at third platforms
+
+Basically we want to tether telegram_id to ethereum wallet, which allow us to do gassless transactions at messaging platforms and protokols.
+
+Contracts
+
+TGPassport -- basically mapping contract which tether tg_id and wallet
+Union -- extension for registring group chats tg_id to multisig wallet address 
+
 # Advanced Sample Hardhat Project
 
 This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
@@ -25,18 +35,4 @@ npx solhint 'contracts/**/*.sol'
 npx solhint 'contracts/**/*.sol' --fix
 ```
 
-# Etherscan verification
 
-To try out Etherscan verification, you first need to deploy a contract to an Ethereum network that's supported by Etherscan, such as Ropsten.
-
-In this project, copy the .env.example file to a file named .env, and then edit it to fill in the details. Enter your Etherscan API key, your Ropsten node URL (eg from Alchemy), and the private key of the account which will send the deployment transaction. With a valid .env file in place, first deploy your contract:
-
-```shell
-hardhat run --network ropsten scripts/deploy.js
-```
-
-Then, copy the deployment address and paste it in to replace `DEPLOYED_CONTRACT_ADDRESS` in this command:
-
-```shell
-npx hardhat verify --network ropsten DEPLOYED_CONTRACT_ADDRESS "Hello, Hardhat!"
-```
