@@ -8,6 +8,8 @@ Contracts
 TGPassport -- basically mapping contract which tether tg_id and wallet
 Union -- extension for registring group chats tg_id to multisig wallet address 
 
+# Frontend is in webapp directory
+
 # Advanced Sample Hardhat Project
 
 This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
