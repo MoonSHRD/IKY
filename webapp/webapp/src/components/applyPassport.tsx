@@ -5,6 +5,7 @@ import {parseEther } from 'ethers/lib/utils'
 import {abi} from '../../../../artifacts/contracts/TGPassport.sol/TGPassport.json'
 import { Contract } from "ethers"
 import { TransactionResponse,TransactionReceipt } from "@ethersproject/abstract-provider"
+import {useRouter} from "next/router";
 
 interface Props {
     addressContract: string,
@@ -19,6 +20,8 @@ export default function ApplyPassportTG(props:Props){
  // const [amount,setAmount]=useState<string>('100')
  // const [toAddress, setToAddress]=useState<string>("")
   const [user_id, setUserId] = useState<string>("")
+
+  const { query } = useRouter();
 
 
   async function transfer(event:React.FormEvent) {
@@ -55,7 +58,7 @@ export default function ApplyPassportTG(props:Props){
     <form onSubmit={transfer}>
     <FormControl>
       <FormLabel htmlFor='TGID'>User Telegram Id (not nickname!): </FormLabel>
-      <Input id="tgid" type="text" required  onChange={(e) => setUserId(e.target.value)} my={3}/>
+      <Input id="tgid" type="text" required  onChange={(e) => setUserId(e.target.value)} value={query.user_tg_id} my={3}/>
       <Button type="submit" isDisabled={!currentAccount}>Apply for Passport</Button>
     </FormControl>
     </form>

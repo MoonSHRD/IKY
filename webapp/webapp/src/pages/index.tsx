@@ -94,14 +94,14 @@ const Home: NextPage = () => {
           <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Read ClassToken Info</Heading>
           <ReadPassportContract 
-            addressContract='0x5FbDB2315678afecb367f032d93F642f64180aa3'
+            addressContract='0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Attach telegram id to your wallet</Heading>
           <ApplyPassportTG 
-            addressContract='0x5FbDB2315678afecb367f032d93F642f64180aa3'
+            addressContract='0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9'
             currentAccount={currentAccount}
           />
         </Box>
