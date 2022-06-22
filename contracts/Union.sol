@@ -78,7 +78,7 @@ contract Union is Ownable {
       // require(...)
       
       // add passport and owner check
-        address daoOwner = tgpassport.getPassportWallet(applyerTg);
+        address daoOwner = tgpassport.GetPassportWallet(applyerTg);
         require(daoOwner == msg.sender,"User did not registred");
 
       require(daoAddresses[daoTg] == address(0x0), "this chat tgid already taken");
@@ -86,7 +86,7 @@ contract Union is Ownable {
       bool checkStandard = _checkStandardVotingToken(votingType_, votingTokenContract_);
       require(checkStandard == true,"Contract does not match with corresponding type");
 
-      _passportFee = tgpassport.getPassportFee();
+      _passportFee = tgpassport.GetPassportFee();
       daos[dao_] = DAO(msg.sender, daoTg, false, dao_, votingType_, votingTokenContract_);
       (bool feePaid,) = _owner.call{value: _passportFee}("");
       require(feePaid, "Unable to transfer fee");
