@@ -10,6 +10,20 @@ Union -- extension for registring group chats tg_id to multisig wallet address
 
 # Frontend is in webapp directory
 
+# Golang artifacts for telegram bot
+
+1. You can generate abi as is:
+```
+solc --abi --bin ./contracts/TGPassport.sol -o build --allow-paths *,
+solc --abi --bin ./contracts/Union.sol -o build --allow-paths *,
+```
+
+2. You can generate Golang artifacts as is:
+```
+abigen --abi="build/TGPassport.abi" --pkg=Passport --out="./go/TGPassport.go"
+
+```
+
 # Advanced Sample Hardhat Project
 
 This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
