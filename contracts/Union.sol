@@ -8,10 +8,24 @@
 pragma solidity ^0.8.0;
 
 //import "hardhat/console.sol";
+
+// direct imports -- use it for compile contracts and webapp
+/*
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
+*/
+
+// relative imports (for building ABI and go) -- use it for build
+
+import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
+import "../node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "../node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
+import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
+
+
+
 import "./TGPassport.sol";
 
 contract Union is Ownable {
@@ -88,7 +102,7 @@ contract Union is Ownable {
 
       _passportFee = tgpassport.GetPassportFee();
       daos[dao_] = DAO(msg.sender, daoTg, false, dao_, votingType_, votingTokenContract_);
-      (bool feePaid,) = _owner.call{value: _passportFee}("");
+      (bool feePaid,) = _owner.call{value: _passportFee}("");  // TODO: consider removing fee?
       require(feePaid, "Unable to transfer fee");
       require (msg.value == _passportFee, "Passport fee is not paid");
       emit ApplicationForJoin(daoTg,applyerTg,dao_,votingType_,votingTokenContract_);
@@ -113,6 +127,7 @@ contract Union is Ownable {
         // TODO: check this. decomals of standard token should be equal 18. Probably remove this check
         (success) = IERC20Metadata(votingTokenContract_).decimals() == 18;
       }
+      // TODO: add check for snapshot
     }
 
 

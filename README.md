@@ -12,16 +12,21 @@ Union -- extension for registring group chats tg_id to multisig wallet address
 
 # Golang artifacts for telegram bot
 
+0. You should change imports in contracts from `@openzeppeline/contracts/...` to `../node_modules/@openzeppeline/contracts/...` it's required for proper generation of ABI
+
+
 1. You can generate abi as is:
 ```
-solc --abi --bin ./contracts/TGPassport.sol -o build --allow-paths *,
-solc --abi --bin ./contracts/Union.sol -o build --allow-paths *,
+solc --abi --bin ./contracts/TGPassport.sol -o build ..=.. --overwrite --allow-paths *,/node_modules/,
+
+solc --abi --bin ./contracts/Union.sol -o build ..=.. --overwrite --allow-paths *,/node_modules/,
+
 ```
 
 2. You can generate Golang artifacts as is:
 ```
 abigen --abi="build/TGPassport.abi" --pkg=Passport --out="./go/TGPassport.go"
-
+abigen --abi="build/Union.abi" --pkg=Union --out="./go/Union.go"
 ```
 
 # Advanced Sample Hardhat Project

@@ -29,13 +29,13 @@ export default function ReadPassportContract(props:Props){
 
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const TGPassport = new ethers.Contract(addressContract, abi, provider);
-    TGPassport.getOwner().then((result:string)=>{
+    TGPassport.GetOwner().then((result:string)=>{
         console.log(result)
         
         setOwnerValue(result)
     }).catch('error', console.error)
 
-    TGPassport.getPassportFee().then((result:string)=>{
+    TGPassport.GetPassportFee().then((result:string)=>{
        // console.log(result);
       //  console.log(ethers.utils.formatEther(result));
         setPassportFee(ethers.utils.formatEther(result))
