@@ -1,7 +1,7 @@
 import React, {useEffect, useState } from 'react';
 import {Text} from '@chakra-ui/react'
 //import {ERC20ABI as abi} from 'abi/ERC20ABI'
-import {abi} from '../../../../artifacts/contracts/TGPassport.sol/TGPassport.json'
+import {abi} from '../../../artifacts/contracts/TGPassport.sol/TGPassport.json'
 
 import {Contract, ethers} from 'ethers'
 

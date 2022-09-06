@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import {Button, Input , NumberInput,  NumberInputField,  FormControl,  FormLabel } from '@chakra-ui/react'
 import {ethers} from 'ethers'
 import {parseEther } from 'ethers/lib/utils'
-import {abi} from '../../../../artifacts/contracts/TGPassport.sol/TGPassport.json'
+import {abi} from '../../../artifacts/contracts/TGPassport.sol/TGPassport.json'
 import { Contract } from "ethers"
 import { TransactionResponse,TransactionReceipt } from "@ethersproject/abstract-provider"
 import {useRouter} from "next/router";
