@@ -18,6 +18,31 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
+
+## ETH & CONTRACT ADDRESSES
+
+To launch this app with custom contracts and addresses:
+
+1. deploy contracts, obtain it's addresses
+2. past it's addresses in `src/pages/index.tsx` like this:
+```
+<Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
+          <Heading my={4}  fontSize='xl'>Read ClassToken Info</Heading>
+          <ReadPassportContract 
+            addressContract='0x6Ab0B6711F57b6eeB2eC46140E8280adab744fA5'
+            currentAccount={currentAccount}
+          />
+        </Box>
+        <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
+          <Heading my={4}  fontSize='xl'>Attach telegram id to your wallet</Heading>
+          <ApplyPassportTG 
+            addressContract='0x6Ab0B6711F57b6eeB2eC46140E8280adab744fA5'
+            currentAccount={currentAccount}
+          />
+        </Box>
+```
+those will throw contract addresses to read_contract and applyPassport components respectively
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

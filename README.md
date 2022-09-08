@@ -8,6 +8,12 @@ Contracts
 TGPassport -- basically mapping contract which tether tg_id and wallet
 Union -- extension for registring group chats tg_id to multisig wallet address 
 
+# Deploy
+1. create .env file in the root of project (.env.example as reference). Add your RPC end-point and your private key with 0x prefix
+2. `npx hardhat run --network rinkeby scripts/deploy.js ` for Rinkeby testnet
+3. don't forget to add deployed addresses to adresses.txt file and make change in `webapp/src/pages/index.tsx` if you need to run webapp
+
+
 # Frontend is in webapp directory
 
 # Golang artifacts for telegram bot
