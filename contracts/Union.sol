@@ -93,7 +93,7 @@ contract Union is Ownable {
       // require(...)
       
       // add passport and owner check
-        address daoOwner = tgpassport.GetPassportWallet(applyerTg);
+        address daoOwner = tgpassport.GetPassportWalletByID(applyerTg);
         require(daoOwner == msg.sender,"User did not registred");
 
       require(daoAddresses[daoTg] == address(0x0), "this chat tgid already taken");

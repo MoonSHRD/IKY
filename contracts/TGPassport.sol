@@ -60,6 +60,7 @@ contract TGPassport is Ownable {
    
    function ApprovePassport (address passportToApprove) public onlyOwner {
         string memory _tgId = passports[passportToApprove].tgId;
+        require(passports[passportToApprove].valid == false, "already approved");
         passports[passportToApprove] = Passport(passportToApprove, _tgId, true, msg.sender);  
         emit passportApproved(_tgId,passportToApprove,msg.sender);
    }
@@ -74,8 +75,13 @@ contract TGPassport is Ownable {
     }
 
    
-   function GetPassportWallet(string memory tgId_) public view returns(address){
+   function GetPassportWalletByID(string memory tgId_) public view returns(address){
       return tgIdToAddress[tgId_];
+   }
+
+   function GetPassportByAddress(address user_wallet) public view returns(Passport memory) {
+      Passport memory p = passports[user_wallet];
+      return p;
    }
 
    function GetOwner() public view returns(address) {

@@ -17,13 +17,9 @@ declare let window: any;
 export default function ApplyPassportTG(props:Props){
   const addressContract = props.addressContract
   const currentAccount = props.currentAccount
- // const [amount,setAmount]=useState<string>('100')
- // const [toAddress, setToAddress]=useState<string>("")
   const [user_id, setUserId] = useState<string>("")
-  const [approved_user_id, setApprovedUserId] = useState<string>("")
 
   const { query } = useRouter();
-
 
   async function applyPersonalPassport(event:React.FormEvent) {
     event.preventDefault()
@@ -41,32 +37,6 @@ export default function ApplyPassportTG(props:Props){
      }
 
   
-  // function for bot, for approving passport. make it here for tests
-  async function approvePassport(event:React.FormEvent) { 
-    event.preventDefault()
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    const signer = provider.getSigner()
-    const TGPassport:Contract = new ethers.Contract(addressContract, abi, signer)
-
-    TGPassport.ApprovePassport(approved_user_id)
-     .then((tr: TransactionResponse) => {
-        console.log(`TransactionResponse TX hash: ${tr.hash}`)
-        tr.wait().then((receipt:TransactionReceipt) => {console.log("approving receipt", receipt)})
-        })
-       .catch((e:Error) => console.log(e))
-  }
-
-
-    /*
-    erc20.transfer(toAddress,parseEther(amount))
-      .then((tr: TransactionResponse) => {
-        console.log(`TransactionResponse TX hash: ${tr.hash}`)
-        tr.wait().then((receipt:TransactionReceipt)=>{console.log("transfer receipt",receipt)})
-      })
-      .catch((e:Error)=>console.log(e))
-      */
-  
-
   const handleChange = (value:string) => setUserId(value)
 
   return (

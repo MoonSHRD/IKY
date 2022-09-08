@@ -17,30 +17,11 @@ declare let window: any;
 export default function ApplyPassportTG(props:Props){
   const addressContract = props.addressContract
   const currentAccount = props.currentAccount
- // const [user_id, setUserId] = useState<string>("")
   const [approved_user_id, setApprovedUserId] = useState<string>("")
 
   const { query } = useRouter();
 
 
-  /*
-  async function applyPersonalPassport(event:React.FormEvent) {
-    event.preventDefault()
-    if(!window.ethereum) return    
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    const signer = provider.getSigner()
-    const TGPassport:Contract = new ethers.Contract(addressContract, abi, signer)
-
-    TGPassport.applyForPassport(user_id,{value:ethers.utils.formatUnits(100,"wei")})
-     .then((tr: TransactionResponse) => {
-        console.log(`TransactionResponse TX hash: ${tr.hash}`)
-        tr.wait().then((receipt:TransactionReceipt) => {console.log("applying receipt", receipt)})
-        })
-         .catch((e:Error) => console.log(e))
-     }
- */
-
-  
   // function for bot, for approving passport. make it here for tests
   async function approvePassport(event:React.FormEvent) { 
     event.preventDefault()
