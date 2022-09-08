@@ -24,7 +24,7 @@ export default function ApplyPassportTG(props:Props){
   const { query } = useRouter();
 
 
-  async function transfer(event:React.FormEvent) {
+  async function applyPersonalPassport(event:React.FormEvent) {
     event.preventDefault()
     if(!window.ethereum) return    
     const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -55,7 +55,7 @@ export default function ApplyPassportTG(props:Props){
   const handleChange = (value:string) => setUserId(value)
 
   return (
-    <form onSubmit={transfer}>
+    <form onSubmit={applyPersonalPassport}>
     <FormControl>
       <FormLabel htmlFor='TGID'>User Telegram Id (not nickname!): </FormLabel>
       <Input id="tgid" type="text" required  onChange={(e) => setUserId(e.target.value)} value={query.user_tg_id} my={3}/>
