@@ -8,6 +8,7 @@ import {ethers} from "ethers"
 //import ReadERC20 from 'components/read_contract'
 import ReadPassportContract from 'components/read_contract'
 import ApplyPassportTG from 'components/applyPassport'
+import ApprovePassportTG from 'components/approvePassport'
 
 declare let window:any
 
@@ -101,6 +102,13 @@ const Home: NextPage = () => {
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Attach telegram id to your wallet</Heading>
           <ApplyPassportTG 
+            addressContract='0xC629FbcfCB1620146b76EA0F160567C0763b3d5C'
+            currentAccount={currentAccount}
+          />
+        </Box>
+        <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
+          <Heading my={4}  fontSize='xl'>Approve user intent for registration personal wallet address</Heading>
+          <ApprovePassportTG 
             addressContract='0xC629FbcfCB1620146b76EA0F160567C0763b3d5C'
             currentAccount={currentAccount}
           />

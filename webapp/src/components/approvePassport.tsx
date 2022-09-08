@@ -17,14 +17,13 @@ declare let window: any;
 export default function ApplyPassportTG(props:Props){
   const addressContract = props.addressContract
   const currentAccount = props.currentAccount
- // const [amount,setAmount]=useState<string>('100')
- // const [toAddress, setToAddress]=useState<string>("")
-  const [user_id, setUserId] = useState<string>("")
+ // const [user_id, setUserId] = useState<string>("")
   const [approved_user_id, setApprovedUserId] = useState<string>("")
 
   const { query } = useRouter();
 
 
+  /*
   async function applyPersonalPassport(event:React.FormEvent) {
     event.preventDefault()
     if(!window.ethereum) return    
@@ -32,13 +31,14 @@ export default function ApplyPassportTG(props:Props){
     const signer = provider.getSigner()
     const TGPassport:Contract = new ethers.Contract(addressContract, abi, signer)
 
-    TGPassport.ApplyForPassport(user_id,{value:ethers.utils.formatUnits(100,"wei")})
+    TGPassport.applyForPassport(user_id,{value:ethers.utils.formatUnits(100,"wei")})
      .then((tr: TransactionResponse) => {
         console.log(`TransactionResponse TX hash: ${tr.hash}`)
         tr.wait().then((receipt:TransactionReceipt) => {console.log("applying receipt", receipt)})
         })
          .catch((e:Error) => console.log(e))
      }
+ */
 
   
   // function for bot, for approving passport. make it here for tests
@@ -56,25 +56,14 @@ export default function ApplyPassportTG(props:Props){
        .catch((e:Error) => console.log(e))
   }
 
-
-    /*
-    erc20.transfer(toAddress,parseEther(amount))
-      .then((tr: TransactionResponse) => {
-        console.log(`TransactionResponse TX hash: ${tr.hash}`)
-        tr.wait().then((receipt:TransactionReceipt)=>{console.log("transfer receipt",receipt)})
-      })
-      .catch((e:Error)=>console.log(e))
-      */
-  
-
-  const handleChange = (value:string) => setUserId(value)
+  const handleChange = (value:string) => setApprovedUserId(value)
 
   return (
-    <form onSubmit={applyPersonalPassport}>
+    <form onSubmit={approvePassport}>
     <FormControl>
       <FormLabel htmlFor='TGID'>User Telegram Id (not nickname!): </FormLabel>
-      <Input id="tgid" type="text" required  onChange={(e) => setUserId(e.target.value)} value={query.user_tg_id} my={3}/>
-      <Button type="submit" isDisabled={!currentAccount}>Apply for Passport</Button>
+      <Input id="tgid" type="text" required  onChange={(e) => setApprovedUserId(e.target.value)} value={query.user_tg_id} my={3}/>
+      <Button type="submit" isDisabled={!currentAccount}>Approve Passport</Button>
     </FormControl>
     </form>
   )

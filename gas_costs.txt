@@ -1,0 +1,2 @@
+ApplyForPassportTG (personal) : 0.000164 Rinkeby ETH
+ApprovePassportTG (personal)  : 0.000087 Rinkeby ETH
