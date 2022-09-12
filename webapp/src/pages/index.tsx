@@ -95,21 +95,21 @@ const Home: NextPage = () => {
           <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Read ClassToken Info</Heading>
           <ReadPassportContract 
-            addressContract='0x1361463b0F4B46f71E0CA41b6cEf3B72bd4B4c20'
+            addressContract='0x5BC6Ec8e805a0A0f1dC287C873D67a99e31cA690'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Attach telegram id to your wallet</Heading>
           <ApplyPassportTG 
-            addressContract='0x1361463b0F4B46f71E0CA41b6cEf3B72bd4B4c20'
+            addressContract='0x5BC6Ec8e805a0A0f1dC287C873D67a99e31cA690'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Approve user intent for registration personal wallet address</Heading>
           <ApprovePassportTG 
-            addressContract='0x1361463b0F4B46f71E0CA41b6cEf3B72bd4B4c20'
+            addressContract='0x5BC6Ec8e805a0A0f1dC287C873D67a99e31cA690'
             currentAccount={currentAccount}
           />
         </Box>
