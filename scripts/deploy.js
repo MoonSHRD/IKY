@@ -13,6 +13,8 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
 
+  console.log(hre.network.name);
+
   // We get the contract to deploy
   const TGPassport = await hre.ethers.getContractFactory("TGPassport");
   const tgpassport = await TGPassport.deploy();
