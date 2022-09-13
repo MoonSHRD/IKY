@@ -17,7 +17,7 @@ declare let window: any;
 export default function ApplyPassportTG(props:Props){
   const addressContract = props.addressContract
   const currentAccount = props.currentAccount
-  const [approved_user_id, setApprovedUserId] = useState<string>("")
+  const [approved_user_wallet, setApprovedUserWallet] = useState<string>("")
 
   const { query } = useRouter();
 
@@ -29,7 +29,7 @@ export default function ApplyPassportTG(props:Props){
     const signer = provider.getSigner()
     const TGPassport:Contract = new ethers.Contract(addressContract, abi, signer)
 
-    TGPassport.ApprovePassport(approved_user_id)
+    TGPassport.ApprovePassport(approved_user_wallet)
      .then((tr: TransactionResponse) => {
         console.log(`TransactionResponse TX hash: ${tr.hash}`)
         tr.wait().then((receipt:TransactionReceipt) => {console.log("approving receipt", receipt)})
@@ -37,13 +37,13 @@ export default function ApplyPassportTG(props:Props){
        .catch((e:Error) => console.log(e))
   }
 
-  const handleChange = (value:string) => setApprovedUserId(value)
+  const handleChange = (value:string) => setApprovedUserWallet(value)
 
   return (
     <form onSubmit={approvePassport}>
     <FormControl>
-      <FormLabel htmlFor='TGID'>User Telegram Id (not nickname!): </FormLabel>
-      <Input id="tgid" type="text" required  onChange={(e) => setApprovedUserId(e.target.value)} value={query.user_tg_id} my={3}/>
+      <FormLabel htmlFor='WADDR'>Wallet Address: </FormLabel>
+      <Input id="approved_user_wallet" type="text" required  onChange={(e) => setApprovedUserWallet(e.target.value)} value={query.approved_user_wallet} my={3}/>
       <Button type="submit" isDisabled={!currentAccount}>Approve Passport</Button>
     </FormControl>
     </form>
