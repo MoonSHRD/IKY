@@ -13,6 +13,10 @@ Union -- extension for registring group chats tg_id to multisig wallet address
 2. `npx hardhat run --network rinkeby scripts/deploy.js ` for Rinkeby testnet
 3. don't forget to add deployed addresses to adresses.txt file and make change in `webapp/src/pages/index.tsx` if you need to run webapp
 
+## Local deploy
+To make deploy to local node run `npx hardhat node` in one terminal and run `npx hardhat run --network localhost scripts/deploy.js` in *other* terminal window
+it will create test enviroment like an early bundle truffle+ganache
+
 
 # Frontend is in webapp directory
 
