@@ -34,11 +34,12 @@ type TGPassportPassport struct {
 	TgId             string
 	Valid            bool
 	ValidatorAddress common.Address
+	UserName         string
 }
 
 // PassportMetaData contains all meta data concerning the Passport contract.
 var PassportMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"applyerTg\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"wallet_address\",\"type\":\"address\"}],\"name\":\"passportApplied\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"applyerTg\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"wallet_address\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"issuer\",\"type\":\"address\"}],\"name\":\"passportApproved\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"applyerTg\",\"type\":\"string\"}],\"name\":\"ApplyForPassport\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"passportToApprove\",\"type\":\"address\"}],\"name\":\"ApprovePassport\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"GetOwner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user_wallet\",\"type\":\"address\"}],\"name\":\"GetPassportByAddress\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"userAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"tgId\",\"type\":\"string\"},{\"internalType\":\"bool\",\"name\":\"valid\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"validatorAddress\",\"type\":\"address\"}],\"internalType\":\"structTGPassport.Passport\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"GetPassportFee\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"tgId_\",\"type\":\"string\"}],\"name\":\"GetPassportWalletByID\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"passportFee_\",\"type\":\"uint256\"}],\"name\":\"SetPassportFee\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"passports\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"userAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"tgId\",\"type\":\"string\"},{\"internalType\":\"bool\",\"name\":\"valid\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"validatorAddress\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"tgIdToAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"applyerTg\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"wallet_address\",\"type\":\"address\"}],\"name\":\"passportApplied\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"applyerTg\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"wallet_address\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"issuer\",\"type\":\"address\"}],\"name\":\"passportApproved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"applyerTg\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"}],\"name\":\"passportDenied\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"applyerTg\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"user_name_\",\"type\":\"string\"}],\"name\":\"ApplyForPassport\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"passportToApprove\",\"type\":\"address\"}],\"name\":\"ApprovePassport\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"passportToDecline\",\"type\":\"address\"}],\"name\":\"DeclinePassport\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"GetOwner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user_wallet\",\"type\":\"address\"}],\"name\":\"GetPassportByAddress\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"userAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"tgId\",\"type\":\"string\"},{\"internalType\":\"bool\",\"name\":\"valid\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"validatorAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"userName\",\"type\":\"string\"}],\"internalType\":\"structTGPassport.Passport\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"user_name_\",\"type\":\"string\"}],\"name\":\"GetPassportByNickName\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"userAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"tgId\",\"type\":\"string\"},{\"internalType\":\"bool\",\"name\":\"valid\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"validatorAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"userName\",\"type\":\"string\"}],\"internalType\":\"structTGPassport.Passport\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"GetPassportFee\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"tgId_\",\"type\":\"string\"}],\"name\":\"GetPassportWalletByID\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"user_name_\",\"type\":\"string\"}],\"name\":\"GetWalletByNickName\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"passportFee_\",\"type\":\"uint256\"}],\"name\":\"SetPassportFee\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"new_user_name_\",\"type\":\"string\"}],\"name\":\"UpdateUserName\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"passports\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"userAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"tgId\",\"type\":\"string\"},{\"internalType\":\"bool\",\"name\":\"valid\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"validatorAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"userName\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"tgIdToAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"username_wallets\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // PassportABI is the input ABI used to generate the binding from.
@@ -220,7 +221,7 @@ func (_Passport *PassportCallerSession) GetOwner() (common.Address, error) {
 
 // GetPassportByAddress is a free data retrieval call binding the contract method 0x1423ea07.
 //
-// Solidity: function GetPassportByAddress(address user_wallet) view returns((address,string,bool,address))
+// Solidity: function GetPassportByAddress(address user_wallet) view returns((address,string,bool,address,string))
 func (_Passport *PassportCaller) GetPassportByAddress(opts *bind.CallOpts, user_wallet common.Address) (TGPassportPassport, error) {
 	var out []interface{}
 	err := _Passport.contract.Call(opts, &out, "GetPassportByAddress", user_wallet)
@@ -237,16 +238,47 @@ func (_Passport *PassportCaller) GetPassportByAddress(opts *bind.CallOpts, user_
 
 // GetPassportByAddress is a free data retrieval call binding the contract method 0x1423ea07.
 //
-// Solidity: function GetPassportByAddress(address user_wallet) view returns((address,string,bool,address))
+// Solidity: function GetPassportByAddress(address user_wallet) view returns((address,string,bool,address,string))
 func (_Passport *PassportSession) GetPassportByAddress(user_wallet common.Address) (TGPassportPassport, error) {
 	return _Passport.Contract.GetPassportByAddress(&_Passport.CallOpts, user_wallet)
 }
 
 // GetPassportByAddress is a free data retrieval call binding the contract method 0x1423ea07.
 //
-// Solidity: function GetPassportByAddress(address user_wallet) view returns((address,string,bool,address))
+// Solidity: function GetPassportByAddress(address user_wallet) view returns((address,string,bool,address,string))
 func (_Passport *PassportCallerSession) GetPassportByAddress(user_wallet common.Address) (TGPassportPassport, error) {
 	return _Passport.Contract.GetPassportByAddress(&_Passport.CallOpts, user_wallet)
+}
+
+// GetPassportByNickName is a free data retrieval call binding the contract method 0xb25047c2.
+//
+// Solidity: function GetPassportByNickName(string user_name_) view returns((address,string,bool,address,string))
+func (_Passport *PassportCaller) GetPassportByNickName(opts *bind.CallOpts, user_name_ string) (TGPassportPassport, error) {
+	var out []interface{}
+	err := _Passport.contract.Call(opts, &out, "GetPassportByNickName", user_name_)
+
+	if err != nil {
+		return *new(TGPassportPassport), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(TGPassportPassport)).(*TGPassportPassport)
+
+	return out0, err
+
+}
+
+// GetPassportByNickName is a free data retrieval call binding the contract method 0xb25047c2.
+//
+// Solidity: function GetPassportByNickName(string user_name_) view returns((address,string,bool,address,string))
+func (_Passport *PassportSession) GetPassportByNickName(user_name_ string) (TGPassportPassport, error) {
+	return _Passport.Contract.GetPassportByNickName(&_Passport.CallOpts, user_name_)
+}
+
+// GetPassportByNickName is a free data retrieval call binding the contract method 0xb25047c2.
+//
+// Solidity: function GetPassportByNickName(string user_name_) view returns((address,string,bool,address,string))
+func (_Passport *PassportCallerSession) GetPassportByNickName(user_name_ string) (TGPassportPassport, error) {
+	return _Passport.Contract.GetPassportByNickName(&_Passport.CallOpts, user_name_)
 }
 
 // GetPassportFee is a free data retrieval call binding the contract method 0x48dc1561.
@@ -311,6 +343,37 @@ func (_Passport *PassportCallerSession) GetPassportWalletByID(tgId_ string) (com
 	return _Passport.Contract.GetPassportWalletByID(&_Passport.CallOpts, tgId_)
 }
 
+// GetWalletByNickName is a free data retrieval call binding the contract method 0xd2114e18.
+//
+// Solidity: function GetWalletByNickName(string user_name_) view returns(address)
+func (_Passport *PassportCaller) GetWalletByNickName(opts *bind.CallOpts, user_name_ string) (common.Address, error) {
+	var out []interface{}
+	err := _Passport.contract.Call(opts, &out, "GetWalletByNickName", user_name_)
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
+}
+
+// GetWalletByNickName is a free data retrieval call binding the contract method 0xd2114e18.
+//
+// Solidity: function GetWalletByNickName(string user_name_) view returns(address)
+func (_Passport *PassportSession) GetWalletByNickName(user_name_ string) (common.Address, error) {
+	return _Passport.Contract.GetWalletByNickName(&_Passport.CallOpts, user_name_)
+}
+
+// GetWalletByNickName is a free data retrieval call binding the contract method 0xd2114e18.
+//
+// Solidity: function GetWalletByNickName(string user_name_) view returns(address)
+func (_Passport *PassportCallerSession) GetWalletByNickName(user_name_ string) (common.Address, error) {
+	return _Passport.Contract.GetWalletByNickName(&_Passport.CallOpts, user_name_)
+}
+
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
 // Solidity: function owner() view returns(address)
@@ -344,12 +407,13 @@ func (_Passport *PassportCallerSession) Owner() (common.Address, error) {
 
 // Passports is a free data retrieval call binding the contract method 0xe37c132b.
 //
-// Solidity: function passports(address ) view returns(address userAddress, string tgId, bool valid, address validatorAddress)
+// Solidity: function passports(address ) view returns(address userAddress, string tgId, bool valid, address validatorAddress, string userName)
 func (_Passport *PassportCaller) Passports(opts *bind.CallOpts, arg0 common.Address) (struct {
 	UserAddress      common.Address
 	TgId             string
 	Valid            bool
 	ValidatorAddress common.Address
+	UserName         string
 }, error) {
 	var out []interface{}
 	err := _Passport.contract.Call(opts, &out, "passports", arg0)
@@ -359,6 +423,7 @@ func (_Passport *PassportCaller) Passports(opts *bind.CallOpts, arg0 common.Addr
 		TgId             string
 		Valid            bool
 		ValidatorAddress common.Address
+		UserName         string
 	})
 	if err != nil {
 		return *outstruct, err
@@ -368,6 +433,7 @@ func (_Passport *PassportCaller) Passports(opts *bind.CallOpts, arg0 common.Addr
 	outstruct.TgId = *abi.ConvertType(out[1], new(string)).(*string)
 	outstruct.Valid = *abi.ConvertType(out[2], new(bool)).(*bool)
 	outstruct.ValidatorAddress = *abi.ConvertType(out[3], new(common.Address)).(*common.Address)
+	outstruct.UserName = *abi.ConvertType(out[4], new(string)).(*string)
 
 	return *outstruct, err
 
@@ -375,24 +441,26 @@ func (_Passport *PassportCaller) Passports(opts *bind.CallOpts, arg0 common.Addr
 
 // Passports is a free data retrieval call binding the contract method 0xe37c132b.
 //
-// Solidity: function passports(address ) view returns(address userAddress, string tgId, bool valid, address validatorAddress)
+// Solidity: function passports(address ) view returns(address userAddress, string tgId, bool valid, address validatorAddress, string userName)
 func (_Passport *PassportSession) Passports(arg0 common.Address) (struct {
 	UserAddress      common.Address
 	TgId             string
 	Valid            bool
 	ValidatorAddress common.Address
+	UserName         string
 }, error) {
 	return _Passport.Contract.Passports(&_Passport.CallOpts, arg0)
 }
 
 // Passports is a free data retrieval call binding the contract method 0xe37c132b.
 //
-// Solidity: function passports(address ) view returns(address userAddress, string tgId, bool valid, address validatorAddress)
+// Solidity: function passports(address ) view returns(address userAddress, string tgId, bool valid, address validatorAddress, string userName)
 func (_Passport *PassportCallerSession) Passports(arg0 common.Address) (struct {
 	UserAddress      common.Address
 	TgId             string
 	Valid            bool
 	ValidatorAddress common.Address
+	UserName         string
 }, error) {
 	return _Passport.Contract.Passports(&_Passport.CallOpts, arg0)
 }
@@ -428,25 +496,56 @@ func (_Passport *PassportCallerSession) TgIdToAddress(arg0 string) (common.Addre
 	return _Passport.Contract.TgIdToAddress(&_Passport.CallOpts, arg0)
 }
 
-// ApplyForPassport is a paid mutator transaction binding the contract method 0x824edcad.
+// UsernameWallets is a free data retrieval call binding the contract method 0x59cca93b.
 //
-// Solidity: function ApplyForPassport(string applyerTg) payable returns()
-func (_Passport *PassportTransactor) ApplyForPassport(opts *bind.TransactOpts, applyerTg string) (*types.Transaction, error) {
-	return _Passport.contract.Transact(opts, "ApplyForPassport", applyerTg)
+// Solidity: function username_wallets(string ) view returns(address)
+func (_Passport *PassportCaller) UsernameWallets(opts *bind.CallOpts, arg0 string) (common.Address, error) {
+	var out []interface{}
+	err := _Passport.contract.Call(opts, &out, "username_wallets", arg0)
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
-// ApplyForPassport is a paid mutator transaction binding the contract method 0x824edcad.
+// UsernameWallets is a free data retrieval call binding the contract method 0x59cca93b.
 //
-// Solidity: function ApplyForPassport(string applyerTg) payable returns()
-func (_Passport *PassportSession) ApplyForPassport(applyerTg string) (*types.Transaction, error) {
-	return _Passport.Contract.ApplyForPassport(&_Passport.TransactOpts, applyerTg)
+// Solidity: function username_wallets(string ) view returns(address)
+func (_Passport *PassportSession) UsernameWallets(arg0 string) (common.Address, error) {
+	return _Passport.Contract.UsernameWallets(&_Passport.CallOpts, arg0)
 }
 
-// ApplyForPassport is a paid mutator transaction binding the contract method 0x824edcad.
+// UsernameWallets is a free data retrieval call binding the contract method 0x59cca93b.
 //
-// Solidity: function ApplyForPassport(string applyerTg) payable returns()
-func (_Passport *PassportTransactorSession) ApplyForPassport(applyerTg string) (*types.Transaction, error) {
-	return _Passport.Contract.ApplyForPassport(&_Passport.TransactOpts, applyerTg)
+// Solidity: function username_wallets(string ) view returns(address)
+func (_Passport *PassportCallerSession) UsernameWallets(arg0 string) (common.Address, error) {
+	return _Passport.Contract.UsernameWallets(&_Passport.CallOpts, arg0)
+}
+
+// ApplyForPassport is a paid mutator transaction binding the contract method 0xc80a39a8.
+//
+// Solidity: function ApplyForPassport(string applyerTg, string user_name_) payable returns()
+func (_Passport *PassportTransactor) ApplyForPassport(opts *bind.TransactOpts, applyerTg string, user_name_ string) (*types.Transaction, error) {
+	return _Passport.contract.Transact(opts, "ApplyForPassport", applyerTg, user_name_)
+}
+
+// ApplyForPassport is a paid mutator transaction binding the contract method 0xc80a39a8.
+//
+// Solidity: function ApplyForPassport(string applyerTg, string user_name_) payable returns()
+func (_Passport *PassportSession) ApplyForPassport(applyerTg string, user_name_ string) (*types.Transaction, error) {
+	return _Passport.Contract.ApplyForPassport(&_Passport.TransactOpts, applyerTg, user_name_)
+}
+
+// ApplyForPassport is a paid mutator transaction binding the contract method 0xc80a39a8.
+//
+// Solidity: function ApplyForPassport(string applyerTg, string user_name_) payable returns()
+func (_Passport *PassportTransactorSession) ApplyForPassport(applyerTg string, user_name_ string) (*types.Transaction, error) {
+	return _Passport.Contract.ApplyForPassport(&_Passport.TransactOpts, applyerTg, user_name_)
 }
 
 // ApprovePassport is a paid mutator transaction binding the contract method 0x1755e9e6.
@@ -470,6 +569,27 @@ func (_Passport *PassportTransactorSession) ApprovePassport(passportToApprove co
 	return _Passport.Contract.ApprovePassport(&_Passport.TransactOpts, passportToApprove)
 }
 
+// DeclinePassport is a paid mutator transaction binding the contract method 0x9421da61.
+//
+// Solidity: function DeclinePassport(address passportToDecline) returns()
+func (_Passport *PassportTransactor) DeclinePassport(opts *bind.TransactOpts, passportToDecline common.Address) (*types.Transaction, error) {
+	return _Passport.contract.Transact(opts, "DeclinePassport", passportToDecline)
+}
+
+// DeclinePassport is a paid mutator transaction binding the contract method 0x9421da61.
+//
+// Solidity: function DeclinePassport(address passportToDecline) returns()
+func (_Passport *PassportSession) DeclinePassport(passportToDecline common.Address) (*types.Transaction, error) {
+	return _Passport.Contract.DeclinePassport(&_Passport.TransactOpts, passportToDecline)
+}
+
+// DeclinePassport is a paid mutator transaction binding the contract method 0x9421da61.
+//
+// Solidity: function DeclinePassport(address passportToDecline) returns()
+func (_Passport *PassportTransactorSession) DeclinePassport(passportToDecline common.Address) (*types.Transaction, error) {
+	return _Passport.Contract.DeclinePassport(&_Passport.TransactOpts, passportToDecline)
+}
+
 // SetPassportFee is a paid mutator transaction binding the contract method 0xd2125bd2.
 //
 // Solidity: function SetPassportFee(uint256 passportFee_) returns()
@@ -489,6 +609,27 @@ func (_Passport *PassportSession) SetPassportFee(passportFee_ *big.Int) (*types.
 // Solidity: function SetPassportFee(uint256 passportFee_) returns()
 func (_Passport *PassportTransactorSession) SetPassportFee(passportFee_ *big.Int) (*types.Transaction, error) {
 	return _Passport.Contract.SetPassportFee(&_Passport.TransactOpts, passportFee_)
+}
+
+// UpdateUserName is a paid mutator transaction binding the contract method 0x21e6531d.
+//
+// Solidity: function UpdateUserName(string new_user_name_) returns()
+func (_Passport *PassportTransactor) UpdateUserName(opts *bind.TransactOpts, new_user_name_ string) (*types.Transaction, error) {
+	return _Passport.contract.Transact(opts, "UpdateUserName", new_user_name_)
+}
+
+// UpdateUserName is a paid mutator transaction binding the contract method 0x21e6531d.
+//
+// Solidity: function UpdateUserName(string new_user_name_) returns()
+func (_Passport *PassportSession) UpdateUserName(new_user_name_ string) (*types.Transaction, error) {
+	return _Passport.Contract.UpdateUserName(&_Passport.TransactOpts, new_user_name_)
+}
+
+// UpdateUserName is a paid mutator transaction binding the contract method 0x21e6531d.
+//
+// Solidity: function UpdateUserName(string new_user_name_) returns()
+func (_Passport *PassportTransactorSession) UpdateUserName(new_user_name_ string) (*types.Transaction, error) {
+	return _Passport.Contract.UpdateUserName(&_Passport.TransactOpts, new_user_name_)
 }
 
 // RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
@@ -951,6 +1092,141 @@ func (_Passport *PassportFilterer) WatchPassportApproved(opts *bind.WatchOpts, s
 func (_Passport *PassportFilterer) ParsePassportApproved(log types.Log) (*PassportPassportApproved, error) {
 	event := new(PassportPassportApproved)
 	if err := _Passport.contract.UnpackLog(event, "passportApproved", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// PassportPassportDeniedIterator is returned from FilterPassportDenied and is used to iterate over the raw logs and unpacked data for PassportDenied events raised by the Passport contract.
+type PassportPassportDeniedIterator struct {
+	Event *PassportPassportDenied // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *PassportPassportDeniedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(PassportPassportDenied)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(PassportPassportDenied)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *PassportPassportDeniedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *PassportPassportDeniedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// PassportPassportDenied represents a PassportDenied event raised by the Passport contract.
+type PassportPassportDenied struct {
+	ApplyerTg string
+	Wallet    common.Address
+	Raw       types.Log // Blockchain specific contextual infos
+}
+
+// FilterPassportDenied is a free log retrieval operation binding the contract event 0xcd96f12489a0131728fdcc0c65ded99504517fcb74dbc4dcd21f1a064da74d57.
+//
+// Solidity: event passportDenied(string applyerTg, address wallet)
+func (_Passport *PassportFilterer) FilterPassportDenied(opts *bind.FilterOpts) (*PassportPassportDeniedIterator, error) {
+
+	logs, sub, err := _Passport.contract.FilterLogs(opts, "passportDenied")
+	if err != nil {
+		return nil, err
+	}
+	return &PassportPassportDeniedIterator{contract: _Passport.contract, event: "passportDenied", logs: logs, sub: sub}, nil
+}
+
+// WatchPassportDenied is a free log subscription operation binding the contract event 0xcd96f12489a0131728fdcc0c65ded99504517fcb74dbc4dcd21f1a064da74d57.
+//
+// Solidity: event passportDenied(string applyerTg, address wallet)
+func (_Passport *PassportFilterer) WatchPassportDenied(opts *bind.WatchOpts, sink chan<- *PassportPassportDenied) (event.Subscription, error) {
+
+	logs, sub, err := _Passport.contract.WatchLogs(opts, "passportDenied")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(PassportPassportDenied)
+				if err := _Passport.contract.UnpackLog(event, "passportDenied", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParsePassportDenied is a log parse operation binding the contract event 0xcd96f12489a0131728fdcc0c65ded99504517fcb74dbc4dcd21f1a064da74d57.
+//
+// Solidity: event passportDenied(string applyerTg, address wallet)
+func (_Passport *PassportFilterer) ParsePassportDenied(log types.Log) (*PassportPassportDenied, error) {
+	event := new(PassportPassportDenied)
+	if err := _Passport.contract.UnpackLog(event, "passportDenied", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log

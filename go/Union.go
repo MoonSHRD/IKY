@@ -30,7 +30,7 @@ var (
 
 // UnionMetaData contains all meta data concerning the Union contract.
 var UnionMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"passportContract_\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"chat_id\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"applier_id\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"multy_wallet_address\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"enumUnion.VotingType\",\"name\":\"vote_type\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"voting_token_address\",\"type\":\"address\"}],\"name\":\"ApplicationForJoin\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"chat_id\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"multy_wallet_address\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"enumUnion.VotingType\",\"name\":\"vote_type\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"voting_token_address\",\"type\":\"address\"}],\"name\":\"ApprovedJoin\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"applyerTg\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"daoTg\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"dao_\",\"type\":\"address\"},{\"internalType\":\"enumUnion.VotingType\",\"name\":\"votingType_\",\"type\":\"uint8\"},{\"internalType\":\"address\",\"name\":\"votingTokenContract_\",\"type\":\"address\"}],\"name\":\"applyForUnion\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"daoAddress\",\"type\":\"address\"}],\"name\":\"approveJoin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"daoAddresses\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"daos\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"chatOwnerAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"tgId\",\"type\":\"string\"},{\"internalType\":\"bool\",\"name\":\"valid\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"multisigAddress\",\"type\":\"address\"},{\"internalType\":\"enumUnion.VotingType\",\"name\":\"votingType\",\"type\":\"uint8\"},{\"internalType\":\"address\",\"name\":\"votingToken\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"tgpassport\",\"outputs\":[{\"internalType\":\"contractTGPassport\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"passportContract_\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"chat_id\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"applier_id\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"multy_wallet_address\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"enumUnion.VotingType\",\"name\":\"vote_type\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"voting_token_address\",\"type\":\"address\"}],\"name\":\"ApplicationForJoin\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"chat_id\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"multy_wallet_address\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"enumUnion.VotingType\",\"name\":\"vote_type\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"voting_token_address\",\"type\":\"address\"}],\"name\":\"ApprovedJoin\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"chat_id\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"multy_wallet_address\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"enumUnion.VotingType\",\"name\":\"vote_type\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"voting_token_address\",\"type\":\"address\"}],\"name\":\"DeclinedApplication\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"applyerTg\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"daoTg\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"dao_\",\"type\":\"address\"},{\"internalType\":\"enumUnion.VotingType\",\"name\":\"votingType_\",\"type\":\"uint8\"},{\"internalType\":\"address\",\"name\":\"votingTokenContract_\",\"type\":\"address\"}],\"name\":\"ApplyForUnion\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"daoAddress\",\"type\":\"address\"}],\"name\":\"ApproveJoin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"daoAddress\",\"type\":\"address\"}],\"name\":\"DeclineJoin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"daoAddresses\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"daos\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"chatOwnerAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"tgId\",\"type\":\"string\"},{\"internalType\":\"bool\",\"name\":\"valid\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"multisigAddress\",\"type\":\"address\"},{\"internalType\":\"enumUnion.VotingType\",\"name\":\"votingType\",\"type\":\"uint8\"},{\"internalType\":\"address\",\"name\":\"votingToken\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"tgpassport\",\"outputs\":[{\"internalType\":\"contractTGPassport\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
 }
 
 // UnionABI is the input ABI used to generate the binding from.
@@ -337,46 +337,67 @@ func (_Union *UnionCallerSession) Tgpassport() (common.Address, error) {
 	return _Union.Contract.Tgpassport(&_Union.CallOpts)
 }
 
-// ApplyForUnion is a paid mutator transaction binding the contract method 0xc9128823.
+// ApplyForUnion is a paid mutator transaction binding the contract method 0x0163388b.
 //
-// Solidity: function applyForUnion(string applyerTg, string daoTg, address dao_, uint8 votingType_, address votingTokenContract_) payable returns()
+// Solidity: function ApplyForUnion(string applyerTg, string daoTg, address dao_, uint8 votingType_, address votingTokenContract_) payable returns()
 func (_Union *UnionTransactor) ApplyForUnion(opts *bind.TransactOpts, applyerTg string, daoTg string, dao_ common.Address, votingType_ uint8, votingTokenContract_ common.Address) (*types.Transaction, error) {
-	return _Union.contract.Transact(opts, "applyForUnion", applyerTg, daoTg, dao_, votingType_, votingTokenContract_)
+	return _Union.contract.Transact(opts, "ApplyForUnion", applyerTg, daoTg, dao_, votingType_, votingTokenContract_)
 }
 
-// ApplyForUnion is a paid mutator transaction binding the contract method 0xc9128823.
+// ApplyForUnion is a paid mutator transaction binding the contract method 0x0163388b.
 //
-// Solidity: function applyForUnion(string applyerTg, string daoTg, address dao_, uint8 votingType_, address votingTokenContract_) payable returns()
+// Solidity: function ApplyForUnion(string applyerTg, string daoTg, address dao_, uint8 votingType_, address votingTokenContract_) payable returns()
 func (_Union *UnionSession) ApplyForUnion(applyerTg string, daoTg string, dao_ common.Address, votingType_ uint8, votingTokenContract_ common.Address) (*types.Transaction, error) {
 	return _Union.Contract.ApplyForUnion(&_Union.TransactOpts, applyerTg, daoTg, dao_, votingType_, votingTokenContract_)
 }
 
-// ApplyForUnion is a paid mutator transaction binding the contract method 0xc9128823.
+// ApplyForUnion is a paid mutator transaction binding the contract method 0x0163388b.
 //
-// Solidity: function applyForUnion(string applyerTg, string daoTg, address dao_, uint8 votingType_, address votingTokenContract_) payable returns()
+// Solidity: function ApplyForUnion(string applyerTg, string daoTg, address dao_, uint8 votingType_, address votingTokenContract_) payable returns()
 func (_Union *UnionTransactorSession) ApplyForUnion(applyerTg string, daoTg string, dao_ common.Address, votingType_ uint8, votingTokenContract_ common.Address) (*types.Transaction, error) {
 	return _Union.Contract.ApplyForUnion(&_Union.TransactOpts, applyerTg, daoTg, dao_, votingType_, votingTokenContract_)
 }
 
-// ApproveJoin is a paid mutator transaction binding the contract method 0x564f1139.
+// ApproveJoin is a paid mutator transaction binding the contract method 0xad8f8660.
 //
-// Solidity: function approveJoin(address daoAddress) returns()
+// Solidity: function ApproveJoin(address daoAddress) returns()
 func (_Union *UnionTransactor) ApproveJoin(opts *bind.TransactOpts, daoAddress common.Address) (*types.Transaction, error) {
-	return _Union.contract.Transact(opts, "approveJoin", daoAddress)
+	return _Union.contract.Transact(opts, "ApproveJoin", daoAddress)
 }
 
-// ApproveJoin is a paid mutator transaction binding the contract method 0x564f1139.
+// ApproveJoin is a paid mutator transaction binding the contract method 0xad8f8660.
 //
-// Solidity: function approveJoin(address daoAddress) returns()
+// Solidity: function ApproveJoin(address daoAddress) returns()
 func (_Union *UnionSession) ApproveJoin(daoAddress common.Address) (*types.Transaction, error) {
 	return _Union.Contract.ApproveJoin(&_Union.TransactOpts, daoAddress)
 }
 
-// ApproveJoin is a paid mutator transaction binding the contract method 0x564f1139.
+// ApproveJoin is a paid mutator transaction binding the contract method 0xad8f8660.
 //
-// Solidity: function approveJoin(address daoAddress) returns()
+// Solidity: function ApproveJoin(address daoAddress) returns()
 func (_Union *UnionTransactorSession) ApproveJoin(daoAddress common.Address) (*types.Transaction, error) {
 	return _Union.Contract.ApproveJoin(&_Union.TransactOpts, daoAddress)
+}
+
+// DeclineJoin is a paid mutator transaction binding the contract method 0x36b9f727.
+//
+// Solidity: function DeclineJoin(address daoAddress) returns()
+func (_Union *UnionTransactor) DeclineJoin(opts *bind.TransactOpts, daoAddress common.Address) (*types.Transaction, error) {
+	return _Union.contract.Transact(opts, "DeclineJoin", daoAddress)
+}
+
+// DeclineJoin is a paid mutator transaction binding the contract method 0x36b9f727.
+//
+// Solidity: function DeclineJoin(address daoAddress) returns()
+func (_Union *UnionSession) DeclineJoin(daoAddress common.Address) (*types.Transaction, error) {
+	return _Union.Contract.DeclineJoin(&_Union.TransactOpts, daoAddress)
+}
+
+// DeclineJoin is a paid mutator transaction binding the contract method 0x36b9f727.
+//
+// Solidity: function DeclineJoin(address daoAddress) returns()
+func (_Union *UnionTransactorSession) DeclineJoin(daoAddress common.Address) (*types.Transaction, error) {
+	return _Union.Contract.DeclineJoin(&_Union.TransactOpts, daoAddress)
 }
 
 // RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
@@ -690,6 +711,143 @@ func (_Union *UnionFilterer) WatchApprovedJoin(opts *bind.WatchOpts, sink chan<-
 func (_Union *UnionFilterer) ParseApprovedJoin(log types.Log) (*UnionApprovedJoin, error) {
 	event := new(UnionApprovedJoin)
 	if err := _Union.contract.UnpackLog(event, "ApprovedJoin", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// UnionDeclinedApplicationIterator is returned from FilterDeclinedApplication and is used to iterate over the raw logs and unpacked data for DeclinedApplication events raised by the Union contract.
+type UnionDeclinedApplicationIterator struct {
+	Event *UnionDeclinedApplication // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *UnionDeclinedApplicationIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(UnionDeclinedApplication)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(UnionDeclinedApplication)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *UnionDeclinedApplicationIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *UnionDeclinedApplicationIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// UnionDeclinedApplication represents a DeclinedApplication event raised by the Union contract.
+type UnionDeclinedApplication struct {
+	ChatId             string
+	MultyWalletAddress common.Address
+	VoteType           uint8
+	VotingTokenAddress common.Address
+	Raw                types.Log // Blockchain specific contextual infos
+}
+
+// FilterDeclinedApplication is a free log retrieval operation binding the contract event 0xa95e38af3991120154d94752de96ff76d7c5f8fba4c297858572f36982a175a3.
+//
+// Solidity: event DeclinedApplication(string chat_id, address multy_wallet_address, uint8 vote_type, address voting_token_address)
+func (_Union *UnionFilterer) FilterDeclinedApplication(opts *bind.FilterOpts) (*UnionDeclinedApplicationIterator, error) {
+
+	logs, sub, err := _Union.contract.FilterLogs(opts, "DeclinedApplication")
+	if err != nil {
+		return nil, err
+	}
+	return &UnionDeclinedApplicationIterator{contract: _Union.contract, event: "DeclinedApplication", logs: logs, sub: sub}, nil
+}
+
+// WatchDeclinedApplication is a free log subscription operation binding the contract event 0xa95e38af3991120154d94752de96ff76d7c5f8fba4c297858572f36982a175a3.
+//
+// Solidity: event DeclinedApplication(string chat_id, address multy_wallet_address, uint8 vote_type, address voting_token_address)
+func (_Union *UnionFilterer) WatchDeclinedApplication(opts *bind.WatchOpts, sink chan<- *UnionDeclinedApplication) (event.Subscription, error) {
+
+	logs, sub, err := _Union.contract.WatchLogs(opts, "DeclinedApplication")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(UnionDeclinedApplication)
+				if err := _Union.contract.UnpackLog(event, "DeclinedApplication", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseDeclinedApplication is a log parse operation binding the contract event 0xa95e38af3991120154d94752de96ff76d7c5f8fba4c297858572f36982a175a3.
+//
+// Solidity: event DeclinedApplication(string chat_id, address multy_wallet_address, uint8 vote_type, address voting_token_address)
+func (_Union *UnionFilterer) ParseDeclinedApplication(log types.Log) (*UnionDeclinedApplication, error) {
+	event := new(UnionDeclinedApplication)
+	if err := _Union.contract.UnpackLog(event, "DeclinedApplication", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
