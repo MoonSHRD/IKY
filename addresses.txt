@@ -1,12 +1,16 @@
 Rinkeby:
-TGPassport deployed to: 0x5BC6Ec8e805a0A0f1dC287C873D67a99e31cA690
-Union deployed to: 0x249A7619b32c2e0E478c95531bFA39C7c459e6e6
+TGPassport deployed to: 0x8AdD4988bE0f273b9b6A980EA2Ce8891F897caF6
+Union deployed to: 0x9175Fc93BafA7e6f6e65543347F1143a43f7767E
+
 
 
 
 Local Hardhat:
-TGPassport deployed to: 0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9
-Union deployed to: 0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9
+TGPassport deployed to: 0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
+Union deployed to: 0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9
+
+
+
 
 
 To make deploy to local node run `npx hardhat node` in one terminal and run `npx hardhat run --network localhost scripts/deploy.js` in other terminal window

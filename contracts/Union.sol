@@ -40,7 +40,7 @@ contract Union is Ownable {
     // events
     event ApplicationForJoin(string chat_id, string applier_id,address multy_wallet_address,VotingType vote_type, address voting_token_address);
     event ApprovedJoin(string chat_id,address multy_wallet_address,VotingType vote_type, address voting_token_address);
-
+    event DeclinedApplication(string chat_id,address multy_wallet_address,VotingType vote_type, address voting_token_address);
 
 
 
@@ -88,22 +88,22 @@ contract Union is Ownable {
     *   @param dao_ -- multisig address
     *
     */
-    function applyForUnion (string memory applyerTg, string memory daoTg, address dao_, VotingType votingType_, address votingTokenContract_) public payable {
+    function ApplyForUnion (string memory applyerTg, string memory daoTg, address dao_, VotingType votingType_, address votingTokenContract_) public payable {
       // TODO: add require for check if dao is a gnosis safe multisig! (check support interface?)
       // require(...)
       
       // add passport and owner check
         address daoOwner = tgpassport.GetPassportWalletByID(applyerTg);
-        require(daoOwner == msg.sender,"User did not registred");
+        require(daoOwner == msg.sender,"User did not registred in TGP");
 
       require(daoAddresses[daoTg] == address(0x0), "this chat tgid already taken");
-      daoAddresses[daoTg] = dao_;      //  
+      daoAddresses[daoTg] = dao_;      
       bool checkStandard = _checkStandardVotingToken(votingType_, votingTokenContract_);
       require(checkStandard == true,"Contract does not match with corresponding type");
 
       _passportFee = tgpassport.GetPassportFee();
       daos[dao_] = DAO(msg.sender, daoTg, false, dao_, votingType_, votingTokenContract_);
-      (bool feePaid,) = _owner.call{value: _passportFee}("");  // TODO: consider removing fee?
+      (bool feePaid,) = _owner.call{value: _passportFee}("");  
       require(feePaid, "Unable to transfer fee");
       require (msg.value == _passportFee, "Passport fee is not paid");
       emit ApplicationForJoin(daoTg,applyerTg,dao_,votingType_,votingTokenContract_);
@@ -111,12 +111,26 @@ contract Union is Ownable {
 
 
     // This function intended to be used by bot, cause only bot can check if tg id of multisig owner is eqal of tg id of chat admin
-    function approveJoin(address daoAddress) public onlyOwner {
+    function ApproveJoin(address daoAddress) public onlyOwner {
       DAO memory org = daos[daoAddress];
+      require(org.valid == false, "already has been approved OR didn't applied at all");
       org.valid = true;
       daos[daoAddress] = org;
       emit ApprovedJoin(org.tgId,org.multisigAddress,org.votingType,org.votingToken);
     }
+
+    function DeclineJoin(address daoAddress) public onlyOwner {
+        DAO memory org = daos[daoAddress];
+        require(org.valid == false, "already has been approved OR didn't applied at all");
+        delete daos[daoAddress];
+        delete daoAddresses[org.tgId];
+       // daoAddresses[org.tgId] = address(0x0);
+        emit DeclinedApplication(org.tgId,org.multisigAddress,org.votingType,org.votingToken);
+    }
+
+
+
+
 
     function  _checkStandardVotingToken(VotingType votingType_, address votingTokenContract_) internal view returns (bool success) {
       if (votingType_ == VotingType.erc721) {
@@ -125,7 +139,7 @@ contract Union is Ownable {
           return success;
       }
       if (votingType_ == VotingType.erc20) {
-        // TODO: check this. decomals of standard token should be equal 18. Probably remove this check
+        // TODO: check this. decimals of standard token should be equal 18. Probably remove this check
         (success) = IERC20Metadata(votingTokenContract_).decimals() == 18;
       }
       // TODO: add check for snapshot
