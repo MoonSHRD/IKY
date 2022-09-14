@@ -48,7 +48,7 @@ contract TGPassport is Ownable {
    // This function update user nicname if user change it
    function UpdateUserName(string memory new_user_name_) public {
      Passport memory p = GetPassportByAddress(msg.sender);
-     require(p.userAddress == msg.sender, "you do now own this username");
+     require(p.userAddress == msg.sender, "you don't now own this username");
      p.userName = new_user_name_;
      passports[msg.sender] = p;
    }
@@ -65,9 +65,10 @@ contract TGPassport is Ownable {
    }
 
    // This function approving passport (use for bot) which approve that user owns it's tg_id and nicname he want to attach with
-   function ApprovePassport (address passportToApprove, string memory user_name_) public onlyOwner {
+   function ApprovePassport (address passportToApprove) public onlyOwner {
         string memory _tgId = passports[passportToApprove].tgId;
-        require(passports[passportToApprove].valid == false, "already approved");
+        string memory user_name_ = passports[passportToApprove].userName;
+        require(passports[passportToApprove].valid == false, "already approved OR do not exists yet");
         passports[passportToApprove] = Passport(passportToApprove, _tgId, true, msg.sender, user_name_);  
         emit passportApproved(_tgId,passportToApprove,msg.sender);
    }
@@ -76,7 +77,7 @@ contract TGPassport is Ownable {
    function DeclinePassport (address passportToDecline) public onlyOwner {
       string memory _tgId = passports[passportToDecline].tgId;
       string memory user_name_ = passports[passportToDecline].userName;
-      require(passports[passportToDecline].valid == false, "already approved"); // it also means that record exists
+      require(passports[passportToDecline].valid == false, "already approved OR do not exists yet"); // it also means that record exists
       delete passports[passportToDecline];
       delete tgIdToAddress[_tgId];
       delete username_wallets[user_name_];

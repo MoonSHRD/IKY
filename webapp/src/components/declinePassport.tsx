@@ -14,40 +14,37 @@ interface Props {
 
 declare let window: any;
 
-export default function ApplyPassportTG(props:Props){
+export default function DeclinePassportTG(props:Props){
   const addressContract = props.addressContract
   const currentAccount = props.currentAccount
-  const [user_id, setUserId] = useState<string>("")
-  const [user_name, setUserName] = useState<string>("")
+  const [declined_user_wallet, setDeclinedUserWallet] = useState<string>("")
 
   const { query } = useRouter();
 
-  async function applyPersonalPassport(event:React.FormEvent) {
+
+  // function for bot, for approving passport. make it here for tests
+  async function declinePassport(event:React.FormEvent) { 
     event.preventDefault()
-    if(!window.ethereum) return    
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const TGPassport:Contract = new ethers.Contract(addressContract, abi, signer)
 
-    TGPassport.ApplyForPassport(user_id,user_name,{value:ethers.utils.formatUnits(1000,"wei")})
+    TGPassport.ApprovePassport(declined_user_wallet)
      .then((tr: TransactionResponse) => {
         console.log(`TransactionResponse TX hash: ${tr.hash}`)
-        tr.wait().then((receipt:TransactionReceipt) => {console.log("applying receipt", receipt)})
+        tr.wait().then((receipt:TransactionReceipt) => {console.log("decline receipt", receipt)})
         })
-         .catch((e:Error) => console.log(e))
-     }
+       .catch((e:Error) => console.log(e))
+  }
 
-  
-  //const handleChange = (value:string) => setUserId(value)
+  const handleChange = (value:string) => setDeclinedUserWallet(value)
 
   return (
-    <form onSubmit={applyPersonalPassport}>
+    <form onSubmit={declinePassport}>
     <FormControl>
-      <FormLabel htmlFor='TGID'>User Telegram Id (not nickname!): </FormLabel>
-      <Input id="tgid" type="text" required  onChange={(e) => setUserId(e.target.value)} value={query.user_tg_id} my={3}/>
-     
-      <Input id="tg_name" type="text" required  onChange={(e) => setUserName(e.target.value)} value={query.user_tg_name} my={3}/>
-      <Button type="submit" isDisabled={!currentAccount}>Apply for Passport</Button>
+      <FormLabel htmlFor='WADDR'>Wallet Address: </FormLabel>
+      <Input id="declined_user_wallet" type="text" required  onChange={(e) => setDeclinedUserWallet(e.target.value)} value={query.user_wallet} my={3}/>
+      <Button type="submit" isDisabled={!currentAccount}>Decline Passport</Button>
     </FormControl>
     </form>
   )

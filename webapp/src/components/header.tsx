@@ -1,7 +1,7 @@
 import NextLink from "next/link"
 import { Flex, Button, useColorModeValue, Spacer, Heading, LinkBox, LinkOverlay } from '@chakra-ui/react'
 
-const siteTitle="FirstDAPP"
+const siteTitle="DAO UI"
 export default function Header() {
 
   return (

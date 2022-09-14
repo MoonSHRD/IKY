@@ -9,6 +9,7 @@ import {ethers} from "ethers"
 import ReadPassportContract from 'components/read_contract'
 import ApplyPassportTG from 'components/applyPassport'
 import ApprovePassportTG from 'components/approvePassport'
+import DeclinePassportTG from 'components/declinePassport'
 
 declare let window:any
 
@@ -95,24 +96,32 @@ const Home: NextPage = () => {
           <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Read ClassToken Info</Heading>
           <ReadPassportContract 
-            addressContract='0x5FbDB2315678afecb367f032d93F642f64180aa3'
+            addressContract='0x8AdD4988bE0f273b9b6A980EA2Ce8891F897caF6'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
-          <Heading my={4}  fontSize='xl'>Attach telegram id to your wallet</Heading>
+          <Heading my={4}  fontSize='xl'>Attach telegram id and username to your wallet</Heading>
           <ApplyPassportTG 
-            addressContract='0x5FbDB2315678afecb367f032d93F642f64180aa3'
+            addressContract='0x8AdD4988bE0f273b9b6A980EA2Ce8891F897caF6'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Approve user intent for registration personal wallet address</Heading>
           <ApprovePassportTG 
-            addressContract='0x5FbDB2315678afecb367f032d93F642f64180aa3'
+            addressContract='0x3c02166C568Ac866f4fcB99D91e283BF8E5f8714'
             currentAccount={currentAccount}
           />
         </Box>
+        <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
+          <Heading my={4}  fontSize='xl'>Decline user intent for registration personal wallet address</Heading>
+          <DeclinePassportTG 
+            addressContract='0x8AdD4988bE0f273b9b6A980EA2Ce8891F897caF6'
+            currentAccount={currentAccount}
+          />
+        </Box>
+        
 
 ...
       </VStack>
