@@ -10,21 +10,21 @@ pragma solidity ^0.8.0;
 //import "hardhat/console.sol";
 
 // direct imports -- use it for compile contracts and webapp
-/*
+
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
-*/
+
 
 // relative imports (for building ABI and go) -- use it for build
 
-
+/*
 import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 import "../node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "../node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
-
+*/
 
 
 import "./TGPassport.sol";
