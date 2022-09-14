@@ -5,10 +5,14 @@ import { VStack, Heading, Box, LinkOverlay, LinkBox} from "@chakra-ui/layout"
 import { Text, Button } from '@chakra-ui/react'
 import { useState, useEffect} from 'react'
 import {ethers} from "ethers"
+//import ReadERC20 from 'components/read_contract'
 import ReadPassportContract from 'components/read_contract'
-import ApplyPassportTG from 'components/applyPassport'
-import ApprovePassportTG from 'components/approvePassport'
-import DeclinePassportTG from 'components/declinePassport'
+//import ApplyPassportTG from 'components/applyPassport'
+import ApplyDaoTG from 'components/applyDao'
+//import ApprovePassportTG from 'components/approvePassport'
+import ApproveDaoTG from 'components/approveDao'
+//import DeclinePassportTG from 'components/declinePassport'
+import DeclineDAOTG from 'components/declineDao'
 
 declare let window:any
 
@@ -69,7 +73,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>My Telegram Passport</title>
+        <title>My DAPP</title>
       </Head>
 
       <Heading as="h3"  my={4}>Explore Web3</Heading>          
@@ -92,31 +96,25 @@ const Home: NextPage = () => {
         </Box>
         :<></>
         }
-          <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
-          <Heading my={4}  fontSize='xl'>Read ClassToken Info</Heading>
-          <ReadPassportContract 
-            addressContract='0x8AdD4988bE0f273b9b6A980EA2Ce8891F897caF6'
-            currentAccount={currentAccount}
-          />
-        </Box>
+
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
-          <Heading my={4}  fontSize='xl'>Attach telegram id and username to your wallet</Heading>
-          <ApplyPassportTG 
-            addressContract='0x8AdD4988bE0f273b9b6A980EA2Ce8891F897caF6'
+          <Heading my={4}  fontSize='xl'>Attach CHAT from telegram to collective wallet</Heading>
+          <ApplyDaoTG 
+            addressContract='0x9175Fc93BafA7e6f6e65543347F1143a43f7767E'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Approve user intent for registration personal wallet address</Heading>
-          <ApprovePassportTG 
-            addressContract='0x3c02166C568Ac866f4fcB99D91e283BF8E5f8714'
+          <ApproveDaoTG 
+            addressContract='0x9175Fc93BafA7e6f6e65543347F1143a43f7767E'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Decline user intent for registration personal wallet address</Heading>
-          <DeclinePassportTG 
-            addressContract='0x8AdD4988bE0f273b9b6A980EA2Ce8891F897caF6'
+          <DeclineDAOTG 
+            addressContract='0x9175Fc93BafA7e6f6e65543347F1143a43f7767E'
             currentAccount={currentAccount}
           />
         </Box>
