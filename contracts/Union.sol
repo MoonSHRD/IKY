@@ -86,7 +86,7 @@ contract Union is Ownable {
     *   @param applyerTg -- tgid of user who sent apply
     *   @param daoTg -- tgid of chat
     *   @param dao_ -- multisig address
-    *
+    *   @param votingType_ -- represents voting token's type: 0=erc20 1=erc20Snapshot 2=erc721
     */
     function ApplyForUnion (string memory applyerTg, string memory daoTg, address dao_, VotingType votingType_, address votingTokenContract_) public payable {
       // TODO: add require for check if dao is a gnosis safe multisig! (check support interface?)
