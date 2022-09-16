@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Button, Input , NumberInput,  NumberInputField,  FormControl,  FormLabel, Radio, RadioGroup, Stack } from '@chakra-ui/react'
+import {Button, Input , NumberInput,  NumberInputField, Select,  FormControl,  FormLabel, Radio, RadioGroup, Stack, Center } from '@chakra-ui/react'
 import {ethers} from 'ethers'
 import {parseEther } from 'ethers/lib/utils'
 import {abi} from '../../../artifacts/contracts/Union.sol/Union.json'
@@ -37,7 +37,7 @@ export default function ApplyDaoTG(props:Props){
 
     Union.ApplyForUnion(user_id,chat_id,votingType,votingTokenContract,{value:ethers.utils.formatUnits(1000,"wei")})
      .then((tr: TransactionResponse) => {
-        console.log(`TransactionResponse TX hash: ${tr.hash}`)
+        console.log(`TransactionResponse TX hashonChange={(e) => setUserId(e.target.value)} value={query.user_id} my={3} : ${tr.hash}`)
         tr.wait().then((receipt:TransactionReceipt) => {console.log("applying receipt", receipt)})
         })
          .catch((e:Error) => console.log(e))
@@ -50,19 +50,18 @@ export default function ApplyDaoTG(props:Props){
     <form onSubmit={applyDao}>
     <FormControl>
       <FormLabel htmlFor='TGID'>Enter data: </FormLabel>
-      <Input id="tgid" type="text" placeholder="Your Telegram ID" required  onChange={(e) => setUserId(e.target.value)} value={query.user_id} my={3}/>
-      <Input id="chatid" type="text" placeholder="Chat's Telegram ID"required  onChange={(e) => setChatId(e.target.value)} value={query.chat_id} my={3}/>
-      <FormLabel>Select your voting token's type:</FormLabel>
-      <RadioGroup onChange={setVotingType} value={votingType} my={3}>
-        <Stack spacing={4} direction='row'>
-        <Radio value='0'>ERC20</Radio>
-        <Radio value='1'>ERC20Snapshot</Radio>
-        <Radio value='2'>ERC721</Radio>
-        </Stack>
-    </RadioGroup>
-      <Input id="votingtokencontract" placeholder="Voting token's contract address" type="text" required  onChange={(e) => setVotingTokenContract(e.target.value)} value={query.voti} my={3}/>
+      <Input id="user_id" type="text" placeholder="Your Telegram ID" required  onChange={(e) => setUserId(e.target.value)} value={query.user_id} my={3}/>
+      <Input id="chat_id" type="text" placeholder="Chat's Telegram ID"required  onChange={(e) => setChatId(e.target.value)} value={query.chat_id} my={3}/>
+      <Select id="votingtype" placeholder="Select voting token's type:" onChange={(e) => setVotingType(e.target.value)} value={query.votingtype} my={3}>
+      <option value='0'>ERC20</option>
+      <option value='1'>ERC20Snapshot</option>
+      <option value='2'>ERC721</option>
+      </Select>
+      <Input id="votingtokencontract" placeholder="Voting token's contract address" type="text" required  onChange={(e) => setVotingTokenContract(e.target.value)} value={query.votingtokencontract} my={3}/>
       <Button type="submit" isDisabled={!currentAccount}>Apply DAO for Union</Button>
     </FormControl>
     </form>
+
+    
   )
 }
