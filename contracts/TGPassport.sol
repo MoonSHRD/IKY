@@ -34,7 +34,7 @@ contract TGPassport is Ownable {
 
 
    constructor() Ownable() {
-      _passportFee = 1000 wei; // TODO: calculate gas costs
+      _passportFee = 1000 wei; // TODO: calculate gas costs      
       _owner = owner();
    }
 
@@ -56,7 +56,12 @@ contract TGPassport is Ownable {
    // This function for USER who try to obtain some tg_id
    function ApplyForPassport (string memory applyerTg, string memory user_name_) public payable {
       address applyerAddress = msg.sender;      // ЛИЧНАЯ ПОДАЧА ПАСПОРТА В ТРЕТЬЕ ОКОШКО МФЦ
+      
+      // TODO: Discuss and remove function from smart contract because passport can be changed or be broken picture
+      //       In this case we should reapply and reapprove new picture. Address updating should be in ApprovePassport and
+      //       should be applyed for approved passports only
       _updateAddress(applyerTg,applyerAddress,user_name_);  
+      
       require (msg.value == _passportFee, "Passport fee is not paid");
       passports[msg.sender] = Passport(applyerAddress, applyerTg, false, address(0x0),user_name_);
       emit passportApplied(applyerTg, msg.sender);

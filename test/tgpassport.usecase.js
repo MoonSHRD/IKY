@@ -4,15 +4,9 @@
 /* eslint-disable no-sequences */
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-unused-vars */
-const {
-    expect
-} = require("chai");
-const {
-    ethers, waffle
-} = require("hardhat");
-const {
-    toWei, fromWei
-} = require("./lib.js");
+const { expect } = require("chai");
+const { ethers, waffle} = require("hardhat");
+const { toWei, fromWei} = require("./lib.js");
 
 describe("TGPassport", function() {
     let TGPassport, tgpassport, provider;
@@ -21,7 +15,7 @@ describe("TGPassport", function() {
 
     const passportFee = toWei(10);
 
-    before(async () => {
+    beforeEach(async () => {
         [owner, user1] = await ethers.getSigners();
         tgid1 = "@vouter1";
         tgid2 = "@vouter2";
@@ -52,18 +46,74 @@ describe("TGPassport", function() {
           ).to.be.revertedWith("Passport fee is not paid");
     });
 
-    it("should apply for passport", async () => {
-        let userBalanceBeforeFee = await provider.getBalance(user1.address);
-        const applyForPass = await tgpassport.connect(user1).applyForPassport(tgid1, {value: passportFee});
+    describe("ApplyForPassport", function() {
 
-        const receipt = await applyForPass.wait();
-        expect(tgid1).to.equal(receipt.events[0].args[0]);
-        expect(receipt.events[0].event).to.equal("passportApplied");
+        it("Should be reverted with empty Passport Fee", async () => {
+            await expect (tgpassport.connect(user1).ApplyForPassport(tgid1, "username", {value: 0}))
+                .to.be.reverted;
+        });
 
-        let userBalanceAfterFee = await provider.getBalance(user1.address);
-        let ubbf = fromWei(userBalanceBeforeFee);
-        let ubaf = fromWei(userBalanceAfterFee);
-        expect(parseInt(ubbf)).to.be.greaterThan(parseInt(ubaf));
+        it("Should be passed with correct Passport Fee", async () => {
+            await expect (tgpassport.connect(user1).ApplyForPassport(tgid1, "username", {value: await tgpassport.GetPassportFee()}))
+                .to.be.ok;
+        });
+
+        it("Event passportApplied should be emitted", async () => {
+            await expect (await tgpassport.connect(user1).ApplyForPassport(tgid1, "username", {value: await tgpassport.GetPassportFee()}))
+                    .to.emit(tgpassport, "passportApplied")
+                    .withArgs(tgid1, user1.address);
+        });
+
+        it("Should be increased owner balance for Passport Fee value", async () => {
+    
+            const ownerBalanceBefore = await provider.getBalance(owner.address);
+
+            await tgpassport.connect(user1).ApplyForPassport(tgid1, "username", {value: await tgpassport.GetPassportFee()});
+
+            const ownerBalanceAfter = await provider.getBalance(owner.address);
+        
+            await expect(ownerBalanceAfter).to.equal(ownerBalanceBefore.add(ethers.BigNumber.from(await tgpassport.GetPassportFee())));
+        });
+    });
+        
+    describe("ApprovePassport", function() {
+
+        it("Should be reverted for non-owner caller", async () => {
+
+            await tgpassport.connect(user1).ApplyForPassport(tgid1, "username", {value: await tgpassport.GetPassportFee()});
+
+            await expect (tgpassport.connect(user1).ApprovePassport(user1.address))
+                .to.be.reverted;
+        });
+
+        it("Should be passed for owner caller", async () => {
+
+            await tgpassport.connect(user1).ApplyForPassport(tgid1, "username", {value: await tgpassport.GetPassportFee()});
+
+            await expect (tgpassport.connect(owner).ApprovePassport(user1.address))
+                .to.emit(tgpassport, "passportApproved")
+                .withArgs(tgid1, user1.address, owner.address);
+        });
+    });
+
+    describe("DeclinePassport", function() {
+
+        it("Should be reverted for non-owner caller", async () => {
+
+            await tgpassport.connect(user1).ApplyForPassport(tgid1, "username", {value: await tgpassport.GetPassportFee()});
+
+            await expect (tgpassport.connect(user1).DeclinePassport(user1.address))
+                .to.be.reverted;
+        });
+
+        it("Should be passed for owner caller", async () => {
+
+            await tgpassport.connect(user1).ApplyForPassport(tgid1, "username", {value: await tgpassport.GetPassportFee()});
+
+            await expect (tgpassport.connect(owner).DeclinePassport(user1.address))
+                .to.emit(tgpassport, "passportDenied")
+                .withArgs(tgid1, user1.address);
+        });
     });
 
     it("should get wallet by tg id", async () => {
