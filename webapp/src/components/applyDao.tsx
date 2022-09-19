@@ -26,7 +26,8 @@ export default function ApplyDaoTG(props:Props){
 
   const [user_name, setUserName] = useState<string>("")
 
-  
+  //after the page is rendered, we get the data from the URL with this hook
+  //as this is done only once, there are no conflicts with editing that data later via the UI
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
   var user = queryParams.get('user_id');
