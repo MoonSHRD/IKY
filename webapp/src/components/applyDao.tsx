@@ -18,7 +18,7 @@ declare let window: any;
 export default function ApplyDaoTG(props:Props){
   const addressContract = props.addressContract
   const currentAccount = props.currentAccount
-  var [user_id, setUserId] = useState("")
+  var [user_id, setUserId] = useState<string>("")
   var [chat_id,setChatId] = useState<string>("")
 
   var [votingType,setVotingType] = useState<string>("")
