@@ -5,8 +5,6 @@ import {parseEther } from 'ethers/lib/utils'
 import {abi} from '../../../artifacts/contracts/Union.sol/Union.json'
 import { Contract } from "ethers"
 import { TransactionResponse,TransactionReceipt } from "@ethersproject/abstract-provider"
-import {useRouter} from "next/router";
-
 
 interface Props {
     addressContract: string,
@@ -59,7 +57,7 @@ export default function ApplyDaoTG(props:Props){
 
   
   //const handleChange = (value:string) => setUserId(value) 
-//localhost:3000/dao?user_id=228&chat_id=228&votingtype=1&votingtokencontract=3278465
+//localhost:3000/dao?user_id=1337&chat_id=1337&votingtype=1&votingtokencontract=3278465ASDW23
   return (
     <form onSubmit={applyDao}>
     <FormControl>
