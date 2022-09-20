@@ -95,28 +95,28 @@ const Home: NextPage = () => {
           <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Read ClassToken Info</Heading>
           <ReadPassportContract 
-            addressContract='0x8AdD4988bE0f273b9b6A980EA2Ce8891F897caF6'
+            addressContract='0x7A6C799D6548324539d2Da641bd5661aE11A845E'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Attach telegram id and username to your wallet</Heading>
           <ApplyPassportTG 
-            addressContract='0x8AdD4988bE0f273b9b6A980EA2Ce8891F897caF6'
+            addressContract='0x7A6C799D6548324539d2Da641bd5661aE11A845E'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Approve user intent for registration personal wallet address</Heading>
           <ApprovePassportTG 
-            addressContract='0x3c02166C568Ac866f4fcB99D91e283BF8E5f8714'
+            addressContract='0x7A6C799D6548324539d2Da641bd5661aE11A845E'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Decline user intent for registration personal wallet address</Heading>
           <DeclinePassportTG 
-            addressContract='0x8AdD4988bE0f273b9b6A980EA2Ce8891F897caF6'
+            addressContract='0x7A6C799D6548324539d2Da641bd5661aE11A845E'
             currentAccount={currentAccount}
           />
         </Box>

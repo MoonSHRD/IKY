@@ -18,16 +18,19 @@ declare let window: any;
 export default function ApplyPassportTG(props:Props){
   const addressContract = props.addressContract
   const currentAccount = props.currentAccount
-  const [user_id, setUserId] = useState<string>("")
-  const [user_name, setUserName] = useState<string>("")
+  var [user_id, setUserId] = useState(0)
+  var [user_name, setUserName] = useState<string>("")
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
 
-  var id = queryParams.get('user_tg_id');
+  var id = queryParams.get('user_tg_id');   // get id as string from query
+  let int_id : number = +id;                // similar to parseInt()
   var name = queryParams.get('user_tg_name');
   
-  setUserId(id);
+  
+
+  setUserId(int_id);
   setUserName(name);
   
   }, []);
@@ -55,7 +58,7 @@ export default function ApplyPassportTG(props:Props){
     <form onSubmit={applyPersonalPassport}>
     <FormControl>
       <FormLabel htmlFor='TGID'>User Telegram Id (not nickname!): </FormLabel>
-      <Input id="tgid" type="text" required  onChange={(e) => setUserId(e.target.value)} value={user_id} my={3}/>
+      <Input id="tgid" type="number" required  onChange={(e) => setUserId(parseInt(e.target.value))} value={user_id} my={3}/>
      
       <Input id="tg_name" type="text" required  onChange={(e) => setUserName(e.target.value)} value={user_name} my={3}/>
       <Button type="submit" isDisabled={!currentAccount}>Apply for Passport</Button>
