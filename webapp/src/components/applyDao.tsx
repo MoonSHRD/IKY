@@ -16,8 +16,8 @@ declare let window: any;
 export default function ApplyDaoTG(props:Props){
   const addressContract = props.addressContract
   const currentAccount = props.currentAccount
-  var [user_id, setUserId] = useState<string>("")
-  var [chat_id,setChatId] = useState<string>("")
+  var [user_id, setUserId] = useState<number>(0)
+  var [chat_id,setChatId] = useState<number>(0)
 
   var [votingType,setVotingType] = useState<string>("")
   var [votingTokenContract,setVotingTokenContract] = useState<string>("")
@@ -29,12 +29,14 @@ export default function ApplyDaoTG(props:Props){
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
   var user = queryParams.get('user_id');
+  let int_user : number = +user;
   var chat = queryParams.get('chat_id');
+  let int_chat : number = +chat;
   var type = queryParams.get('votingtype');
   var contract = queryParams.get('votingtokencontract');
  
-  setUserId(user);
-  setChatId(chat);
+  setUserId(int_user);
+  setChatId(int_chat);
   setVotingType(type);
   setVotingTokenContract(contract);
   
@@ -62,8 +64,8 @@ export default function ApplyDaoTG(props:Props){
     <form onSubmit={applyDao}>
     <FormControl>
       <FormLabel htmlFor='TGID'>Enter data: </FormLabel>
-      <Input id="user_id" type="text" placeholder="Your Telegram ID" required  onChange={(e) => setUserId(e.target.value)} value = {user_id} my={3}/>
-      <Input id="chat_id" type="text" placeholder="Chat's Telegram ID"required  onChange={(e) => setChatId(e.target.value)} value = {chat_id} my={3}/>
+      <Input id="user_id" type="text" placeholder="Your Telegram ID" required  onChange={(e) => setUserId(parseInt(e.target.value))} value = {user_id} my={3}/>
+      <Input id="chat_id" type="text" placeholder="Chat's Telegram ID"required  onChange={(e) => setChatId(parseInt(e.target.value))} value = {chat_id} my={3}/>
       <Select id="votingtype" placeholder="Select voting token's type:" onChange={(e) => setVotingType(e.target.value)} value= {votingType}  my={3}>
       <option value='0'>ERC20</option>
       <option value='1'>ERC20Snapshot</option>
