@@ -14,23 +14,22 @@ contract TGPassport is Ownable {
 
    struct Passport {
       address userAddress;
-      string tgId;
+      int tgId;      // unic Id for telegram
       bool valid;
       address validatorAddress;
       string userName; // can be changed, do not trust it
    }
 
    //mappings
-   mapping(string => address) public tgIdToAddress;
+   mapping(int => address) public tgIdToAddress;
    mapping(address => Passport) public passports;
    mapping(string => address) public username_wallets;  // usernames can be changed, do not trust it, use as utility
  
    // EVENTS
-
    //
-   event passportApplied(string applyerTg, address wallet_address);
-   event passportApproved(string applyerTg, address wallet_address, address issuer);
-   event passportDenied(string applyerTg, address wallet);
+   event passportApplied(int applyerTg, address wallet_address);
+   event passportApproved(int applyerTg, address wallet_address, address issuer);
+   event passportDenied(int applyerTg, address wallet);
 
 
    constructor() Ownable() {
@@ -39,13 +38,15 @@ contract TGPassport is Ownable {
    }
 
 
-   function _updateAddress(string memory tgId, address userAddress, string memory user_name_) internal {
+   function _updateAddress(int tgId, address userAddress, string memory user_name_) internal {
       require(tgIdToAddress[tgId] == address(0x0), "There's address connected to that TG ID already.");  // if cell is not empty revert
       tgIdToAddress[tgId] = userAddress;
       username_wallets[user_name_] = userAddress;
    }
 
-   // This function update user nicname if user change it
+   /**
+   *  @dev This function update user nicname if user change it
+   */
    function UpdateUserName(string memory new_user_name_) public {
      Passport memory p = GetPassportByAddress(msg.sender);
      require(p.userAddress == msg.sender, "you don't now own this username");
@@ -53,8 +54,12 @@ contract TGPassport is Ownable {
      passports[msg.sender] = p;
    }
 
-   // This function for USER who try to obtain some tg_id
-   function ApplyForPassport (string memory applyerTg, string memory user_name_) public payable {
+   /**
+   *   @notice This function for USER who try to obtain some tg_id
+   *   @param applyerTg unic id for telegram user, in telegram it's int64 (number)
+   *   @param user_name_ is username (like @username)
+   **/
+   function ApplyForPassport (int applyerTg, string memory user_name_) public payable {
       address applyerAddress = msg.sender;      // ЛИЧНАЯ ПОДАЧА ПАСПОРТА В ТРЕТЬЕ ОКОШКО МФЦ
       _updateAddress(applyerTg,applyerAddress,user_name_);  
       require (msg.value == _passportFee, "Passport fee is not paid");
@@ -64,18 +69,24 @@ contract TGPassport is Ownable {
       require(feePaid, "Unable to transfer fee");
    }
 
-   // This function approving passport (use for bot) which approve that user owns it's tg_id and nicname he want to attach with
+   /** 
+   *    @notice  This function approving passport (use for bot) which approve that user owns it's tg_id and nicname he want to attach with
+   *    @param passportToApprove address of user wallet which attached to him
+   */
    function ApprovePassport (address passportToApprove) public onlyOwner {
-        string memory _tgId = passports[passportToApprove].tgId;
+        int _tgId = passports[passportToApprove].tgId;
         string memory user_name_ = passports[passportToApprove].userName;
         require(passports[passportToApprove].valid == false, "already approved OR do not exists yet");
         passports[passportToApprove] = Passport(passportToApprove, _tgId, true, msg.sender, user_name_);  
         emit passportApproved(_tgId,passportToApprove,msg.sender);
    }
 
-   // This function decline application end erase junk data
+   /**
+   *     @notice This function decline application end erase junk data
+   *     @param passportToDecline address of user wallet
+   */
    function DeclinePassport (address passportToDecline) public onlyOwner {
-      string memory _tgId = passports[passportToDecline].tgId;
+      int _tgId = passports[passportToDecline].tgId;
       string memory user_name_ = passports[passportToDecline].userName;
       require(passports[passportToDecline].valid == false, "already approved OR do not exists yet"); // it also means that record exists
       delete passports[passportToDecline];
@@ -85,16 +96,23 @@ contract TGPassport is Ownable {
    }
    
 
+    /**
+     *  @dev setting fee for applying for passport
+     */
     function SetPassportFee(uint passportFee_) public onlyOwner {
         _passportFee = passportFee_;
     }
 
+    /**
+     *  @dev getter to obtain how much user will pay for apply
+     */
     function GetPassportFee() public view returns (uint) {
         return _passportFee;
     }
 
    
-   function GetPassportWalletByID(string memory tgId_) public view returns(address){
+   
+   function GetPassportWalletByID(int tgId_) public view returns(address){
       return tgIdToAddress[tgId_];
    }
 
