@@ -1,6 +1,6 @@
 Rinkeby:
-TGPassport deployed to: 0x8AdD4988bE0f273b9b6A980EA2Ce8891F897caF6
-Union deployed to: 0x9175Fc93BafA7e6f6e65543347F1143a43f7767E
+TGPassport deployed to: 0x7A6C799D6548324539d2Da641bd5661aE11A845E
+Union deployed to: 0x2dd8C9F4Bb2b411d4b44b1Ca685066B86EF4A87e
 
 
 

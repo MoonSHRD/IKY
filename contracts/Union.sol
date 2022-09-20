@@ -38,9 +38,9 @@ contract Union is Ownable {
     bytes4 private constant _INTERFACE_ID_IERC721ENUMERABLE = 0x780e9d63;
 
     // events
-    event ApplicationForJoin(string chat_id, string applier_id,address multy_wallet_address,VotingType vote_type, address voting_token_address);
-    event ApprovedJoin(string chat_id,address multy_wallet_address,VotingType vote_type, address voting_token_address);
-    event DeclinedApplication(string chat_id,address multy_wallet_address,VotingType vote_type, address voting_token_address);
+    event ApplicationForJoin(int chat_id, int applier_id,address multy_wallet_address,VotingType vote_type, address voting_token_address, string group_name);
+    event ApprovedJoin(int chat_id,address multy_wallet_address,VotingType vote_type, address voting_token_address, string group_name);
+    event DeclinedApplication(int chat_id,address multy_wallet_address,VotingType vote_type, address voting_token_address, string group_name);
 
 
 
@@ -51,11 +51,12 @@ contract Union is Ownable {
     // Meta information about dao
     struct DAO {
       address chatOwnerAddress;
-      string tgId;
+      int tgId;
       bool valid;
       address multisigAddress;
       VotingType votingType;
       address votingToken;
+      string group_name;
                }
 
 
@@ -67,7 +68,7 @@ contract Union is Ownable {
     }
 
     // TODO: import Multisig contract, make sure we map tgid to multisig contract, not address!
-    mapping (string => address) public daoAddresses;
+    mapping (int => address) public daoAddresses;
 
     // mapping from multisig address to attached meta-info
     mapping(address => DAO) public daos;
@@ -87,8 +88,9 @@ contract Union is Ownable {
     *   @param daoTg -- tgid of chat
     *   @param dao_ -- multisig address
     *   @param votingType_ -- represents voting token's type: 0=erc20 1=erc20Snapshot 2=erc721
+    *   @param dao_name_ -- string name of group chat. can be uses as a link (if link is https://t.me/eth_ru then name is @eth_ru)
     */
-    function ApplyForUnion (string memory applyerTg, string memory daoTg, address dao_, VotingType votingType_, address votingTokenContract_) public payable {
+    function ApplyForUnion (int applyerTg, int daoTg, address dao_, VotingType votingType_, address votingTokenContract_, string memory dao_name_) public payable {
       // TODO: add require for check if dao is a gnosis safe multisig! (check support interface?)
       // require(...)
       
@@ -102,11 +104,11 @@ contract Union is Ownable {
       require(checkStandard == true,"Contract does not match with corresponding type");
 
       _passportFee = tgpassport.GetPassportFee();
-      daos[dao_] = DAO(msg.sender, daoTg, false, dao_, votingType_, votingTokenContract_);
+      daos[dao_] = DAO(msg.sender, daoTg, false, dao_, votingType_, votingTokenContract_, dao_name_);
       (bool feePaid,) = _owner.call{value: _passportFee}("");  
       require(feePaid, "Unable to transfer fee");
       require (msg.value == _passportFee, "Passport fee is not paid");
-      emit ApplicationForJoin(daoTg,applyerTg,dao_,votingType_,votingTokenContract_);
+      emit ApplicationForJoin(daoTg,applyerTg,dao_,votingType_,votingTokenContract_, dao_name_);
    }
 
 
@@ -116,7 +118,7 @@ contract Union is Ownable {
       require(org.valid == false, "already has been approved OR didn't applied at all");
       org.valid = true;
       daos[daoAddress] = org;
-      emit ApprovedJoin(org.tgId,org.multisigAddress,org.votingType,org.votingToken);
+      emit ApprovedJoin(org.tgId,org.multisigAddress,org.votingType,org.votingToken, org.group_name);
     }
 
     function DeclineJoin(address daoAddress) public onlyOwner {
@@ -125,7 +127,7 @@ contract Union is Ownable {
         delete daos[daoAddress];
         delete daoAddresses[org.tgId];
        // daoAddresses[org.tgId] = address(0x0);
-        emit DeclinedApplication(org.tgId,org.multisigAddress,org.votingType,org.votingToken);
+        emit DeclinedApplication(org.tgId,org.multisigAddress,org.votingType,org.votingToken, org.group_name);
     }
 
 
