@@ -1,5 +1,4 @@
 //SPDX-License-Identifier: MIT
-// TODO: documentation
 pragma solidity ^0.8.0;
 
 //import "hardhat/console.sol";
@@ -14,7 +13,7 @@ contract TGPassport is Ownable {
 
    struct Passport {
       address userAddress;
-      int tgId;      // unic Id for telegram
+      int tgId;      // unic Id for telegram (number)
       bool valid;
       address validatorAddress;
       string userName; // can be changed, do not trust it
@@ -111,7 +110,7 @@ contract TGPassport is Ownable {
     }
 
    
-   
+
    function GetPassportWalletByID(int tgId_) public view returns(address){
       return tgIdToAddress[tgId_];
    }
