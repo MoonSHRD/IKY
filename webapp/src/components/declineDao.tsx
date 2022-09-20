@@ -44,7 +44,7 @@ export default function DeclineDAOTG(props:Props){
     <FormControl>
       <FormLabel htmlFor='WADDR'>Wallet Address: </FormLabel>
       <Input id="declined_user_wallet" type="text" required  onChange={(e) => setDeclinedDaoWallet(e.target.value)} value={query.dao_wallet} my={3}/>
-      <Button type="submit" isDisabled={!currentAccount}>Decline Passport</Button>
+      <Button type="submit" isDisabled={!currentAccount}>Decline DAO</Button>
     </FormControl>
     </form>
   )
