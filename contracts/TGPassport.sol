@@ -13,7 +13,7 @@ contract TGPassport is Ownable {
 
    struct Passport {
       address userAddress;
-      int tgId;      // unic Id for telegram (number)
+      int64 tgId;      // unic Id for telegram (number)
       bool valid;
       address validatorAddress;
       string userName; // can be changed, do not trust it
@@ -26,7 +26,8 @@ contract TGPassport is Ownable {
  
    // EVENTS
    //
-   event passportApplied(int indexed applyerTg, address wallet_address);
+   event passportApplied(int64 applyerTg, address wallet_address);
+   event passportAppliedIndexed(int64 indexed applyerTg, address wallet_address);
    event passportApproved(int applyerTg, address wallet_address, address issuer);
    event passportDenied(int applyerTg, address wallet);
 
@@ -58,12 +59,13 @@ contract TGPassport is Ownable {
    *   @param applyerTg unic id for telegram user, in telegram it's int64 (number)
    *   @param user_name_ is username (like @username)
    **/
-   function ApplyForPassport (int applyerTg, string memory user_name_) public payable {
+   function ApplyForPassport (int64 applyerTg, string memory user_name_) public payable {
       address applyerAddress = msg.sender;      // ЛИЧНАЯ ПОДАЧА ПАСПОРТА В ТРЕТЬЕ ОКОШКО МФЦ
       _updateAddress(applyerTg,applyerAddress,user_name_);  
       require (msg.value == _passportFee, "Passport fee is not paid");
       passports[msg.sender] = Passport(applyerAddress, applyerTg, false, address(0x0),user_name_);
       emit passportApplied(applyerTg, msg.sender);
+      emit passportAppliedIndexed(applyerTg, msg.sender);
       (bool feePaid,) = _owner.call{value: _passportFee}("");
       require(feePaid, "Unable to transfer fee");
    }
@@ -73,7 +75,7 @@ contract TGPassport is Ownable {
    *    @param passportToApprove address of user wallet which attached to him
    */
    function ApprovePassport (address passportToApprove) public onlyOwner {
-        int _tgId = passports[passportToApprove].tgId;
+        int64 _tgId = passports[passportToApprove].tgId;
         string memory user_name_ = passports[passportToApprove].userName;
         require(passports[passportToApprove].valid == false, "already approved OR do not exists yet");
         passports[passportToApprove] = Passport(passportToApprove, _tgId, true, msg.sender, user_name_);  
