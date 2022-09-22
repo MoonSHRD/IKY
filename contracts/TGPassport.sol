@@ -26,7 +26,7 @@ contract TGPassport is Ownable {
  
    // EVENTS
    //
-   event passportApplied(int applyerTg, address wallet_address);
+   event passportApplied(int indexed applyerTg, address wallet_address);
    event passportApproved(int applyerTg, address wallet_address, address issuer);
    event passportDenied(int applyerTg, address wallet);
 
@@ -93,7 +93,24 @@ contract TGPassport is Ownable {
       delete username_wallets[user_name_];
       emit passportDenied(_tgId,passportToDecline);
    }
-   
+
+   /**
+    *  @dev This function is a service function which allow Owner to erase already approved passport
+    *  and make clean state contract. NOT FOR USE IN PRODUCTION
+    */
+    function DeletePassport (address passportToDecline) public onlyOwner {
+      int _tgId = passports[passportToDecline].tgId;
+      string memory user_name_ = passports[passportToDecline].userName;
+      uint chainID = block.chainid;
+      require(chainID == uint(4), "this function work's only for testnet");
+     // require(passports[passportToDecline].valid == false, "already approved OR do not exists yet"); // it also means that record exists
+      delete passports[passportToDecline];
+      delete tgIdToAddress[_tgId];
+      delete username_wallets[user_name_];
+      emit passportDenied(_tgId,passportToDecline);
+   }  
+
+
 
     /**
      *  @dev setting fee for applying for passport

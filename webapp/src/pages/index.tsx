@@ -9,6 +9,7 @@ import ReadPassportContract from 'components/read_contract'
 import ApplyPassportTG from 'components/applyPassport'
 import ApprovePassportTG from 'components/approvePassport'
 import DeclinePassportTG from 'components/declinePassport'
+import DeletePassportTG from 'components/deletePassport'
 
 declare let window:any
 
@@ -95,28 +96,35 @@ const Home: NextPage = () => {
           <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Read ClassToken Info</Heading>
           <ReadPassportContract 
-            addressContract='0x7A6C799D6548324539d2Da641bd5661aE11A845E'
+            addressContract='0x0Ff0C4072eb0BcD1F7Cb59049C2EddD625089D3f'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Attach telegram id and username to your wallet</Heading>
           <ApplyPassportTG 
-            addressContract='0x7A6C799D6548324539d2Da641bd5661aE11A845E'
+            addressContract='0x0Ff0C4072eb0BcD1F7Cb59049C2EddD625089D3f'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Approve user intent for registration personal wallet address</Heading>
           <ApprovePassportTG 
-            addressContract='0x7A6C799D6548324539d2Da641bd5661aE11A845E'
+            addressContract='0x0Ff0C4072eb0BcD1F7Cb59049C2EddD625089D3f'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Decline user intent for registration personal wallet address</Heading>
           <DeclinePassportTG 
-            addressContract='0x7A6C799D6548324539d2Da641bd5661aE11A845E'
+            addressContract='0x0Ff0C4072eb0BcD1F7Cb59049C2EddD625089D3f'
+            currentAccount={currentAccount}
+          />
+        </Box>
+        <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
+          <Heading my={4}  fontSize='xl'>Delete ALREADY APPROVED passport (only for test networks)</Heading>
+          <DeletePassportTG 
+            addressContract='0x0Ff0C4072eb0BcD1F7Cb59049C2EddD625089D3f'
             currentAccount={currentAccount}
           />
         </Box>
