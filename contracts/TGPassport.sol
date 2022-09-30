@@ -20,7 +20,7 @@ contract TGPassport is Ownable {
    }
 
    //mappings
-   mapping(int => address) public tgIdToAddress;
+   mapping(int64 => address) public tgIdToAddress;
    mapping(address => Passport) public passports;
    mapping(string => address) public username_wallets;  // usernames can be changed, do not trust it, use as utility
  
@@ -38,7 +38,7 @@ contract TGPassport is Ownable {
    }
 
 
-   function _updateAddress(int tgId, address userAddress, string memory user_name_) internal {
+   function _updateAddress(int64 tgId, address userAddress, string memory user_name_) internal {
       require(tgIdToAddress[tgId] == address(0x0), "There's address connected to that TG ID already.");  // if cell is not empty revert
       tgIdToAddress[tgId] = userAddress;
       username_wallets[user_name_] = userAddress;
@@ -87,7 +87,7 @@ contract TGPassport is Ownable {
    *     @param passportToDecline address of user wallet
    */
    function DeclinePassport (address passportToDecline) public onlyOwner {
-      int _tgId = passports[passportToDecline].tgId;
+      int64 _tgId = passports[passportToDecline].tgId;
       string memory user_name_ = passports[passportToDecline].userName;
       require(passports[passportToDecline].valid == false, "already approved OR do not exists yet"); // it also means that record exists
       delete passports[passportToDecline];
@@ -101,7 +101,7 @@ contract TGPassport is Ownable {
     *  and make clean state contract. NOT FOR USE IN PRODUCTION
     */
     function DeletePassport (address passportToDecline) public onlyOwner {
-      int _tgId = passports[passportToDecline].tgId;
+      int64 _tgId = passports[passportToDecline].tgId;
       string memory user_name_ = passports[passportToDecline].userName;
       uint chainID = block.chainid;
       require(chainID == uint(4), "this function work's only for testnet");
@@ -130,7 +130,7 @@ contract TGPassport is Ownable {
 
    
 
-   function GetPassportWalletByID(int tgId_) public view returns(address){
+   function GetPassportWalletByID(int64 tgId_) public view returns(address){
       return tgIdToAddress[tgId_];
    }
 
