@@ -18,10 +18,12 @@ export default function ApplyDaoTG(props:Props){
   const currentAccount = props.currentAccount
   var [user_id, setUserId] = useState<number>(0)
   var [chat_id,setChatId] = useState<number>(0)
+  var [DAOaddress,setDAOaddress] = useState<string>("")
 
   var [votingType,setVotingType] = useState<string>("")
   var [votingTokenContract,setVotingTokenContract] = useState<string>("")
 
+  var [DAOname,setDAOname] = useState<string>("")
   const [user_name, setUserName] = useState<string>("")
 
   //after the page is rendered, we get the data from the URL with this hook
@@ -32,13 +34,19 @@ export default function ApplyDaoTG(props:Props){
   let int_user : number = +user;
   var chat = queryParams.get('chat_id');
   let int_chat : number = +chat;
+  
+  var address = queryParams.get('address')
+
   var type = queryParams.get('votingtype');
   var contract = queryParams.get('votingtokencontract');
+  var name = queryParams.get('daoname');
  
   setUserId(int_user);
   setChatId(int_chat);
+  setDAOaddress(address)
   setVotingType(type);
   setVotingTokenContract(contract);
+  setDAOname(name);
   
   }, []);
 
@@ -49,7 +57,7 @@ export default function ApplyDaoTG(props:Props){
     const signer = provider.getSigner()
     const Union:Contract = new ethers.Contract(addressContract, abi, signer)
 
-    Union.ApplyForUnion(user_id,chat_id,votingType,votingTokenContract,{value:ethers.utils.formatUnits(1000,"wei")})
+    Union.ApplyForUnion(user_id,chat_id,DAOaddress,votingType,votingTokenContract,DAOname,{value:ethers.utils.formatUnits(1000,"wei")})
      .then((tr: TransactionResponse) => {
         console.log(`TransactionResponse TX hashonChange={(e) => setUserId(e.target.value)} value={query.user_id} my={3} : ${tr.hash}`)
         tr.wait().then((receipt:TransactionReceipt) => {console.log("applying receipt", receipt)})
@@ -59,19 +67,22 @@ export default function ApplyDaoTG(props:Props){
 
   
   //const handleChange = (value:string) => setUserId(value) 
-//localhost:3000/dao?user_id=1337&chat_id=1337&votingtype=1&votingtokencontract=3278465ASDW23
+//localhost:3000/dao?user_id=1337&chat_id=1337&address=23746624386&votingtype=1&votingtokencontract=3278465ASDW23&daoname=lol
   return (
     <form onSubmit={applyDao}>
     <FormControl>
       <FormLabel htmlFor='TGID'>Enter data: </FormLabel>
       <Input id="user_id" type="text" placeholder="Your Telegram ID" required  onChange={(e) => setUserId(parseInt(e.target.value))} value = {user_id} my={3}/>
       <Input id="chat_id" type="text" placeholder="Chat's Telegram ID"required  onChange={(e) => setChatId(parseInt(e.target.value))} value = {chat_id} my={3}/>
+      <Input id="DAOaddress" type="text" placeholder="Your Multisig address"required  onChange={(e) => setDAOaddress(e.target.value)} value= {DAOaddress}  my={3}/>
+
       <Select id="votingtype" placeholder="Select voting token's type:" onChange={(e) => setVotingType(e.target.value)} value= {votingType}  my={3}>
       <option value='0'>ERC20</option>
       <option value='1'>ERC20Snapshot</option>
       <option value='2'>ERC721</option>
       </Select>
       <Input id="votingtokencontract" placeholder="Voting token's contract address" type="text" required  onChange={(e) => setVotingTokenContract(e.target.value)} value = {votingTokenContract} my={3}/>
+      <Input id="daoname" placeholder="Your DAO name" type="text" required  onChange={(e) => setDAOname(e.target.value)} value = {DAOname} my={3}/>
       <Button type="submit" isDisabled={!currentAccount}>Apply DAO for Union</Button>
     </FormControl>
     </form>

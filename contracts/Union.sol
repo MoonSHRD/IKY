@@ -15,6 +15,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 
 
 // relative imports (for building ABI and go) -- use it for build
@@ -24,6 +25,7 @@ import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 import "../node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "../node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
+import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
 */
 
 
@@ -31,6 +33,7 @@ import "./TGPassport.sol";
 
 contract Union is Ownable {
 
+    using Counters for Counters.Counter;
 
     uint private _passportFee;
     address private _owner = owner();
@@ -38,7 +41,8 @@ contract Union is Ownable {
     bytes4 private constant _INTERFACE_ID_IERC721ENUMERABLE = 0x780e9d63;
 
     // events
-    event ApplicationForJoin(int chat_id, int applier_id,address multy_wallet_address,VotingType vote_type, address voting_token_address, string group_name);
+    event ApplicationForJoin(int64 chat_id, int64 applier_id,address multy_wallet_address,VotingType vote_type, address voting_token_address, string group_name);
+    event ApplicationForJoinIndexed(int64 indexed chat_id, int64 applier_id,address multy_wallet_address,VotingType vote_type, address voting_token_address, string group_name);
     event ApprovedJoin(int chat_id,address multy_wallet_address,VotingType vote_type, address voting_token_address, string group_name);
     event DeclinedApplication(int chat_id,address multy_wallet_address,VotingType vote_type, address voting_token_address, string group_name);
 
@@ -51,7 +55,7 @@ contract Union is Ownable {
     // Meta information about dao
     struct DAO {
       address chatOwnerAddress;
-      int tgId;
+      int64 tgId;
       bool valid;
       address multisigAddress;
       VotingType votingType;
@@ -65,10 +69,22 @@ contract Union is Ownable {
     constructor(address passportContract_){
         _passportContract = passportContract_;
         tgpassport = TGPassport(passportContract_);
+
+        /*
+        if (block.chainid == uint(4)) {
+          tgpassport.
+          ApplyForUnion(1111,1234567,address(0x0),VotingType.erc20,address(0x0),"bolvanka");
+          ApproveJoin(address(0x0));
+        }
+        */
     }
 
     // TODO: import Multisig contract, make sure we map tgid to multisig contract, not address!
-    mapping (int => address) public daoAddresses;
+    mapping (int64 => address) public daoAddresses;
+
+    int64[] public Chat_id_array;
+
+    Counters.Counter dao_count;
 
     // mapping from multisig address to attached meta-info
     mapping(address => DAO) public daos;
@@ -90,7 +106,7 @@ contract Union is Ownable {
     *   @param votingType_ -- represents voting token's type: 0=erc20 1=erc20Snapshot 2=erc721
     *   @param dao_name_ -- string name of group chat. can be uses as a link (if link is https://t.me/eth_ru then name is @eth_ru)
     */
-    function ApplyForUnion (int applyerTg, int daoTg, address dao_, VotingType votingType_, address votingTokenContract_, string memory dao_name_) public payable {
+    function ApplyForUnion (int64 applyerTg, int64 daoTg, address dao_, VotingType votingType_, address votingTokenContract_, string memory dao_name_) public payable {
       // TODO: add require for check if dao is a gnosis safe multisig! (check support interface?)
       // require(...)
       
@@ -118,6 +134,8 @@ contract Union is Ownable {
       require(org.valid == false, "already has been approved OR didn't applied at all");
       org.valid = true;
       daos[daoAddress] = org;
+      dao_count.increment();
+      Chat_id_array.push(org.tgId);
       emit ApprovedJoin(org.tgId,org.multisigAddress,org.votingType,org.votingToken, org.group_name);
     }
 
@@ -129,9 +147,6 @@ contract Union is Ownable {
        // daoAddresses[org.tgId] = address(0x0);
         emit DeclinedApplication(org.tgId,org.multisigAddress,org.votingType,org.votingToken, org.group_name);
     }
-
-
-
 
 
     function  _checkStandardVotingToken(VotingType votingType_, address votingTokenContract_) internal view returns (bool success) {
@@ -147,5 +162,15 @@ contract Union is Ownable {
       // TODO: add check for snapshot
     }
 
+
+  function getDaoAddressbyChatId(int64 chat_id) public view returns (address) {
+        address dao = daoAddresses[chat_id];
+        return dao;
+    }
+
+
+  function getDaoCount() public view returns (uint256) {
+     return dao_count.current();
+  }
 
 }

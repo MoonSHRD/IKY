@@ -100,21 +100,21 @@ const Home: NextPage = () => {
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Attach CHAT from telegram to collective wallet</Heading>
           <ApplyDaoTG 
-            addressContract='0x2dd8C9F4Bb2b411d4b44b1Ca685066B86EF4A87e'
+            addressContract='0xC3DD310b621c12D750A5F8f6fD00039f557968dF'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Approve user intent for registration personal wallet address</Heading>
           <ApproveDaoTG 
-            addressContract='0x2dd8C9F4Bb2b411d4b44b1Ca685066B86EF4A87e'
+            addressContract='0xC3DD310b621c12D750A5F8f6fD00039f557968dF'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Decline user intent for registration personal wallet address</Heading>
           <DeclineDAOTG 
-            addressContract='0x2dd8C9F4Bb2b411d4b44b1Ca685066B86EF4A87e'
+            addressContract='0xC3DD310b621c12D750A5F8f6fD00039f557968dF'
             currentAccount={currentAccount}
           />
         </Box>
