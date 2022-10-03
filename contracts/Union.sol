@@ -69,10 +69,20 @@ contract Union is Ownable {
     constructor(address passportContract_){
         _passportContract = passportContract_;
         tgpassport = TGPassport(passportContract_);
+
+        /*
+        if (block.chainid == uint(4)) {
+          tgpassport.
+          ApplyForUnion(1111,1234567,address(0x0),VotingType.erc20,address(0x0),"bolvanka");
+          ApproveJoin(address(0x0));
+        }
+        */
     }
 
     // TODO: import Multisig contract, make sure we map tgid to multisig contract, not address!
     mapping (int64 => address) public daoAddresses;
+
+    int64[] public Chat_id_array;
 
     Counters.Counter dao_count;
 
@@ -125,6 +135,7 @@ contract Union is Ownable {
       org.valid = true;
       daos[daoAddress] = org;
       dao_count.increment();
+      Chat_id_array.push(org.tgId);
       emit ApprovedJoin(org.tgId,org.multisigAddress,org.votingType,org.votingToken, org.group_name);
     }
 
@@ -136,9 +147,6 @@ contract Union is Ownable {
        // daoAddresses[org.tgId] = address(0x0);
         emit DeclinedApplication(org.tgId,org.multisigAddress,org.votingType,org.votingToken, org.group_name);
     }
-
-
-
 
 
     function  _checkStandardVotingToken(VotingType votingType_, address votingTokenContract_) internal view returns (bool success) {
