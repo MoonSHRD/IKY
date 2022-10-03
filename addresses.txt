@@ -1,6 +1,16 @@
 Rinkeby:
-TGPassport deployed to: 0x2658da2258849ad6a2104704F4f085644aD45d0D
-Union deployed to: 0x9024cF0a889233Af1fd4afaF949d5aF8C633D7fc
+TGPassport deployed to: 0x7BE8690ea69AA814CEf5F656Ae422cFA5fC14EE2
+Union deployed to: 0x1CE01fc6d7f23234296CeEBB8379a631105fdc61
+Sample erc20 deployed to:  0x4d164c9588d406ef6bB74d57f345277c88Eb5765
+owner address: 0x16d97A46030C5D3D705bca45439e48529997D8b2
+
+Test data in Rinkeby:
+registred user tgid: 1234
+registred user_name: "test_username"
+registred dao_username: "test_dao_username"
+registred chat tg_id: 12345
+approved dao address: 0x4d164c9588d406ef6bB74d57f345277c88Eb5765   //WARN: it's a token contract not a dao, I've just used it for test address
+
 
 Admin rinkeby address: 0x16d97A46030C5D3D705bca45439e48529997D8b2
 
