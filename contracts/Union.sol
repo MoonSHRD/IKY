@@ -82,7 +82,7 @@ contract Union is Ownable {
     // TODO: import Multisig contract, make sure we map tgid to multisig contract, not address!
     mapping (int64 => address) public daoAddresses;
 
-    int64[] Chat_id_array;
+    int64[] public Chat_id_array;
 
     Counters.Counter dao_count;
 
