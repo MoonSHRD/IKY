@@ -12,7 +12,7 @@ describe("TGPassport", function () {
 
   before(async () => {
     [owner, user1, user2] = await ethers.getSigners();
-    tgid1 = "@vouter1";
+    tgid1 = 666;
     tgUserName1 = "username1";
     tgUserName2 = "username2";
     provider = waffle.provider;

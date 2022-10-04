@@ -10,18 +10,19 @@ describe("Union", function () {
     ERC20Sample,
     erc20sample,
     applyerTg,
+    daoName,
     daoTg;
   let owner, user1, dao;
 
-  let tgUserName1, tgUserName2;
+  let tgUserName1;
 
   const passportFee = toWei(1);
 
   before(async () => {
-    applyerTg = "@voter1";
-    daoTg = "@gov";
+    daoName = "SuperDAO";
+    applyerTg = 666;
+    daoTg = 777;
     tgUserName1 = "username1";
-    tgUserName2 = "username2";
     [owner, user1, dao] = await ethers.getSigners();
     ERC20Sample = await ethers.getContractFactory("ERC20Sample");
     erc20sample = await ERC20Sample.deploy("Token", "TKN");
@@ -55,9 +56,17 @@ describe("Union", function () {
   it("should apply for union with erc20", async () => {
     const apply = await union
       .connect(owner)
-      .ApplyForUnion(applyerTg, daoTg, dao.address, 0, erc20sample.address, {
-        value: passportFee,
-      });
+      .ApplyForUnion(
+        applyerTg,
+        daoTg,
+        dao.address,
+        0,
+        erc20sample.address,
+        daoName,
+        {
+          value: passportFee,
+        }
+      );
     const receipt = await apply.wait();
     expect(receipt.events[0].event).to.equal("ApplicationForJoin");
     expect(daoTg).to.equal(receipt.events[0].args.chat_id);
@@ -79,7 +88,6 @@ describe("Union", function () {
     const approve = await union.connect(owner).ApproveJoin(dao.address);
     const receipt = await approve.wait();
     expect(receipt.events[0].event).to.equal("ApprovedJoin");
-    expect(daoTg).to.equal(receipt.events[0].args.chat_id);
     expect(dao.address).to.equal(receipt.events[0].args.multy_wallet_address);
     expect(receipt.events[0].args.vote_type).to.equal(0);
     expect(erc20sample.address).to.equal(
