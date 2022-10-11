@@ -17,16 +17,15 @@ contract TGPassport is Ownable {
       bool valid;
       address validatorAddress;
       string userName; // can be changed, do not trust it
-     // int64[] itrust_to; // I trust somebody
-     // int64[] trusted_by; // somebody trust me
    }
+
 
    //mappings
    mapping(int64 => address) public tgIdToAddress;
    mapping(address => Passport) public passports;
    mapping(string => address) public username_wallets;  // usernames can be changed, do not trust it, use as utility
-   mapping(int64 => int64[]) public itrust_to_global; // I trust somebody
-   mapping(int64 => int64[]) public trusted_by_global; // somebody trust me
+   
+   mapping (int64 => mapping(int64 => bool)) public trust_global;
  
    // EVENTS
    //
@@ -83,8 +82,7 @@ contract TGPassport is Ownable {
         int64 _tgId = passports[passportToApprove].tgId;
         string memory user_name_ = passports[passportToApprove].userName;
         require(passports[passportToApprove].valid == false, "already approved OR do not exists yet");
-        int64[] storage itrust = itrust_to_global[_tgId];
-        itrust.push(_tgId);
+        trust_global[_tgId][_tgId] == true;
         passports[passportToApprove] = Passport(passportToApprove, _tgId, true, msg.sender, user_name_);  
         emit passportApproved(_tgId,passportToApprove,msg.sender);
    }
@@ -111,7 +109,7 @@ contract TGPassport is Ownable {
       int64 _tgId = passports[passportToDecline].tgId;
       string memory user_name_ = passports[passportToDecline].userName;
       uint chainID = block.chainid;
-      require(chainID == uint(4), "this function work's only for testnet");
+      require(chainID == uint(5), "this function work's only for testnet");  
      // require(passports[passportToDecline].valid == false, "already approved OR do not exists yet"); // it also means that record exists
       delete passports[passportToDecline];
       delete tgIdToAddress[_tgId];
@@ -122,16 +120,100 @@ contract TGPassport is Ownable {
 
       /**
        * 
-       *  @dev this function is to show trust to other user
+       *  @dev this INTERNAL function is to show trust to other user
+       *  @param from tgid user who trust
+       *  @param to tgid user who trusted by
        */
-      function ITrustTo(int64 from, int64 to)  public {
-         address from_ = GetPassportWalletByID(from);
-         Passport memory p_from = GetPassportByAddress(from_);
-         address to_ = GetPassportWalletByID(to);
-         Passport memory p_to = GetPassportByAddress(to_);
-         
+      function _ITrustTo(int64 from, int64 to)  internal {
+         trust_global[from][to] = true;
+      }
+
+      /**
+       *   @dev this INTERNAL function is to DISRESPECT youser
+       *   by DEFAULT you are TRUST NO 0NE!
+       *   @param from tgid user who DONT TRUST
+       *   @param to tgid user who looks suspiciouse
+       */
+      function _INotTrust(int64 from, int64 to) internal {
+         trust_global[from][to] = false;
+      }
+
+
+
+      /**
+       *  @dev this is PUBLIC function to TRUST username
+       * by default you TRUST NO 0NE
+       * @param my_username string nickname... can be changed, UNEXPECTING BEHAVIOUR when nickname taken away
+       * @param friend_name string nickname of a friend.. can be changed
+       */
+      function ITrustUsername(string memory my_username, string memory friend_name) public {
+
+         Passport memory my_p = GetPassportByNickName(my_username);
+         address my_address = my_p.userAddress;
+         require(my_address == msg.sender, "Your current address mismatch with your tgid");
+         int64 my_id = my_p.tgId;
+         Passport memory to_p = GetPassportByNickName(friend_name);
+         address friend_address = to_p.userAddress;
+         int64 friend_id = to_p.tgId;
+         require(tgIdToAddress[friend_id] == friend_address, "friend username/id missmatch with correspodning address, possible hack");
+         int64 to_id = friend_id;
+         _ITrustTo(my_id,to_id);
+      }
+
+
+      /**
+       *  @dev this is PUBLIC function to TRUST username
+       * by default you TRUST NO 0NE
+       * @param my_username string nickname... can be changed, UNEXPECTING BEHAVIOUR when nickname taken away
+       * @param enemy_name string nickname of a enemy.. can be changed .. 
+       */
+      function INOTTrustUsername(string memory my_username, string memory enemy_name)  public {
+
+         Passport memory my_p = GetPassportByNickName(my_username);
+         address my_address = my_p.userAddress;
+         require(my_address == msg.sender, "Your current address mismatch with your tgid");
+         int64 my_id = my_p.tgId;
+         Passport memory to_p = GetPassportByNickName(enemy_name);
+         address enemy_address = to_p.userAddress;
+         int64 enemy_id = to_p.tgId;
+         require(tgIdToAddress[enemy_id] == enemy_address, "enemy_name username/id missmatch with correspodning address, possible hack");
+         int64 to_id = enemy_id;
+         _INotTrust(my_id,to_id);         
          
       }
+
+
+      /**
+       *  @notice this is public function to trust some address
+       *  this function is more secured than trust some username
+       *  @param friend_address is wallet address of a friend
+       */
+      function ITrustAddress(address friend_address) public {
+         Passport memory my_p = GetPassportByAddress(msg.sender);
+         address my_address = my_p.userAddress;
+         require(my_address == msg.sender, "Your current address mismatch with your registred wallet address");
+         int64 my_id = my_p.tgId;
+         Passport memory to_p = GetPassportByAddress(friend_address);
+         int64 to_id = to_p.tgId;
+         _ITrustTo(my_id,to_id);
+      }
+
+
+      /**
+       *  @notice this is a public function to NOT to trust some address
+       *  @param enemy_address this is a function to not to trust suspiciouse address 
+       *  by default you TRUST N0 0NE
+       */
+      function INOTTrustAddress(address enemy_address) public  {
+         Passport memory my_p = GetPassportByAddress(msg.sender);
+         address my_address = my_p.userAddress;
+         require(my_address == msg.sender, "Your current address mismatch with your registred wallet address");
+         int64 my_id = my_p.tgId;
+         Passport memory to_p = GetPassportByAddress(enemy_address);
+         int64 to_id = to_p.tgId;
+         _INotTrust(my_id,to_id);
+      }
+
 
 
 
@@ -153,6 +235,12 @@ contract TGPassport is Ownable {
 
    function GetPassportWalletByID(int64 tgId_) public view returns(address){
       return tgIdToAddress[tgId_];
+   }
+
+   function GetTgIdByAddress(address user_wallet) public view returns(int64 tgid) {
+      Passport memory p = GetPassportByAddress(user_wallet);
+      tgid = p.tgId;
+      return tgid;
    }
 
    function GetPassportByAddress(address user_wallet) public view returns(Passport memory) {
