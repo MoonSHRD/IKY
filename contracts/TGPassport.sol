@@ -17,12 +17,16 @@ contract TGPassport is Ownable {
       bool valid;
       address validatorAddress;
       string userName; // can be changed, do not trust it
+      int64[] itrust_to; // I trust somebody
+      int64[] trusted_by; // somebody trust me
    }
 
    //mappings
    mapping(int64 => address) public tgIdToAddress;
    mapping(address => Passport) public passports;
    mapping(string => address) public username_wallets;  // usernames can be changed, do not trust it, use as utility
+  // mapping(int64 => []int64) public itrust_to; // I trust somebody
+  // mapping(int64 => []int64) public trusted_by; // somebody trust me
  
    // EVENTS
    //
@@ -63,7 +67,11 @@ contract TGPassport is Ownable {
       address applyerAddress = msg.sender;      // ЛИЧНАЯ ПОДАЧА ПАСПОРТА В ТРЕТЬЕ ОКОШКО МФЦ
       _updateAddress(applyerTg,applyerAddress,user_name_);  
       require (msg.value == _passportFee, "Passport fee is not paid");
-      passports[msg.sender] = Passport(applyerAddress, applyerTg, false, address(0x0),user_name_);
+      int64[] memory itrust;
+      int64[] memory trusted_by;
+      itrust[0] = applyerTg;
+      trusted_by[0] = applyerTg;
+      passports[msg.sender] = Passport(applyerAddress, applyerTg, false, address(0x0),user_name_,itrust,trusted_by);
       emit passportApplied(applyerTg, msg.sender);
       emit passportAppliedIndexed(applyerTg, msg.sender);
       (bool feePaid,) = _owner.call{value: _passportFee}("");
@@ -78,7 +86,9 @@ contract TGPassport is Ownable {
         int64 _tgId = passports[passportToApprove].tgId;
         string memory user_name_ = passports[passportToApprove].userName;
         require(passports[passportToApprove].valid == false, "already approved OR do not exists yet");
-        passports[passportToApprove] = Passport(passportToApprove, _tgId, true, msg.sender, user_name_);  
+        int64[] memory itrust = passports[passportToApprove].itrust_to;
+        int64[] memory trusted_by = passports[passportToApprove].trusted_by;
+        passports[passportToApprove] = Passport(passportToApprove, _tgId, true, msg.sender, user_name_,itrust,trusted_by);  
         emit passportApproved(_tgId,passportToApprove,msg.sender);
    }
 
@@ -111,6 +121,20 @@ contract TGPassport is Ownable {
       delete username_wallets[user_name_];
       emit passportDenied(_tgId,passportToDecline);
    }  
+
+
+      /**
+       * 
+       *  @dev this function is to show trust to other user
+       */
+      function ITrustTo(int64 from, int64 to)  public {
+         address from_ = GetPassportWalletByID(from);
+         Passport memory p_from = GetPassportByAddress(from_);
+         address to_ = GetPassportWalletByID(to);
+         Passport memory p_to = GetPassportByAddress(to_);
+         
+         
+      }
 
 
 
