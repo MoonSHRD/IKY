@@ -124,7 +124,7 @@ contract Union is Ownable {
       (bool feePaid,) = _owner.call{value: _passportFee}("");  
       require(feePaid, "Unable to transfer fee");
       require (msg.value == _passportFee, "Passport fee is not paid");
-      emit ApplicationForJoin(daoTg,applyerTg,dao_,votingType_,votingTokenContract_, dao_name_);
+      emit ApplicationForJoinIndexed(daoTg,applyerTg,dao_,votingType_,votingTokenContract_, dao_name_);
    }
 
 
