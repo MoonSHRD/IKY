@@ -39,7 +39,7 @@ type TGPassportPassport struct {
 
 // PassportMetaData contains all meta data concerning the Passport contract.
 var PassportMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"int64\",\"name\":\"applyerTg\",\"type\":\"int64\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"wallet_address\",\"type\":\"address\"}],\"name\":\"passportApplied\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"int64\",\"name\":\"applyerTg\",\"type\":\"int64\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"wallet_address\",\"type\":\"address\"}],\"name\":\"passportAppliedIndexed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"int256\",\"name\":\"applyerTg\",\"type\":\"int256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"wallet_address\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"issuer\",\"type\":\"address\"}],\"name\":\"passportApproved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"int256\",\"name\":\"applyerTg\",\"type\":\"int256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"}],\"name\":\"passportDenied\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"int64\",\"name\":\"applyerTg\",\"type\":\"int64\"},{\"internalType\":\"string\",\"name\":\"user_name_\",\"type\":\"string\"}],\"name\":\"ApplyForPassport\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"passportToApprove\",\"type\":\"address\"}],\"name\":\"ApprovePassport\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"passportToDecline\",\"type\":\"address\"}],\"name\":\"DeclinePassport\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"passportToDecline\",\"type\":\"address\"}],\"name\":\"DeletePassport\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"GetOwner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user_wallet\",\"type\":\"address\"}],\"name\":\"GetPassportByAddress\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"userAddress\",\"type\":\"address\"},{\"internalType\":\"int64\",\"name\":\"tgId\",\"type\":\"int64\"},{\"internalType\":\"bool\",\"name\":\"valid\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"validatorAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"userName\",\"type\":\"string\"}],\"internalType\":\"structTGPassport.Passport\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"user_name_\",\"type\":\"string\"}],\"name\":\"GetPassportByNickName\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"userAddress\",\"type\":\"address\"},{\"internalType\":\"int64\",\"name\":\"tgId\",\"type\":\"int64\"},{\"internalType\":\"bool\",\"name\":\"valid\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"validatorAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"userName\",\"type\":\"string\"}],\"internalType\":\"structTGPassport.Passport\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"GetPassportFee\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"int64\",\"name\":\"tgId_\",\"type\":\"int64\"}],\"name\":\"GetPassportWalletByID\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"user_name_\",\"type\":\"string\"}],\"name\":\"GetWalletByNickName\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"passportFee_\",\"type\":\"uint256\"}],\"name\":\"SetPassportFee\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"new_user_name_\",\"type\":\"string\"}],\"name\":\"UpdateUserName\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"passports\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"userAddress\",\"type\":\"address\"},{\"internalType\":\"int64\",\"name\":\"tgId\",\"type\":\"int64\"},{\"internalType\":\"bool\",\"name\":\"valid\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"validatorAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"userName\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"int64\",\"name\":\"\",\"type\":\"int64\"}],\"name\":\"tgIdToAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"username_wallets\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"int64\",\"name\":\"applyerTg\",\"type\":\"int64\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"wallet_address\",\"type\":\"address\"}],\"name\":\"passportApplied\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"int64\",\"name\":\"applyerTg\",\"type\":\"int64\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"wallet_address\",\"type\":\"address\"}],\"name\":\"passportAppliedIndexed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"int256\",\"name\":\"applyerTg\",\"type\":\"int256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"wallet_address\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"issuer\",\"type\":\"address\"}],\"name\":\"passportApproved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"int256\",\"name\":\"applyerTg\",\"type\":\"int256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"}],\"name\":\"passportDenied\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"int64\",\"name\":\"applyerTg\",\"type\":\"int64\"},{\"internalType\":\"string\",\"name\":\"user_name_\",\"type\":\"string\"}],\"name\":\"ApplyForPassport\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"passportToApprove\",\"type\":\"address\"}],\"name\":\"ApprovePassport\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"passportToDecline\",\"type\":\"address\"}],\"name\":\"DeclinePassport\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"passportToDecline\",\"type\":\"address\"}],\"name\":\"DeletePassport\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"GetOwner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user_wallet\",\"type\":\"address\"}],\"name\":\"GetPassportByAddress\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"userAddress\",\"type\":\"address\"},{\"internalType\":\"int64\",\"name\":\"tgId\",\"type\":\"int64\"},{\"internalType\":\"bool\",\"name\":\"valid\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"validatorAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"userName\",\"type\":\"string\"}],\"internalType\":\"structTGPassport.Passport\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"user_name_\",\"type\":\"string\"}],\"name\":\"GetPassportByNickName\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"userAddress\",\"type\":\"address\"},{\"internalType\":\"int64\",\"name\":\"tgId\",\"type\":\"int64\"},{\"internalType\":\"bool\",\"name\":\"valid\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"validatorAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"userName\",\"type\":\"string\"}],\"internalType\":\"structTGPassport.Passport\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"GetPassportFee\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"int64\",\"name\":\"tgId_\",\"type\":\"int64\"}],\"name\":\"GetPassportWalletByID\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user_wallet\",\"type\":\"address\"}],\"name\":\"GetTgIdByAddress\",\"outputs\":[{\"internalType\":\"int64\",\"name\":\"tgid\",\"type\":\"int64\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"user_name_\",\"type\":\"string\"}],\"name\":\"GetWalletByNickName\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"enemy_address\",\"type\":\"address\"}],\"name\":\"INOTTrustAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"my_username\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"enemy_name\",\"type\":\"string\"}],\"name\":\"INOTTrustUsername\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"friend_address\",\"type\":\"address\"}],\"name\":\"ITrustAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"my_username\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"friend_name\",\"type\":\"string\"}],\"name\":\"ITrustUsername\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"passportFee_\",\"type\":\"uint256\"}],\"name\":\"SetPassportFee\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"new_user_name_\",\"type\":\"string\"}],\"name\":\"UpdateUserName\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"passports\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"userAddress\",\"type\":\"address\"},{\"internalType\":\"int64\",\"name\":\"tgId\",\"type\":\"int64\"},{\"internalType\":\"bool\",\"name\":\"valid\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"validatorAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"userName\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"int64\",\"name\":\"\",\"type\":\"int64\"}],\"name\":\"tgIdToAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"int64\",\"name\":\"\",\"type\":\"int64\"},{\"internalType\":\"int64\",\"name\":\"\",\"type\":\"int64\"}],\"name\":\"trust_global\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"username_wallets\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // PassportABI is the input ABI used to generate the binding from.
@@ -343,6 +343,37 @@ func (_Passport *PassportCallerSession) GetPassportWalletByID(tgId_ int64) (comm
 	return _Passport.Contract.GetPassportWalletByID(&_Passport.CallOpts, tgId_)
 }
 
+// GetTgIdByAddress is a free data retrieval call binding the contract method 0x61cabe37.
+//
+// Solidity: function GetTgIdByAddress(address user_wallet) view returns(int64 tgid)
+func (_Passport *PassportCaller) GetTgIdByAddress(opts *bind.CallOpts, user_wallet common.Address) (int64, error) {
+	var out []interface{}
+	err := _Passport.contract.Call(opts, &out, "GetTgIdByAddress", user_wallet)
+
+	if err != nil {
+		return *new(int64), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(int64)).(*int64)
+
+	return out0, err
+
+}
+
+// GetTgIdByAddress is a free data retrieval call binding the contract method 0x61cabe37.
+//
+// Solidity: function GetTgIdByAddress(address user_wallet) view returns(int64 tgid)
+func (_Passport *PassportSession) GetTgIdByAddress(user_wallet common.Address) (int64, error) {
+	return _Passport.Contract.GetTgIdByAddress(&_Passport.CallOpts, user_wallet)
+}
+
+// GetTgIdByAddress is a free data retrieval call binding the contract method 0x61cabe37.
+//
+// Solidity: function GetTgIdByAddress(address user_wallet) view returns(int64 tgid)
+func (_Passport *PassportCallerSession) GetTgIdByAddress(user_wallet common.Address) (int64, error) {
+	return _Passport.Contract.GetTgIdByAddress(&_Passport.CallOpts, user_wallet)
+}
+
 // GetWalletByNickName is a free data retrieval call binding the contract method 0xd2114e18.
 //
 // Solidity: function GetWalletByNickName(string user_name_) view returns(address)
@@ -496,6 +527,37 @@ func (_Passport *PassportCallerSession) TgIdToAddress(arg0 int64) (common.Addres
 	return _Passport.Contract.TgIdToAddress(&_Passport.CallOpts, arg0)
 }
 
+// TrustGlobal is a free data retrieval call binding the contract method 0x239f60fa.
+//
+// Solidity: function trust_global(int64 , int64 ) view returns(bool)
+func (_Passport *PassportCaller) TrustGlobal(opts *bind.CallOpts, arg0 int64, arg1 int64) (bool, error) {
+	var out []interface{}
+	err := _Passport.contract.Call(opts, &out, "trust_global", arg0, arg1)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// TrustGlobal is a free data retrieval call binding the contract method 0x239f60fa.
+//
+// Solidity: function trust_global(int64 , int64 ) view returns(bool)
+func (_Passport *PassportSession) TrustGlobal(arg0 int64, arg1 int64) (bool, error) {
+	return _Passport.Contract.TrustGlobal(&_Passport.CallOpts, arg0, arg1)
+}
+
+// TrustGlobal is a free data retrieval call binding the contract method 0x239f60fa.
+//
+// Solidity: function trust_global(int64 , int64 ) view returns(bool)
+func (_Passport *PassportCallerSession) TrustGlobal(arg0 int64, arg1 int64) (bool, error) {
+	return _Passport.Contract.TrustGlobal(&_Passport.CallOpts, arg0, arg1)
+}
+
 // UsernameWallets is a free data retrieval call binding the contract method 0x59cca93b.
 //
 // Solidity: function username_wallets(string ) view returns(address)
@@ -609,6 +671,90 @@ func (_Passport *PassportSession) DeletePassport(passportToDecline common.Addres
 // Solidity: function DeletePassport(address passportToDecline) returns()
 func (_Passport *PassportTransactorSession) DeletePassport(passportToDecline common.Address) (*types.Transaction, error) {
 	return _Passport.Contract.DeletePassport(&_Passport.TransactOpts, passportToDecline)
+}
+
+// INOTTrustAddress is a paid mutator transaction binding the contract method 0x5ddf30d0.
+//
+// Solidity: function INOTTrustAddress(address enemy_address) returns()
+func (_Passport *PassportTransactor) INOTTrustAddress(opts *bind.TransactOpts, enemy_address common.Address) (*types.Transaction, error) {
+	return _Passport.contract.Transact(opts, "INOTTrustAddress", enemy_address)
+}
+
+// INOTTrustAddress is a paid mutator transaction binding the contract method 0x5ddf30d0.
+//
+// Solidity: function INOTTrustAddress(address enemy_address) returns()
+func (_Passport *PassportSession) INOTTrustAddress(enemy_address common.Address) (*types.Transaction, error) {
+	return _Passport.Contract.INOTTrustAddress(&_Passport.TransactOpts, enemy_address)
+}
+
+// INOTTrustAddress is a paid mutator transaction binding the contract method 0x5ddf30d0.
+//
+// Solidity: function INOTTrustAddress(address enemy_address) returns()
+func (_Passport *PassportTransactorSession) INOTTrustAddress(enemy_address common.Address) (*types.Transaction, error) {
+	return _Passport.Contract.INOTTrustAddress(&_Passport.TransactOpts, enemy_address)
+}
+
+// INOTTrustUsername is a paid mutator transaction binding the contract method 0x87234689.
+//
+// Solidity: function INOTTrustUsername(string my_username, string enemy_name) returns()
+func (_Passport *PassportTransactor) INOTTrustUsername(opts *bind.TransactOpts, my_username string, enemy_name string) (*types.Transaction, error) {
+	return _Passport.contract.Transact(opts, "INOTTrustUsername", my_username, enemy_name)
+}
+
+// INOTTrustUsername is a paid mutator transaction binding the contract method 0x87234689.
+//
+// Solidity: function INOTTrustUsername(string my_username, string enemy_name) returns()
+func (_Passport *PassportSession) INOTTrustUsername(my_username string, enemy_name string) (*types.Transaction, error) {
+	return _Passport.Contract.INOTTrustUsername(&_Passport.TransactOpts, my_username, enemy_name)
+}
+
+// INOTTrustUsername is a paid mutator transaction binding the contract method 0x87234689.
+//
+// Solidity: function INOTTrustUsername(string my_username, string enemy_name) returns()
+func (_Passport *PassportTransactorSession) INOTTrustUsername(my_username string, enemy_name string) (*types.Transaction, error) {
+	return _Passport.Contract.INOTTrustUsername(&_Passport.TransactOpts, my_username, enemy_name)
+}
+
+// ITrustAddress is a paid mutator transaction binding the contract method 0xe5122bab.
+//
+// Solidity: function ITrustAddress(address friend_address) returns()
+func (_Passport *PassportTransactor) ITrustAddress(opts *bind.TransactOpts, friend_address common.Address) (*types.Transaction, error) {
+	return _Passport.contract.Transact(opts, "ITrustAddress", friend_address)
+}
+
+// ITrustAddress is a paid mutator transaction binding the contract method 0xe5122bab.
+//
+// Solidity: function ITrustAddress(address friend_address) returns()
+func (_Passport *PassportSession) ITrustAddress(friend_address common.Address) (*types.Transaction, error) {
+	return _Passport.Contract.ITrustAddress(&_Passport.TransactOpts, friend_address)
+}
+
+// ITrustAddress is a paid mutator transaction binding the contract method 0xe5122bab.
+//
+// Solidity: function ITrustAddress(address friend_address) returns()
+func (_Passport *PassportTransactorSession) ITrustAddress(friend_address common.Address) (*types.Transaction, error) {
+	return _Passport.Contract.ITrustAddress(&_Passport.TransactOpts, friend_address)
+}
+
+// ITrustUsername is a paid mutator transaction binding the contract method 0x68789cea.
+//
+// Solidity: function ITrustUsername(string my_username, string friend_name) returns()
+func (_Passport *PassportTransactor) ITrustUsername(opts *bind.TransactOpts, my_username string, friend_name string) (*types.Transaction, error) {
+	return _Passport.contract.Transact(opts, "ITrustUsername", my_username, friend_name)
+}
+
+// ITrustUsername is a paid mutator transaction binding the contract method 0x68789cea.
+//
+// Solidity: function ITrustUsername(string my_username, string friend_name) returns()
+func (_Passport *PassportSession) ITrustUsername(my_username string, friend_name string) (*types.Transaction, error) {
+	return _Passport.Contract.ITrustUsername(&_Passport.TransactOpts, my_username, friend_name)
+}
+
+// ITrustUsername is a paid mutator transaction binding the contract method 0x68789cea.
+//
+// Solidity: function ITrustUsername(string my_username, string friend_name) returns()
+func (_Passport *PassportTransactorSession) ITrustUsername(my_username string, friend_name string) (*types.Transaction, error) {
+	return _Passport.Contract.ITrustUsername(&_Passport.TransactOpts, my_username, friend_name)
 }
 
 // SetPassportFee is a paid mutator transaction binding the contract method 0xd2125bd2.
