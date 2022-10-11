@@ -1,0 +1,4 @@
+TGPassport deployed to: 0x787910Ab455C1c60c56E1e0fB8AbD702D0e0Bea4
+Union deployed to: 0x9E296573FD351881631EB7cdDa709AE9cd27D5CD
+
+goerli deploy by daseinsucks
