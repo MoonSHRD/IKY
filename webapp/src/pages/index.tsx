@@ -96,35 +96,35 @@ const Home: NextPage = () => {
           <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Read ClassToken Info</Heading>
           <ReadPassportContract 
-            addressContract='0x155C672bFdD482F2D67a7cd30e3acDc3e59D5092'
+            addressContract='0x787910Ab455C1c60c56E1e0fB8AbD702D0e0Bea4'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Attach telegram id and username to your wallet</Heading>
           <ApplyPassportTG 
-            addressContract='0x155C672bFdD482F2D67a7cd30e3acDc3e59D5092'
+            addressContract='0x787910Ab455C1c60c56E1e0fB8AbD702D0e0Bea4'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Approve user intent for registration personal wallet address</Heading>
           <ApprovePassportTG 
-            addressContract='0x155C672bFdD482F2D67a7cd30e3acDc3e59D5092'
+            addressContract='0x787910Ab455C1c60c56E1e0fB8AbD702D0e0Bea4'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Decline user intent for registration personal wallet address</Heading>
           <DeclinePassportTG 
-            addressContract='0x155C672bFdD482F2D67a7cd30e3acDc3e59D5092'
+            addressContract='0x787910Ab455C1c60c56E1e0fB8AbD702D0e0Bea4'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Delete ALREADY APPROVED passport (only for test networks)</Heading>
           <DeletePassportTG 
-            addressContract='0x155C672bFdD482F2D67a7cd30e3acDc3e59D5092'
+            addressContract='0x787910Ab455C1c60c56E1e0fB8AbD702D0e0Bea4'
             currentAccount={currentAccount}
           />
         </Box>
