@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import {Button, Input , NumberInput,  NumberInputField,  FormControl,  FormLabel, Text } from '@chakra-ui/react'
 import {ethers} from 'ethers'
-//import {parseEther } from 'ethers/lib/utils'
 import {abi} from '../../../artifacts/contracts/TGPassport.sol/TGPassport.json'
 import { Contract } from "ethers"
-//import { TransactionResponse,TransactionReceipt } from "@ethersproject/abstract-provider"
 
 
 interface Props {
@@ -46,8 +44,6 @@ export default function GetWalletByTelegramNickNameTG(props:Props){
      })
    }
 
-  //const handleChange = (value:string) => setUserId(value)
-  //http://localhost:3000?user_tg_id=1337&user_tg_name=Alice
   return (
     <form onSubmit={getWalletByUsername}>
     <FormControl>
