@@ -233,6 +233,31 @@ contract TGPassport is Ownable {
       }
 
       /**
+       *  @dev since telegram bot can obtain tgid directly from dialog we can use this function to set trust using only tgid's
+       *  
+       */
+      function ITrustID(int64 from, int64 to) public {
+         Passport memory my_p = GetPassportByTgId(from);
+         address my_address = my_p.userAddress;
+         require(my_address == msg.sender, "Your current address mismatch with your registred wallet address");
+         _iTrustTo(from,to);
+         opinion_changed[from].push(to);
+         emit trustedIndexed(from,to);
+      }
+
+      /**
+       *  @dev since telegram bot can obtain tgid directly from dialog we can use this function to set trust using only tgid's
+       */
+      function INotTrustID(int64 from, int64 to) public {
+         Passport memory my_p = GetPassportByTgId(from);
+         address my_address = my_p.userAddress;
+         require(my_address == msg.sender, "Your current address mismatch with your registred wallet address");
+         _iNotTrust(from,to);
+         opinion_changed[from].push(to);
+         emit untrustedIndexed(from,to);
+      }
+
+      /**
        *  @notice get to know if tgid from trust tgid to
        */
       function GetTrust(int64 from, int64 to) public view returns (bool) {
@@ -277,6 +302,12 @@ contract TGPassport is Ownable {
    function GetPassportByNickName(string memory user_name_) public view returns (Passport memory) {
       address wallet_ = GetWalletByNickName(user_name_);
       Passport memory p = passports[wallet_];
+      return p;
+   }
+
+   function GetPassportByTgId(int64 tgId_) public view returns (Passport memory) {
+      address wallet = GetPassportWalletByID(tgId_);
+      Passport memory p = passports[wallet];
       return p;
    }
 
