@@ -5,14 +5,7 @@ import { VStack, Heading, Box, LinkOverlay, LinkBox} from "@chakra-ui/layout"
 import { Text, Button } from '@chakra-ui/react'
 import { useState, useEffect} from 'react'
 import {ethers} from "ethers"
-//import ReadERC20 from 'components/read_contract'
-//import ReadPassportContract from 'components/read_contract'
-//import ApplyPassportTG from 'components/applyPassport'
-import ApplyDaoTG from 'components/applyDao'
-//import ApprovePassportTG from 'components/approvePassport'
-import ApproveDaoTG from 'components/approveDao'
-//import DeclinePassportTG from 'components/declinePassport'
-import DeclineDAOTG from 'components/declineDao'
+import TrustTGID from 'components/trustToID'
 
 declare let window:any
 
@@ -73,10 +66,10 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>My DAPP</title>
+        <title>Set trust/untrust to tg user</title>
       </Head>
 
-      <Heading as="h3"  my={4}>Explore Web3</Heading>          
+      <Heading as="h3"  my={4}>Trust</Heading>          
       <VStack>
         <Box w='100%' my={4}>
         {currentAccount  
@@ -96,29 +89,14 @@ const Home: NextPage = () => {
         </Box>
         :<></>
         }
+        <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
+          <Heading my={4}  fontSize='xl'>Attach telegram id and username to your wallet</Heading>
+          <TrustTGID 
+            addressContract='0x4C663B6968ed01B61f8AD6FBc2940948b0e47eF2'
+            currentAccount={currentAccount}
+          />
+        </Box>
 
-        <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
-          <Heading my={4}  fontSize='xl'>Attach CHAT from telegram to collective wallet</Heading>
-          <ApplyDaoTG 
-            addressContract='0x81e7934CfcB099086637Fc21814e13c11cf54212'
-            currentAccount={currentAccount}
-          />
-        </Box>
-        <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
-          <Heading my={4}  fontSize='xl'>Approve user intent for registration personal wallet address</Heading>
-          <ApproveDaoTG 
-            addressContract='0x81e7934CfcB099086637Fc21814e13c11cf54212'
-            currentAccount={currentAccount}
-          />
-        </Box>
-        <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
-          <Heading my={4}  fontSize='xl'>Decline user intent for registration personal wallet address</Heading>
-          <DeclineDAOTG 
-            addressContract='0x81e7934CfcB099086637Fc21814e13c11cf54212'
-            currentAccount={currentAccount}
-          />
-        </Box>
-        
 
 ...
       </VStack>
