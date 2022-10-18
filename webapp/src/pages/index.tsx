@@ -10,6 +10,7 @@ import ApplyPassportTG from 'components/applyPassport'
 import ApprovePassportTG from 'components/approvePassport'
 import DeclinePassportTG from 'components/declinePassport'
 import DeletePassportTG from 'components/deletePassport'
+import GetWalletUserTG from 'components/getWalletUser'
 
 declare let window:any
 
@@ -128,7 +129,13 @@ const Home: NextPage = () => {
             currentAccount={currentAccount}
           />
         </Box>
-        
+        <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
+          <Heading my={4}  fontSize='xl'>Get eth wallet associated with telegram nickname:</Heading>
+          <GetWalletUserTG 
+            addressContract='0xd081785648b1db05caCe22e6fd6CCE365897b0f2'
+            currentAccount={currentAccount}
+          />
+        </Box>      
 
 ...
       </VStack>
