@@ -25,14 +25,25 @@ contract TGPassport is Ownable {
    mapping(address => Passport) public passports;
    mapping(string => address) public username_wallets;  // usernames can be changed, do not trust it, use as utility
    
-   mapping (int64 => mapping(int64 => bool)) public trust_global;
+   mapping (int64 => mapping(int64 => bool)) public trust_global; // user id => [] user ids => trust
+  
+  /**
+   *   
+   *  1. by defult user  TRUST N0 0NE.
+   *  2. we can get int64[] opinion_changed, so we get array of user who express trust/untrust to specific user
+   *  3. then we can call GetTrust(user_from,user_to) for each of result from opinion_changed, and get arrays of trusters/untrusters attached to specific user
+   *  ..... possibly there is a better way to do it
+   */
+   mapping (int64 => int64[]) public opinion_changed;
  
    // EVENTS
    //
    event passportApplied(int64 applyerTg, address wallet_address);
    event passportAppliedIndexed(int64 indexed applyerTg, address wallet_address);
-   event passportApproved(int applyerTg, address wallet_address, address issuer);
-   event passportDenied(int applyerTg, address wallet);
+   event passportApproved(int64 applyerTg, address wallet_address, address issuer);
+   event passportDenied(int64 applyerTg, address wallet);
+   event trustedIndexed(int64 from, int64 indexed to);
+   event untrustedIndexed(int64 from, int64 indexed to);
 
 
    constructor() Ownable() {
@@ -124,7 +135,7 @@ contract TGPassport is Ownable {
        *  @param from tgid user who trust
        *  @param to tgid user who trusted by
        */
-      function _ITrustTo(int64 from, int64 to)  internal {
+      function _iTrustTo(int64 from, int64 to)  internal {
          trust_global[from][to] = true;
       }
 
@@ -134,7 +145,7 @@ contract TGPassport is Ownable {
        *   @param from tgid user who DONT TRUST
        *   @param to tgid user who looks suspiciouse
        */
-      function _INotTrust(int64 from, int64 to) internal {
+      function _iNotTrust(int64 from, int64 to) internal {
          trust_global[from][to] = false;
       }
 
@@ -157,7 +168,9 @@ contract TGPassport is Ownable {
          int64 friend_id = to_p.tgId;
          require(tgIdToAddress[friend_id] == friend_address, "friend username/id missmatch with correspodning address, possible hack");
          int64 to_id = friend_id;
-         _ITrustTo(my_id,to_id);
+         _iTrustTo(my_id,to_id);
+         opinion_changed[my_id].push(to_id);
+         emit trustedIndexed(my_id,to_id);
       }
 
 
@@ -178,8 +191,9 @@ contract TGPassport is Ownable {
          int64 enemy_id = to_p.tgId;
          require(tgIdToAddress[enemy_id] == enemy_address, "enemy_name username/id missmatch with correspodning address, possible hack");
          int64 to_id = enemy_id;
-         _INotTrust(my_id,to_id);         
-         
+         _iNotTrust(my_id,to_id);
+         opinion_changed[my_id].push(to_id);         
+         emit untrustedIndexed(my_id,to_id);
       }
 
 
@@ -195,7 +209,9 @@ contract TGPassport is Ownable {
          int64 my_id = my_p.tgId;
          Passport memory to_p = GetPassportByAddress(friend_address);
          int64 to_id = to_p.tgId;
-         _ITrustTo(my_id,to_id);
+         _iTrustTo(my_id,to_id);
+         opinion_changed[my_id].push(to_id);
+         emit trustedIndexed(my_id,to_id);
       }
 
 
@@ -211,10 +227,17 @@ contract TGPassport is Ownable {
          int64 my_id = my_p.tgId;
          Passport memory to_p = GetPassportByAddress(enemy_address);
          int64 to_id = to_p.tgId;
-         _INotTrust(my_id,to_id);
+         _iNotTrust(my_id,to_id);
+         opinion_changed[my_id].push(to_id);
+         emit untrustedIndexed(my_id,to_id);
       }
 
-
+      /**
+       *  @notice get to know if tgid from trust tgid to
+       */
+      function GetTrust(int64 from, int64 to) public view returns (bool) {
+         return trust_global[from][to];
+      }
 
 
     /**
@@ -231,7 +254,6 @@ contract TGPassport is Ownable {
         return _passportFee;
     }
 
-   
 
    function GetPassportWalletByID(int64 tgId_) public view returns(address){
       return tgIdToAddress[tgId_];
