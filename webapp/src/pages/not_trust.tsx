@@ -5,8 +5,8 @@ import { VStack, Heading, Box, LinkOverlay, LinkBox} from "@chakra-ui/layout"
 import { Text, Button } from '@chakra-ui/react'
 import { useState, useEffect} from 'react'
 import {ethers} from "ethers"
-import TrustTGID from 'components/trustToID'
-//import NOTTrustTGID from 'components/untrustToID'
+//import TrustTGID from 'components/trustToID'
+import NOTTrustTGID from 'components/untrustToID'
 
 declare let window:any
 
@@ -92,7 +92,7 @@ const Home: NextPage = () => {
         }
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Trust to this user</Heading>
-          <TrustTGID 
+          <NOTTrustTGID 
             addressContract='0x4C663B6968ed01B61f8AD6FBc2940948b0e47eF2'
             currentAccount={currentAccount}
           />
