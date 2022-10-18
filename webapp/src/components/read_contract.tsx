@@ -5,7 +5,6 @@ import {abi} from '../../../artifacts/contracts/TGPassport.sol/TGPassport.json'
 
 import {Contract, ethers} from 'ethers'
 
-//import TGPassport from '../../../../artifacts/contracts/TGPassport.sol/TGPassport.json'
 
 interface Props {
     addressContract: string,
