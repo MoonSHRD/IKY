@@ -70,13 +70,6 @@ contract Union is Ownable {
         _passportContract = passportContract_;
         tgpassport = TGPassport(passportContract_);
 
-        /*
-        if (block.chainid == uint(4)) {
-          tgpassport.
-          ApplyForUnion(1111,1234567,address(0x0),VotingType.erc20,address(0x0),"bolvanka");
-          ApproveJoin(address(0x0));
-        }
-        */
     }
 
     // TODO: import Multisig contract, make sure we map tgid to multisig contract, not address!
@@ -129,7 +122,11 @@ contract Union is Ownable {
    }
 
 
-    // This function intended to be used by bot, cause only bot can check if tg id of multisig owner is eqal of tg id of chat admin
+    
+    /**
+     *  @dev This function intended to be used by bot, cause only bot can check if tg id of multisig owner is eqal of tg id of chat admin
+     *  @param daoAddress address of multisig wallet
+     */
     function ApproveJoin(address daoAddress) public onlyOwner {
       DAO memory org = daos[daoAddress];
       require(org.valid == false, "already has been approved OR didn't applied at all");
@@ -140,6 +137,10 @@ contract Union is Ownable {
       emit ApprovedJoin(org.tgId,org.multisigAddress,org.votingType,org.votingToken, org.group_name);
     }
 
+    /**
+     *  @dev function for decline join (for erase unvalid data as example)
+     *  @param daoAddress address of multisig
+     */
     function DeclineJoin(address daoAddress) public onlyOwner {
         DAO memory org = daos[daoAddress];
         require(org.valid == false, "already has been approved OR didn't applied at all");
@@ -150,6 +151,9 @@ contract Union is Ownable {
     }
 
 
+    /**
+     *  @dev internal function to check interface id of voting token contract
+     */
     function  _checkStandardVotingToken(VotingType votingType_, address votingTokenContract_) internal view returns (bool success) {
       if (votingType_ == VotingType.erc721) {
       (success) = IERC721Enumerable(votingTokenContract_).
@@ -164,6 +168,9 @@ contract Union is Ownable {
     }
 
 
+  /**
+   *  @dev get multisig address by tgid of chat
+   */
   function getDaoAddressbyChatId(int64 chat_id) public view returns (address) {
         address dao = daoAddresses[chat_id];
         return dao;
