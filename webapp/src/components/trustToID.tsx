@@ -57,7 +57,7 @@ async function trustToTgID(event:React.FormEvent) {
     }
   
   //const handleChange = (value:string) => setUserId(value)
-  //http://localhost:3000?user_tg_id=1337&friend_tg_id=1997&friend_user_name=sbekket
+  //http://localhost:3000/trust?user_tg_id=1337&friend_tg_id=1997&friend_user_name=sbekket
 
 
     /*
