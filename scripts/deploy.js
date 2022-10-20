@@ -36,6 +36,8 @@ async function main() {
   await erc20sample.deployed();
   console.log("Sample erc20 deployed to: ", erc20sample.address);
 
+  const dao_test_address = ethers.utils.getAddress("0x9b393D071fa16458cb6CE3256F50eD1D2c776F7D");
+  console.log("test dao address:",dao_test_address);
   const example_address = erc20sample.address;
 
 
@@ -65,7 +67,7 @@ async function main() {
   console.log("approved user wallet :", getPassportWallet2);
 
   const applyForUn = await union.connect(owner)
-  .ApplyForUnion(1234,12345,example_address,0,example_address,"test_dao_username", { value : passportFee});
+  .ApplyForUnion(1234,12345,dao_test_address,0,example_address,"test_dao_username", { value : passportFee});
   const receipt3 = await applyForUn.wait();
  // console.log("receipt for applying dao:", receipt3);
   const getDaoAddress = await union.getDaoAddressbyChatId(12345);
