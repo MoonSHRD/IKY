@@ -57,6 +57,22 @@ async function trustToTgID(event:React.FormEvent) {
              .catch((e:Error) => console.log(e))  
     }
   
+
+/*
+async function switchBool(event:React.FormEvent) {
+    
+}
+*/
+
+    function switchBool(value_) {
+        if (value_ = 0) {
+            setTrust(false)
+        }
+        if(value_ = 1) {
+            setTrust(true)
+        }
+    }
+
   //const handleChange = (value:string) => setUserId(value)
   //http://localhost:3000/trust?user_tg_id=1337&friend_tg_id=1997&friend_user_name=sbekket
 
@@ -75,9 +91,9 @@ async function trustToTgID(event:React.FormEvent) {
       <FormLabel htmlFor='TGID'>Do not change variables </FormLabel>
       <Input id="tgid" type="number" required  onChange={(e) => setUserId(parseInt(e.target.value))} value={user_id} my={3}/>
       <Input id="friend_tgid" type="number" required  onChange={(e) => setFriendId(parseInt(e.target.value))} value={user_id} my={3}/>
-      <Select id="votingtype" placeholder="Select voting token's type:" onChange={(e) => setTrust(e.target.value)}   my={3}>
-      <option value='true'>Trust this user</option>
-      <option value='false'>Not trust this user</option>
+      <Select id="votingtype" placeholder="Select voting token's type:" onChange={(e) => switchBool(e.target.value)}   my={3}>
+      <option value='1'>Trust this user</option>
+      <option value='0'>Not trust this user</option>
       </Select>
       <Button type="submit" isDisabled={!currentAccount}>Trust this ID!</Button>
     </FormControl>
