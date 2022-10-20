@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {Button, Input , NumberInput,  NumberInputField,  FormControl,  FormLabel, Text } from '@chakra-ui/react'
+import {Button, Input , NumberInput,  NumberInputField,  FormControl,  FormLabel, Text, Select } from '@chakra-ui/react'
 import {ethers} from 'ethers'
 import {parseEther } from 'ethers/lib/utils'
 import {abi} from '../../../artifacts/contracts/TGPassport.sol/TGPassport.json'
@@ -22,6 +22,7 @@ export default function TrustTGID(props:Props){
   var [friend_id, setFriendId] = useState(0)
  // var [user_name, setUserName] = useState<string>("")
   var [friend_user_name,setFriendUserName] = useState<string>("")
+  var [trust_option, setTrust] = useState<Boolean>(false)
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -56,8 +57,24 @@ async function trustToTgID(event:React.FormEvent) {
              .catch((e:Error) => console.log(e))  
     }
   
+
+/*
+async function switchBool(event:React.FormEvent) {
+    
+}
+*/
+
+    function switchBool(value_) {
+        if (value_ = 0) {
+            setTrust(false)
+        }
+        if(value_ = 1) {
+            setTrust(true)
+        }
+    }
+
   //const handleChange = (value:string) => setUserId(value)
-  //http://localhost:3000?user_tg_id=1337&friend_tg_id=1997&friend_user_name=sbekket
+  //http://localhost:3000/trust?user_tg_id=1337&friend_tg_id=1997&friend_user_name=sbekket
 
 
     /*
@@ -74,7 +91,10 @@ async function trustToTgID(event:React.FormEvent) {
       <FormLabel htmlFor='TGID'>Do not change variables </FormLabel>
       <Input id="tgid" type="number" required  onChange={(e) => setUserId(parseInt(e.target.value))} value={user_id} my={3}/>
       <Input id="friend_tgid" type="number" required  onChange={(e) => setFriendId(parseInt(e.target.value))} value={user_id} my={3}/>
-
+      <Select id="votingtype" placeholder="Select voting token's type:" onChange={(e) => switchBool(e.target.value)}   my={3}>
+      <option value='1'>Trust this user</option>
+      <option value='0'>Not trust this user</option>
+      </Select>
       <Button type="submit" isDisabled={!currentAccount}>Trust this ID!</Button>
     </FormControl>
     </form>
