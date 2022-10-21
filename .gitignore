@@ -4,6 +4,8 @@ secret.json
 coverage
 coverage.json
 typechain
+/webapp/webapp/.next
+
 #Hardhat files
 cache
 
