@@ -30,6 +30,8 @@ it will create test enviroment like an early bundle truffle+ganache
 solc --abi --bin ./contracts/TGPassport.sol -o build ..=.. --overwrite --allow-paths *,/node_modules/,
 
 solc --abi --bin ./contracts/Union.sol -o build ..=.. --overwrite --allow-paths *,/node_modules/,
+solc --abi --bin ./contracts/erc20/ERC20Sample.sol -o build ..=.. --overwrite --allow-paths *,/node_modules/,
+
 
 ```
 
@@ -37,6 +39,8 @@ solc --abi --bin ./contracts/Union.sol -o build ..=.. --overwrite --allow-paths 
 ```
 abigen --abi="build/TGPassport.abi" --pkg=Passport --out="./go/TGPassport.go"
 abigen --abi="build/Union.abi" --pkg=Union --out="./go/Union.go"
+abigen --abi="build/ERC20Sample.abi" --pkg=TokenERC20 --out="./go/ERC20.go"
+
 ```
 
 # Advanced Sample Hardhat Project
