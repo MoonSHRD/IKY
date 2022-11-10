@@ -7,10 +7,9 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 
 // direct imports, use it for go generation
-/*
-import "../../node_modules/@openzeppelin/contracts/access/Ownable.sol";
-import "../../node_modules/@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
-*/
+//import "../../node_modules/@openzeppelin/contracts/access/Ownable.sol";
+//import "../../node_modules/@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
+
 
 abstract contract ERC20VotesSample is ERC20Votes, Ownable {
     constructor(uint256 initialSupply)

@@ -32,6 +32,7 @@ solc --abi --bin ./contracts/TGPassport.sol -o build ..=.. --overwrite --allow-p
 solc --abi --bin ./contracts/Union.sol -o build ..=.. --overwrite --allow-paths *,/node_modules/,
 solc --abi --bin ./contracts/erc20/ERC20Sample.sol -o build ..=.. --overwrite --allow-paths *,/node_modules/,
 solc --abi --bin ./contracts/erc721/ERC721Sample.sol -o build ..=.. --overwrite --allow-paths *,/node_modules/,
+solc --abi --bin ./contracts/erc20Votes/ERC20VotesSample.sol -o build ..=.. --overwrite --allow-paths *,/node_modules/, 
 
 
 ```
@@ -42,6 +43,7 @@ abigen --abi="build/TGPassport.abi" --pkg=Passport --out="./go/TGPassport.go"
 abigen --abi="build/Union.abi" --pkg=Union --out="./go/Union.go"
 abigen --abi="build/ERC20Sample.abi" --pkg=TokenERC20 --out="./go/ERC20.go"
 abigen --abi="build/ERC721Sample.abi" --pkg=TokenERC721 --out="./go/ERC721.go"
+abigen --abi="build/ERC20VotesSample.abi" --pkg=TokenERC20Votes --out="./go/ERC20Votes.go"
 
 
 ```
