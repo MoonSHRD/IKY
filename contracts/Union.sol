@@ -164,7 +164,7 @@ contract Union is Ownable {
         (success) = IERC20Metadata(votingTokenContract_).decimals() == 18;
       }
       // TODO: add check for snapshot
-      
+
     }
 
 
