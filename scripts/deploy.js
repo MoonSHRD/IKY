@@ -32,9 +32,15 @@ async function main() {
   console.log("Union deployed to:", union.address);
 
   const ERC20Sample = await ethers.getContractFactory("ERC20Sample");
-  const erc20sample = await ERC20Sample.deploy("Token", "TKN");
+  let initialSupply = toWei(100);
+  const erc20sample = await ERC20Sample.deploy("Token", "TKN", initialSupply);
   await erc20sample.deployed();
   console.log("Sample erc20 deployed to: ", erc20sample.address);
+
+  //const ERC20Votes = await ethers.getContractFactory("ERC20VotesSample");
+  //const erc20VotesSample = await ERC20Votes.deploy(initialSupply);
+  //await erc20VotesSample.deployed();
+  //console.log("Sample Votes ERC20 deployed to:", erc20VotesSample.address);
 
   const dao_test_address = ethers.utils.getAddress("0x9b393D071fa16458cb6CE3256F50eD1D2c776F7D");
   console.log("test dao address:",dao_test_address);
@@ -52,6 +58,7 @@ async function main() {
 
 
   // for test data:
+  // passports:
   const applyForPass = await tgpassport.connect(owner)
   .ApplyForPassport(1234,"test_username", { value : passportFee});
   const receipt = await applyForPass.wait();
@@ -66,6 +73,12 @@ async function main() {
   const getPassportWallet2 = await tgpassport.GetWalletByNickName("test_username");
   console.log("approved user wallet :", getPassportWallet2);
 
+ 
+
+
+
+
+  // daos:
   const applyForUn = await union.connect(owner)
   .ApplyForUnion(1234,12345,dao_test_address,0,example_address,"test_dao_username", { value : passportFee});
   const receipt3 = await applyForUn.wait();

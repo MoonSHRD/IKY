@@ -17,11 +17,11 @@ import "../../node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol";
 */
 
 contract ERC20Sample is ERC20, Ownable {
-    constructor(string memory name_, string memory symbol_)
+    constructor(string memory name_, string memory symbol_, uint256 initialSupply)
         ERC20(name_, symbol_)
         
     {
-        //TODO: mint to admin
+        mint(msg.sender,initialSupply);
     }
 
     function mint(address to, uint256 amount) public virtual onlyOwner {

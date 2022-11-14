@@ -48,7 +48,7 @@ contract Union is Ownable {
 
 
     //
-    enum VotingType {erc20, erc20Snapshot, erc721 }
+    enum VotingType {erc20, erc20Votes, erc721 }
 
 
     // Meta information about dao
@@ -164,6 +164,7 @@ contract Union is Ownable {
         (success) = IERC20Metadata(votingTokenContract_).decimals() == 18;
       }
       // TODO: add check for snapshot
+      
     }
 
 
