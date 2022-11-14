@@ -93,7 +93,7 @@ const Home: NextPage = () => {
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Trust to this user</Heading>
           <TrustTGID 
-            addressContract='0x4C663B6968ed01B61f8AD6FBc2940948b0e47eF2'
+            addressContract='0x05044C88AB66a058D523038039d64cd101b9D8c9'
             currentAccount={currentAccount}
           />
         </Box>
