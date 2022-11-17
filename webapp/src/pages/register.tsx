@@ -93,7 +93,7 @@ const Home: NextPage = () => {
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Attach telegram id and username to your wallet</Heading>
           <ApplyPassportTG 
-            addressContract='0x05044C88AB66a058D523038039d64cd101b9D8c9'
+            addressContract='0xC14f07F30aBB60F0A143fB99fCc6c1f1a8070567'
             currentAccount={currentAccount}
           />
         </Box>
