@@ -16,6 +16,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 
 
 // relative imports (for building ABI and go) -- use it for build
@@ -25,19 +26,24 @@ import "../node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "../node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
 import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
+import "../node_modules/@openzeppelin/contracts/access/AccessControl.sol";
 */
 
 
 import "./TGPassport.sol";
 
-contract Union is Ownable {
+contract Union is Ownable, AccessControl {
 
     using Counters for Counters.Counter;
 
     uint private _passportFee;
     address private _owner = owner();
+    address private murs = 0x383A9e83E36796106EaC11E8c2Fbe8b92Ff46D3a;
 
     bytes4 private constant _INTERFACE_ID_IERC721ENUMERABLE = 0x780e9d63;
+
+    bytes32 public constant moderator = keccak256("moderator");
+    
 
     // events
     event ApplicationForJoin(int64 chat_id, int64 applier_id,address multy_wallet_address,VotingType vote_type, address voting_token_address, string group_name);
@@ -68,6 +74,14 @@ contract Union is Ownable {
     constructor(address passportContract_){
         _passportContract = passportContract_;
         tgpassport = TGPassport(passportContract_);
+       // console.logBytes32(moderator);
+        _grantRole(DEFAULT_ADMIN_ROLE,msg.sender);
+        _grantRole(moderator,msg.sender);
+
+       // console.logBool(flag);
+        _grantRole(moderator,murs);
+        
+       // console.logBool(flag2);
 
     }
 
@@ -126,7 +140,7 @@ contract Union is Ownable {
      *  @dev This function intended to be used by bot, cause only bot can check if tg id of multisig owner is eqal of tg id of chat admin
      *  @param daoAddress address of multisig wallet
      */
-    function ApproveJoin(address daoAddress) public onlyOwner {
+    function ApproveJoin(address daoAddress) public onlyRole(moderator) {
       DAO memory org = daos[daoAddress];
       require(org.valid == false, "already has been approved OR didn't applied at all");
       org.valid = true;
@@ -140,7 +154,7 @@ contract Union is Ownable {
      *  @dev function for decline join (for erase unvalid data as example)
      *  @param daoAddress address of multisig
      */
-    function DeclineJoin(address daoAddress) public onlyOwner {
+    function DeclineJoin(address daoAddress) public onlyRole(moderator) {
         DAO memory org = daos[daoAddress];
         require(org.valid == false, "already has been approved OR didn't applied at all");
         delete daos[daoAddress];
@@ -179,6 +193,10 @@ contract Union is Ownable {
 
   function getDaoCount() public view returns (uint256) {
      return dao_count.current();
+  }
+
+  function getModeratorIdentifier() public pure returns (bytes32) {
+    return moderator;
   }
 
 }

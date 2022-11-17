@@ -16,6 +16,16 @@ async function main() {
   // await hre.run('compile');
 
   console.log(hre.network.name);
+  let murs_account = ethers.utils.getAddress("0x383A9e83E36796106EaC11E8c2Fbe8b92Ff46D3a");
+  let account_owner = await hre.ethers.getSigner();
+  const balance = await ethers.provider.getBalance(account_owner.address);
+
+  console.log(ethers.utils.formatEther(balance), "ETH");
+
+
+  let owner;
+  owner = await hre.ethers.getSigner();
+  console.log("owner address:", owner.address);
 
 
   // We get the contract to deploy
@@ -31,25 +41,46 @@ async function main() {
   await union.deployed();
   console.log("Union deployed to:", union.address);
 
-  const ERC20Sample = await ethers.getContractFactory("ERC20Sample");
-  let initialSupply = toWei(100);
-  const erc20sample = await ERC20Sample.deploy("Token", "TKN", initialSupply);
-  await erc20sample.deployed();
-  console.log("Sample erc20 deployed to: ", erc20sample.address);
+  // Checking bytes32 moderator
+  const moderator_identifier = await union.connect(owner)
+  .getModeratorIdentifier();
+    console.log("bytes32 moderator:", moderator_identifier);
+
+
+
+
+
+
+  // Checking roles set
+  //const flag1 = await union.connect(owner)
+  //.hasRole(moderator_identifier,owner.address);
+  //console.log("owner account have moderator role:", flag1);
+  const flag2 = await union.connect(owner)
+  .hasRole(moderator_identifier,murs_account);
+  console.log("Murs account have moderator role:", flag2);
+  
+
+
+  //const ERC20Sample = await ethers.getContractFactory("ERC20Sample");
+  //let initialSupply = toWei(100);
+  //const erc20sample = await ERC20Sample.deploy("Token", "TKN", initialSupply);
+  //await erc20sample.deployed();
+  //console.log("Sample erc20 deployed to: ", erc20sample.address);
+
+  let erc20SampleDeployed = ethers.utils.getAddress("0xFbC45497848cc7438c528015271d73B9d8712385");
+  console.log("Sample ERC20 deployed to: ", erc20SampleDeployed )
 
   //const ERC20Votes = await ethers.getContractFactory("ERC20VotesSample");
   //const erc20VotesSample = await ERC20Votes.deploy(initialSupply);
   //await erc20VotesSample.deployed();
   //console.log("Sample Votes ERC20 deployed to:", erc20VotesSample.address);
 
-  const dao_test_address = ethers.utils.getAddress("0x9b393D071fa16458cb6CE3256F50eD1D2c776F7D");
+  const dao_test_address = ethers.utils.getAddress("0x18f060e4E6A7ff6f432d45629085AeF5E6Cc5081");
   console.log("test dao address:",dao_test_address);
-  const example_address = erc20sample.address;
+  //const example_address = erc20sample.address;
 
 
-  let owner;
-  owner = await hre.ethers.getSigner();
-  console.log("owner address:", owner.address);
+
 
   // retriving passport fee:
   const passportFee = await tgpassport.connect(owner)
@@ -80,7 +111,7 @@ async function main() {
 
   // daos:
   const applyForUn = await union.connect(owner)
-  .ApplyForUnion(1234,12345,dao_test_address,0,example_address,"test_dao_username", { value : passportFee});
+  .ApplyForUnion(1234,12345,dao_test_address,0,erc20SampleDeployed,"test_dao_username", { value : passportFee});
   const receipt3 = await applyForUn.wait();
  // console.log("receipt for applying dao:", receipt3);
   const getDaoAddress = await union.getDaoAddressbyChatId(12345);
