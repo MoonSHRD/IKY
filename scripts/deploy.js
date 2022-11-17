@@ -16,6 +16,12 @@ async function main() {
   // await hre.run('compile');
 
   console.log(hre.network.name);
+  let murs_account = ethers.utils.getAddress("0x383A9e83E36796106EaC11E8c2Fbe8b92Ff46D3a");
+  let account_owner = await hre.ethers.getSigner();
+  const balance = await ethers.provider.getBalance(account_owner.address);
+
+  console.log(ethers.utils.formatEther(balance), "ETH");
+
 
 
   // We get the contract to deploy
@@ -31,6 +37,21 @@ async function main() {
   await union.deployed();
   console.log("Union deployed to:", union.address);
 
+  // Checking bytes32 moderator
+  const moderator_identifier = await union.connect(account_owner)
+  .getModeratorIdentifier();
+    console.log("bytes32 moderator:", moderator_identifier);
+
+  // Checking roles set
+  const flag1 = await union.connect(account_owner)
+  .hasRole(moderator_identifier,account_owner);
+  console.log("owner account have moderator role:", flag1);
+  const flag2 = await union.connect(account_owner)
+  .hasRole(moderator_identifier,murs_account);
+  console.log("Murs account have moderator role:", flag2);
+  
+
+
   const ERC20Sample = await ethers.getContractFactory("ERC20Sample");
   let initialSupply = toWei(100);
   const erc20sample = await ERC20Sample.deploy("Token", "TKN", initialSupply);
@@ -42,7 +63,7 @@ async function main() {
   //await erc20VotesSample.deployed();
   //console.log("Sample Votes ERC20 deployed to:", erc20VotesSample.address);
 
-  const dao_test_address = ethers.utils.getAddress("0x9b393D071fa16458cb6CE3256F50eD1D2c776F7D");
+  const dao_test_address = ethers.utils.getAddress("0x18f060e4E6A7ff6f432d45629085AeF5E6Cc5081");
   console.log("test dao address:",dao_test_address);
   const example_address = erc20sample.address;
 
