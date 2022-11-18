@@ -42,9 +42,10 @@ export default function ApplyPassportTG(props:Props){
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const TGPassport:Contract = new ethers.Contract(addressContract, abi, signer)
-    let passport_fee_wei = ethers.utils.formatUnits(1000,"wei");
+   // let passport_fee_wei = ethers.utils.formatUnits(1000,"wei");
     let passport_fee_custom_gwei = ethers.utils.formatUnits(2000000,"gwei"); // 1 gwei = 1'000'000'000 wei, 2m gwei = 0,002 (estimateGas on approval = 0.02, so we need to take that fee for gas)
-    TGPassport.ApplyForPassport(user_id,user_name,{value:passport_fee_custom_gwei})
+    let passport_fee_wei = ethers.utils.formatUnits(passport_fee_custom_gwei,"wei");
+    TGPassport.ApplyForPassport(user_id,user_name,{value:passport_fee_wei})
      .then((tr: TransactionResponse) => {
         console.log(`TransactionResponse TX hash: ${tr.hash}`)
         tr.wait().then((receipt:TransactionReceipt) => {console.log("applying receipt", receipt)})
