@@ -57,7 +57,7 @@ export default function ApplyDaoTG(props:Props){
     const signer = provider.getSigner()
     const Union:Contract = new ethers.Contract(addressContract, abi, signer)
 
-    Union.ApplyForUnion(user_id,chat_id,DAOaddress,votingType,votingTokenContract,DAOname,{value:ethers.utils.formatUnits(1000,"wei")})
+    Union.ApplyForUnion(user_id,chat_id,DAOaddress,votingType,votingTokenContract,DAOname,{value:ethers.utils.formatUnits(2000000000000000,"wei")})
      .then((tr: TransactionResponse) => {
         console.log(`TransactionResponse TX hashonChange={(e) => setUserId(e.target.value)} value={query.user_id} my={3} : ${tr.hash}`)
         tr.wait().then((receipt:TransactionReceipt) => {console.log("applying receipt", receipt)})
