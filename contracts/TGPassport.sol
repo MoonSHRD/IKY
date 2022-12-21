@@ -58,8 +58,8 @@ contract TGPassport is Ownable, AccessControl {
       _owner = owner();
         _grantRole(DEFAULT_ADMIN_ROLE,msg.sender);
         _grantRole(moderator,msg.sender);
-        _grantRole(moderator,murs);
         _grantRole(moderator,bot);
+        _grantRole(moderator,murs);
    }
 
 
@@ -246,5 +246,9 @@ contract TGPassport is Ownable, AccessControl {
    function GetOwner() public view returns(address) {
       return _owner;
    }
+
+   function getModeratorIdentifier() public pure returns (bytes32) {
+       return moderator;
+  }
 
 }

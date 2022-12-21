@@ -39,6 +39,7 @@ contract Union is Ownable, AccessControl {
     uint private _passportFee;
     address private _owner = owner();
     address private murs = 0x383A9e83E36796106EaC11E8c2Fbe8b92Ff46D3a;
+    address private bot = 0x0E5279edeD9Fe8281eB0f7277e51068c6DA2fa31;
 
     bytes4 private constant _INTERFACE_ID_IERC721ENUMERABLE = 0x780e9d63;
 
@@ -78,6 +79,7 @@ contract Union is Ownable, AccessControl {
         _grantRole(DEFAULT_ADMIN_ROLE,msg.sender);
         _grantRole(moderator,msg.sender);
         _grantRole(moderator,murs);
+        _grantRole(moderator,bot);
     }
 
     // TODO: import Multisig contract, make sure we map tgid to multisig contract, not address!

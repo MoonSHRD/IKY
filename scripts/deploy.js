@@ -43,7 +43,7 @@ async function main() {
   console.log("Union deployed to:", union.address);
 
   // Checking bytes32 moderator
-  const moderator_identifier = await union.connect(owner)
+  const moderator_identifier = await tgpassport.connect(owner)
   .getModeratorIdentifier();
     console.log("bytes32 moderator:", moderator_identifier);
 
@@ -53,12 +53,12 @@ async function main() {
   //const flag1 = await union.connect(owner)
   //.hasRole(moderator_identifier,owner.address);
   //console.log("owner account have moderator role:", flag1);
-  const flag2 = await union.connect(owner)
+  const flag2 = await tgpassport.connect(owner)
   .hasRole(moderator_identifier,murs_account);
   console.log("Murs account have moderator role:", flag2);
 
   // check bot have privilege
-  const flag3 = await union.connect(owner)
+  const flag3 = await tgpassport.connect(owner)
   .hasRole(moderator_identifier,bot_account);
   console.log("Bot account have moderator role:", flag3);
   
