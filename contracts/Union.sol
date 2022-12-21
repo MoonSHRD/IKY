@@ -77,12 +77,7 @@ contract Union is Ownable, AccessControl {
        // console.logBytes32(moderator);
         _grantRole(DEFAULT_ADMIN_ROLE,msg.sender);
         _grantRole(moderator,msg.sender);
-
-       // console.logBool(flag);
         _grantRole(moderator,murs);
-        
-       // console.logBool(flag2);
-
     }
 
     // TODO: import Multisig contract, make sure we map tgid to multisig contract, not address!

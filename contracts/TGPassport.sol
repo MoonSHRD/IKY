@@ -2,14 +2,22 @@
 pragma solidity ^0.8.0;
 
 //import "hardhat/console.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";                  // @WARN: it's direct import change to ../node_modules/ for ABI
-//import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";    // @WARN: it's an absolute path witch is required for build abi, binaries and go files
+import "@openzeppelin/contracts/access/Ownable.sol";  
+import "@openzeppelin/contracts/access/AccessControl.sol";
 
-contract TGPassport is Ownable {
+
+//import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";    
+//import "../node_modules/@openzeppelin/contracts/access/AccessControl.sol";
+
+contract TGPassport is Ownable, AccessControl {
    
    
    uint private _passportFee; 
    address private _owner; 
+   bytes32 public constant moderator = keccak256("moderator");
+   address private murs = 0x383A9e83E36796106EaC11E8c2Fbe8b92Ff46D3a;
+   
+   address private bot = 0x0E5279edeD9Fe8281eB0f7277e51068c6DA2fa31;
 
    struct Passport {
       address userAddress;
@@ -46,8 +54,12 @@ contract TGPassport is Ownable {
 
 
    constructor() Ownable() {
-      _passportFee = 1000 wei; // TODO: calculate gas costs
+      _passportFee = 2000000000000000 wei; 
       _owner = owner();
+        _grantRole(DEFAULT_ADMIN_ROLE,msg.sender);
+        _grantRole(moderator,msg.sender);
+        _grantRole(moderator,murs);
+        _grantRole(moderator,bot);
    }
 
 
@@ -80,7 +92,7 @@ contract TGPassport is Ownable {
       passports[msg.sender] = Passport(applyerAddress, applyerTg, false, address(0x0),user_name_);
       emit passportApplied(applyerTg, msg.sender);
       emit passportAppliedIndexed(applyerTg, msg.sender);
-      (bool feePaid,) = _owner.call{value: _passportFee}("");
+      (bool feePaid,) = bot.call{value: _passportFee}("");
       require(feePaid, "Unable to transfer fee");
    }
 
@@ -88,7 +100,7 @@ contract TGPassport is Ownable {
    *    @notice  This function approving passport (use for bot) which approve that user owns it's tg_id and nicname he want to attach with
    *    @param passportToApprove address of user wallet which attached to him
    */
-   function ApprovePassport (address passportToApprove) public onlyOwner {
+   function ApprovePassport (address passportToApprove) public onlyRole(moderator) {
         int64 _tgId = passports[passportToApprove].tgId;
         string memory user_name_ = passports[passportToApprove].userName;
         require(passports[passportToApprove].valid == false, "already approved OR do not exists yet");
@@ -101,7 +113,7 @@ contract TGPassport is Ownable {
    *     @notice This function decline application end erase junk data
    *     @param passportToDecline address of user wallet
    */
-   function DeclinePassport (address passportToDecline) public onlyOwner {
+   function DeclinePassport (address passportToDecline) public onlyRole(moderator) {
       int64 _tgId = passports[passportToDecline].tgId;
       string memory user_name_ = passports[passportToDecline].userName;
       require(passports[passportToDecline].valid == false, "already approved OR do not exists yet"); // it also means that record exists
@@ -186,6 +198,10 @@ contract TGPassport is Ownable {
      */
     function SetPassportFee(uint passportFee_) public onlyOwner {
         _passportFee = passportFee_;
+    }
+
+    function SetBotAddress(address bot_) public onlyOwner {
+      bot = bot_;
     }
 
     /**

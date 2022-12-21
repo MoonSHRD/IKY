@@ -17,6 +17,7 @@ async function main() {
 
   console.log(hre.network.name);
   let murs_account = ethers.utils.getAddress("0x383A9e83E36796106EaC11E8c2Fbe8b92Ff46D3a");
+  let bot_account = ethers.utils.getAddress("0x0E5279edeD9Fe8281eB0f7277e51068c6DA2fa31");
   let account_owner = await hre.ethers.getSigner();
   const balance = await ethers.provider.getBalance(account_owner.address);
 
@@ -46,10 +47,7 @@ async function main() {
   .getModeratorIdentifier();
     console.log("bytes32 moderator:", moderator_identifier);
 
-
-
-
-
+ 
 
   // Checking roles set
   //const flag1 = await union.connect(owner)
@@ -58,6 +56,11 @@ async function main() {
   const flag2 = await union.connect(owner)
   .hasRole(moderator_identifier,murs_account);
   console.log("Murs account have moderator role:", flag2);
+
+  // check bot have privilege
+  const flag3 = await union.connect(owner)
+  .hasRole(moderator_identifier,bot_account);
+  console.log("Bot account have moderator role:", flag3);
   
 
 
@@ -67,16 +70,16 @@ async function main() {
   //await erc20sample.deployed();
   //console.log("Sample erc20 deployed to: ", erc20sample.address);
 
-  let erc20SampleDeployed = ethers.utils.getAddress("0xFbC45497848cc7438c528015271d73B9d8712385");
-  console.log("Sample ERC20 deployed to: ", erc20SampleDeployed )
+  //let erc20SampleDeployed = ethers.utils.getAddress("0xFbC45497848cc7438c528015271d73B9d8712385");
+  //console.log("Sample ERC20 deployed to: ", erc20SampleDeployed )
 
   //const ERC20Votes = await ethers.getContractFactory("ERC20VotesSample");
   //const erc20VotesSample = await ERC20Votes.deploy(initialSupply);
   //await erc20VotesSample.deployed();
   //console.log("Sample Votes ERC20 deployed to:", erc20VotesSample.address);
 
-  const dao_test_address = ethers.utils.getAddress("0x18f060e4E6A7ff6f432d45629085AeF5E6Cc5081");
-  console.log("test dao address:",dao_test_address);
+  //const dao_test_address = ethers.utils.getAddress("0x18f060e4E6A7ff6f432d45629085AeF5E6Cc5081");
+  //console.log("test dao address:",dao_test_address);
   //const example_address = erc20sample.address;
 
 
@@ -110,6 +113,7 @@ async function main() {
 
 
   // daos:
+  /*
   const applyForUn = await union.connect(owner)
   .ApplyForUnion(1234,12345,dao_test_address,0,erc20SampleDeployed,"test_dao_username", { value : passportFee});
   const receipt3 = await applyForUn.wait();
@@ -123,6 +127,7 @@ async function main() {
  // console.log("receipt for approving join union: ", receipt4);
   const getDaoAddress2 = await union.getDaoAddressbyChatId(12345);
   console.log("approved dao address:", getDaoAddress2);
+  */
 
 
 }
