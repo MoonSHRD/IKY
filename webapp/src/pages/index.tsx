@@ -97,42 +97,42 @@ const Home: NextPage = () => {
           <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Read ClassToken Info</Heading>
           <ReadPassportContract 
-            addressContract='0xC14f07F30aBB60F0A143fB99fCc6c1f1a8070567'
+            addressContract='0x34BCAC93be263c8c1a56f651a8bE7FEEb69A56BA'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Attach telegram id and username to your wallet</Heading>
           <ApplyPassportTG 
-            addressContract='0xC14f07F30aBB60F0A143fB99fCc6c1f1a8070567'
+            addressContract='0x34BCAC93be263c8c1a56f651a8bE7FEEb69A56BA'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Approve user intent for registration personal wallet address</Heading>
           <ApprovePassportTG 
-            addressContract='0xC14f07F30aBB60F0A143fB99fCc6c1f1a8070567'
+            addressContract='0x34BCAC93be263c8c1a56f651a8bE7FEEb69A56BA'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Decline user intent for registration personal wallet address</Heading>
           <DeclinePassportTG 
-            addressContract='0xC14f07F30aBB60F0A143fB99fCc6c1f1a8070567'
+            addressContract='0x34BCAC93be263c8c1a56f651a8bE7FEEb69A56BA'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Delete ALREADY APPROVED passport (only for test networks)</Heading>
           <DeletePassportTG 
-            addressContract='0xC14f07F30aBB60F0A143fB99fCc6c1f1a8070567'
+            addressContract='0x34BCAC93be263c8c1a56f651a8bE7FEEb69A56BA'
             currentAccount={currentAccount}
           />
         </Box>
         <Box  mb={0} p={4} w='100%' borderWidth="1px" borderRadius="lg">
           <Heading my={4}  fontSize='xl'>Get eth wallet associated with telegram nickname:</Heading>
           <GetWalletUserTG 
-            addressContract='0xC14f07F30aBB60F0A143fB99fCc6c1f1a8070567'
+            addressContract='0x34BCAC93be263c8c1a56f651a8bE7FEEb69A56BA'
             currentAccount={currentAccount}
           />
         </Box>      
