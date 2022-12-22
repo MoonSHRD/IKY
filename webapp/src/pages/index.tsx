@@ -91,6 +91,7 @@ const Home: NextPage = () => {
           <Heading my={4}  fontSize='xl'>Account info</Heading>
           <Text>ETH Balance of current account: {balance}</Text>
           <Text>Chain Info: ChainId {chainId} name {chainname}</Text>
+          <Text>Chain must be polygon!</Text>
         </Box>
         :<></>
         }
